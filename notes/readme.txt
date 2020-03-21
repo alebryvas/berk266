@@ -1,0 +1,1 @@
+Here we store useful notes on the command line parameters, identified issues, setup of machines etc. 

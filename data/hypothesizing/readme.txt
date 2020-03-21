@@ -1,0 +1,1 @@
+This folder contains examples of text with which we tested our initial hypothesis about using summarization on texts that are generated based on conversational-style speech scripts from instructional videos on various topics.

@@ -1,0 +1,217 @@
+0:00
+So, yesterday, I got a comment, from one you subscriber In which, he said
+00:03
+The reason, he liked my videos more, is because
+00:05
+I use subtitles in all of them
+00:07
+And this, let me wondering.
+00:09
+It only take me a minute or two to generate subtitles..
+00:16
+And then hit me,
+00:17
+Maybe people don’t know,
+00:19
+you can generate subtitles automatically
+00:23
+Hi there this is Mrinal once again And in this video we’ll see
+00:26
+A simple way, To automatically Create subtitles and closed
+00:28
+captions For your YouTube videos
+00:30
+or any video for that matter. like
+00:33
+if you have a foreign movie clip whose subtitles are not on the internet
+00:37
+This method might work.
+00:38
+or if you someone, who makes money by transcripting
+00:41
+videos on fiverr or rev Then this trick will make your life a lot
+00:45
+easier ----
+00:46
+Now, If you are interested Only in the workaround
+00:47
+Go to the time stamps, you see on the screen
+00:50
+But I suggest you watch the entire video You will not definitely learn many new things
+00:56
+But my watch time, will increase, making this video rank higher (haha)
+01:00
+---
+01:01
+So, most guides on the internet Suggest you write down the captions manually,
+01:05
+Some popular blogs even suggest, paying 5$ on fiverr
+01:09
+And then There are companies like rev,
+01:10
+that are charging $1 for 1 minute of captions.
+01:13
+I mean comon, We are living in the world of AI and
+01:17
+Still companies are charging for the product That can be done for free.
+01:22
+--- But guess what,
+01:23
+You don’t have to do, any of that.
+01:24
+Right now, I’m using the same method to automatically generate Subtitles for any
+01:28
+video.
+01:29
+And yes,
+01:30
+It’s free You don’t have to download any extra software
+01:34
+And works for both windows and Mac
+01:35
+Now, this is cool.
+01:36
+But do you know what’s awesome.
+01:40
+Well, It also works with other languages than English
+01:43
+For instance
+01:44
+Agar me hindi me bolunga, Tub bhi ye kaam karenga.
+01:47
+Although, to be hones, it’s still not 100% accurate
+01:51
+But if you speak clearly, you can easily 80-90% accuracy
+01:53
+And then, you have to spend a minute or two to give
+01:57
+finally touch.
+01:58
+---- Ok mrinal so what’s trick?
+01:59
+Well, Like always, Google has lot of tricks hidden in it selves
+02:02
+And one of those is the voice feature in Google drive.
+02:06
+Its default function is --
+02:07
+You speak And google will convert that into text
+02:10
+But if you try that, Most of your word will lost due to background
+02:15
+noise And you won’t get accuracy
+02:17
+But, what if it’s listening directly from the videos
+02:19
+I.e. the output of your computer becomes the input for Google voice to text
+02:23
+Sounds interesting.
+02:24
+So, let’s see how to do it.
+02:26
+MacOS This time, let’s start with Mac first.
+02:29
+Most system don’t let you record your computer audio
+02:33
+Maybe that's because of piracy or something
+02:35
+So, you will have to download a third party software called soundflower
+02:39
+The steps are simple
+02:42
+Open any browser And download soundflower
+02:44
+I’ll post the link in the description
+02:47
+Then unzip it and install it on your computer
+02:49
+Next, you need to tell MacOS To use the output audio as input
+02:57
+So go to sound settings And set soundflower 2ch on both input and
+03:01
+output
+03:02
+If are wondering what this 64 ch is for?
+03:04
+Well, I don’t know either But, what I do know is it won’t work with
+03:09
+this. So stick with 2ch.
+03:11
+On output and input
+03:12
+Now, fire up Google chrome ( and yes, it only works in chrome)
+03:17
+Open Google docs
+03:19
+Create a new document
+03:20
+Tools > Voice typing
+03:23
+In another tab, open youTube and play any video
+03:29
+Now come back to Google drive Select your accent
+03:32
+And there start recording
+03:34
+And there you go.
+03:36
+Like I said, It also works with other languages
+03:47
+So, let’s try hindi
+03:57
+However, if you try this song It doesn’t work that well
+04:03
+Because of background music
+04:04
+But if the song has no or little music Than it works well.
+04:08
+Windows
+04:09
+Now, let’s try this on windows
+04:12
+Go to your windows sound settings And select recording device
+04:16
+And there you should see stereo mix If you don’t right click and turn on
+04:24
+Show disable devices
+04:26
+And then st Stereo mix, as default.
+04:28
+Now, let’s check it.
+04:29
+Open Chrome And create a new document
+04:30
+Play a video > and start recording .
+04:32
+Pretty cool right?
+04:34
+However, if stereo mix is not supported by your audio driver
+04:39
+And these days, it’s hard to find this option
+04:42
+You can check out my other video,
+04:44
+Tough, I’ve tested this with that method So, I’m not sure how this is going to play.
+04:48
+but, If you have a friend with mac
+04:50
+You can always Borrow it from him (buy them couple of drinks)
+04:54
+Add caption to all your video at once.
+04:57
+It’s worth it.
+04:59
+----
+05:00
+So, this video is inspired from the comments I got yesterday
+05:02
+If you want me to reveal all my little known practice on youtube
+05:07
+Just let me know
+05:09
+500 likes and I’ll do it in my next video.
+05:11
+So, that's pretty much it I’ll see you in the next one
+05:13
+And like always Thanks for watching.
+

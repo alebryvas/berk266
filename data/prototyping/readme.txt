@@ -1,0 +1,1 @@
+first_results_X - results that we got on data from howto videos (cv subset), after custom preprocessing (TBA)  ext_sourcesX.txt with extractive summarization PreSumm model pretrained on CNN articles. Rouge metrics were calculated using first_results.gold labels.

@@ -1,0 +1,1 @@
+This is used for code that we apply to input text before the actual summarization (e.g. get rid of introductions).
