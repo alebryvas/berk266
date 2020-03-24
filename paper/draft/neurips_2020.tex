@@ -83,7 +83,7 @@ According to Forbes, more than 500 million hours of videos are watched on YouTub
 
 There have been a lot of research efforts recently focused on video summarization [e.g. see [Cai et.al.], [Shemer et.al.], [Kaufman et.al.]. The known methods work by extracting the most important segments and concatenating them together. However, it has been demonstrated that a lot of the time the result is not substantially better and sometimes even worse than random selection of video fragments ([Mayu et.al.]). 
 
-Our approach tackles the problem from a different angle. Instead of producing summary by converting a long video into a short video, we will convert the video into a short text (an abstract of what it is about) automatically generated based on the script of speech. This method has a few advantages:
+Summarization in the area of multimodal video processing tackles the problem from a different angle. Instead of producing summary by converting a long video into a short video, it extracts signals from it speech-to-text, facial expressions, spectrogram of speaker’s voice; etc. (see [Samanth et.al.]). and processes them separately produces a short text (an abstract of what it is about). This method has a few advantages:
 
 \begin{itemize}
 
@@ -92,10 +92,12 @@ Our approach tackles the problem from a different angle. Instead of producing su
 \item  Processing texts during algorithm training takes less computational power than processing videos.
 \item  Arguably, a text summary of a long video is even better for the viewer than a short video, especially from the perspective of a person who needs it to decide whether to watch the full video.  It doesn’t consume the network bandwidth, doesn’t require audio equipment or noise-free environment, takes less device energy to reproduce (especially important for mobile devices) , and the viewer can consume it at their own pace.  You can skim the text in any order, any time. 
 
-We understand that the approach also has limitations, e.g. it will  perform best on videos where the majority of information is conveyed via words. However, at later stages of the research we can add other separately extracted signals, such as spectrogram of speaker’s voice; emotions on people’s faces, illustrative pictures, etc. (see [Samanth et.al.]). The models for these purposes have been developed better than for processing video as a whole (e.g. see [Jaejin et.al.]), and that’s why this approach referred to as “multimodal” summarization looks very promising to us and has recently received a lot of attention from other researchers (e.g. see [Palaskar et.al.], [Tripathi et.al.]) . 
 \end{itemize}
 
-The focus of our research is on how-to/instructions videos. According to https://mediakix.com/blog/most-popular-youtube-videos/, this type of video is one of the most popular on youtube these days.  Also, viewers of such videos are interested in getting a tangible outcome, as compared to viewers of entertainment or sports videos, therefore adding a summary will add more value. which we will use for training purposes. Pioneering efforts in this area have been done by [Palaskar et.al.] based on dataset of how2 videos [Sanabria et.al.]. We plan to improve on their results by taking advantage of “WikiHow: A Large Scale Text Summarization Dataset” [Mahnaz et.al.], improving the models, and applying more advanced techniques to evaluation of output.
+
+The models for these purposes have been developed better than for processing video as a whole (e.g. see [Jaejin et.al.]), and that’s why this approach referred to as “multimodal” summarization looks very promising to us and has recently received a lot of attention from other researchers (e.g. see [Palaskar et.al.], [Tripathi et.al.]) . 
+
+The focus of our research is on how-to/instructions videos. According to \url{https://mediakix.com/blog/most-popular-youtube-videos/}, this type of video is one of the most popular on youtube these days.  Also, viewers of such videos are interested in getting a tangible outcome, as compared to viewers of entertainment or sports videos, therefore adding a summary will add more value. which we will use for training purposes. Pioneering efforts in this area have been done by [Palaskar et.al.] based on dataset of how2 videos [Sanabria et.al.]. We plan to improve on their results by taking advantage of “WikiHow: A Large Scale Text Summarization Dataset” [Mahnaz et.al.], improving the models, and applying more advanced techniques to evaluation of output.
 Why is it important / challenging?
 We foresee many applications of this approach, especially in education and business, where even minor improvements in information processing may make big differences when applied at scale to online meetings, virtual classrooms and other forms of human interactions via video. 
 
@@ -103,17 +105,9 @@ Summarizing content is challenging even for a human. The rules of identifying wh
 
 From the initial exploration and data analysis we saw that in the process of applying the models of summarization to videos  we will deal with challenges imposed by parsing speech-to-text output add more complexity to text summarization (e.g. errors in word recognition, lack of punctuation in closed captioning, etc.). For example, in one of the sample videos in our test data set closed captioning confuses the speaker’s words “how you get a text from a YouTube video” for  “how you get attacks from a YouTube video”.
 
-Finally, evaluating the quality of summaries and obtaining benchmarks is another problem. As shown in research [Mayu et.al.], engaging human experts for evaluation of results is expensive, while automated techniques lack depth. We will use a combination of both techniques to maximize the quality of results. 
+Also, evaluating the quality of summaries and obtaining benchmarks is another problem. As shown in research [Mayu et.al.], engaging human experts for evaluation of results is expensive, while automated techniques lack depth. We will use a combination of both techniques to maximize the quality of results. 
 
-The contribution of our research is three-fold:
-\begin{itemize}
-
-\item We created and published a data set of how-to videos with time-tagged scripts, machine-generated summaries
-\item We generalized  existing text summarization models to the scripts extracted from the videos [Sanabria et.al.]
-\item We augmented ROUGE metrics [Chin-Yew Lin] for evaluation of the results with a framework for formalized expert assessment based on our research and criteria proposed by previous works 
-\end{itemize}
-
-At a high level, we hope that our analysis of transferability of summarization techniques from text to videos will have both practical and theoretical impacts by helping identify promising directions for future research.
+In our work, we are exploring transferability of modern text summarization techniques to  instructional videos scripts on large annotated data sets that we created by preprocessing YouTube videos and  data from other authors. We discuss heuristics that were discovered on this data, impacts on the quality of generated summaries, and propose different ways of improving summarization process to deal with these issues. Finally, we identify promising directions for future research.
 
 \section{Prior work}
 
@@ -127,10 +121,15 @@ Research surrounding multimedia has improved greatly to bridge the gaps between 
 content such as speech, visuals, and text. Summarization has been used in meeting records [10], sports videos [11], news [12], each encapsulating synchronized speech, videos, and subtitles. Video summaries consist of cutting important frames out of the video to create a succinct compact version. More recently, research around multimodal summarization, which combines the textual and visual modalities to align with the video content, have reached an early benchmark [13 - shruti’s work]. The How2Dataset [14] is a  collection of 2,000 hours of instructional videos with English subtitles and crowdsourced Portuguese translations. It covers different how-to domains such as sports, cooking, and education. The dataset has been created to be used as a benchmark for multimodal natural language tasks, used in various competitions and research settings. This How2Dataset precedes more recent work constructing data from instructional web videos in the How2100M [15] dataset. The dataset is large-scale and has 136 million video clips and transcripts of humans performing or describing various tasks, but there are no human annotated summaries. 
 
 \section{Problem Statement}
- has been well researched in recent years language processing tasks among popular instructional videos have been confined to meticulously curated datasets far removed from temporal and textual inconsistencies. Given the computational resources and complexities of How2 instructional videos, we explore the generalizability of our abstractive model by fine tuning with comprehensive datasets from WikiHow, How2 videos, and CNN. We explore whether improvements can be made using pretrained BERT tran
 
+In our work we set the following goals:
+\begin{itemize}
 
-
+\item Curate and publish a single source of truth data set of text and summaries aggregated and formatted from WikiHow articles, How2 videos, and CNN stories
+\item Apply existing BERT-based text summarization models to make them applicable to auto-generated scripts from instructional videos and generalize them to worj on instructional videos
+\item Augment ROUGE metrics [Chin-Yew Lin] for evaluation of the results with a framework for formalized expert assessment based on our research and criteria proposed by previous works 
+\end{itemize}
+ 
 
 \subsection{Retrieval of style files}
 
@@ -398,12 +397,16 @@ necessary.
 
 \section*{Broader Impact}
 
-Authors are required to include a statement of the broader impact of their work, including its ethical aspects and future societal consequences. 
-Authors should discuss both positive and negative outcomes, if any. For instance, authors should discuss a) 
-who may benefit from this research, b) who may be put at disadvantage from this research, c) what are the consequences of failure of the system, and d) whether the task/method leverages
-biases in the data. If authors believe this is not applicable to them, authors can simply state this.
+The contribution of our research is three-fold:
+\begin{itemize}
 
-Use unnumbered first level headings for this section, which should go at the end of the paper. {\bf Note that this section does not count towards the eight pages of content that are allowed.}
+\item We created and published a data set of how-to videos with time-tagged scripts, machine-generated summaries
+\item We generalized  existing text summarization models to the scripts extracted from the videos [Sanabria et.al.]
+\item We augmented ROUGE metrics [Chin-Yew Lin] for evaluation of the results with a framework for formalized expert assessment based on our research and criteria proposed by previous works 
+\end{itemize}
+
+At a high level, we hope that our analysis of transferability of summarization techniques from text to videos will have both practical and theoretical impacts by helping identify promising directions for future research.
+
 
 \begin{ack}
 Use unnumbered first level headings for the acknowledgments. All acknowledgments
