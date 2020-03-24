@@ -103,8 +103,6 @@ We foresee many applications of this approach, especially in education and busin
 
 Summarizing content is challenging even for a human. The rules of identifying what’s important and what can be omitted are subjective, changeable and very hard to formalize. While watching a long video conference, participants often get tired and lose attention. Finally, a lot depends on the context. Yet, as hard as it is, most people get it, and this skill improves through a lot of learning and practice. It gives us hope that training machines to help facilitate this process is both possible and useful. 
 
-From the initial exploration and data analysis we saw that in the process of applying the models of summarization to videos  we will deal with challenges imposed by parsing speech-to-text output add more complexity to text summarization (e.g. errors in word recognition, lack of punctuation in closed captioning, etc.). For example, in one of the sample videos in our test data set closed captioning confuses the speaker’s words “how you get a text from a YouTube video” for  “how you get attacks from a YouTube video”.
-
 Also, evaluating the quality of summaries and obtaining benchmarks is another problem. As shown in research [Mayu et.al.], engaging human experts for evaluation of results is expensive, while automated techniques lack depth. We will use a combination of both techniques to maximize the quality of results. 
 
 In our work, we are exploring transferability of modern text summarization techniques to  instructional videos scripts on large annotated data sets that we created by preprocessing YouTube videos and  data from other authors. We discuss heuristics that were discovered on this data, impacts on the quality of generated summaries, and propose different ways of improving summarization process to deal with these issues. Finally, we identify promising directions for future research.
@@ -129,9 +127,37 @@ In our work we set the following goals:
 \item Apply existing BERT-based text summarization models to make them applicable to auto-generated scripts from instructional videos and generalize them to worj on instructional videos
 \item Augment ROUGE metrics [Chin-Yew Lin] for evaluation of the results with a framework for formalized expert assessment based on our research and criteria proposed by previous works 
 \end{itemize}
- 
 
-\subsection{Retrieval of style files}
+\section{Proof of concept}
+For our confidence about the feasibility of the project, we first ran a series of manual experiment by dumping a few auto-generated scripts YouTube scripts and running them through online summarization services. The first results were very disappointing. However, we noticed that auto-generated scripts don't have punctuation and line breaks don't necessarily correspond to the logical ends of sentences. After fixing these issues, we got meaningful summaries and proceeded to generalizing the approach as follows.
+ 
+\section{Methodology}
+
+From the initial exploration and data analysis we saw that in the process of applying existing summarization models to Youtube video scripts  we will deal with challenges imposed by parsing speech-to-text output add more complexity to text summarization. For example, in one of the sample videos in our test data set closed captioning confuses the speaker’s words \emph{“how you get a text from a YouTube video”} for  \emph{“how you get attacks from a YouTube video”}. So, our work includes several iterations of the process described below:
+\begin{itemize}
+\item Collection and aggregation of data from multiple sources (HowTo video scripts, WikiHow, CNN stories, YouTube)
+\item Preprocessing of video scripts to make them fit the text summarization models (e.g. errors in word recognition, lack of punctuation in closed captioning, getting rid of special characters etc.)
+\item Aligning inputs aggregated from multiple sources  to common format
+\item Selection, deployment, training, fine-tuning of text summarization models
+\item Running experiments applying models to the data
+\item Evaluation of the outputs using ROUGE metrics and human expert judgement
+\end{itemize}
+ 
+\subsection{Collection}
+Bryan or Alexandra - write about data sources, sizes in samples and bytes, metadata
+
+\subsection{Preprocessing}
+The work we have done at this stage is based on the heuristics observed during evaluation of results. We expected the differences in conversational style of the video scripts and writtent text of CNN stories (on which the models were pretrained) will impact quality of the output. In our first experiments, it manifested in a very distinct way. The model considered the first one-two sentences to be very important for summaries, and we ended up with getting many summaries looking like "hi!" and "hello, this is <first and last name>". It inspired us for implementing an improvement by using entity detection   \verb+spacy+ and \verb+nltk+ to remove introduction from the text that we feed to summarization model.  
+
+\subsection{Input format}
+Bryan - write about differences in format of CNN , wikiHow, howTo scripts and how they were converted
+
+\subsection{Summarization models}
+Bryan or Alexandra
+
+\subsection{Evaluation}
+Alexandra or Bryan
+
 
 The style files for NeurIPS and other conference information are available on
 the World Wide Web at
