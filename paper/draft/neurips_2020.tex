@@ -83,7 +83,7 @@ According to Forbes, more than 500 million hours of videos are watched on YouTub
 
 There have been a lot of research efforts recently focused on video summarization [e.g. see [Cai et.al.], [Shemer et.al.], [Kaufman et.al.]. The known methods work by extracting the most important segments and concatenating them together. However, it has been demonstrated that a lot of the time the result is not substantially better and sometimes even worse than random selection of video fragments ([Mayu et.al.]). 
 
-Our approach tackles the problem from a different angle. Instead of producing summary by converting a long video into a short video, we will convert the video into a short text (an abstract of what it is about) automatically generated based on the script of speech. This method has a few advantages:
+Summarization in the area of multimodal video processing tackles the problem from a different angle. Instead of producing summary by converting a long video into a short video, it extracts signals from it speech-to-text, facial expressions, spectrogram of speaker’s voice; etc. (see [Samanth et.al.]). and processes them separately produces a short text (an abstract of what it is about). This method has a few advantages:
 
 \begin{itemize}
 
@@ -92,47 +92,72 @@ Our approach tackles the problem from a different angle. Instead of producing su
 \item  Processing texts during algorithm training takes less computational power than processing videos.
 \item  Arguably, a text summary of a long video is even better for the viewer than a short video, especially from the perspective of a person who needs it to decide whether to watch the full video.  It doesn’t consume the network bandwidth, doesn’t require audio equipment or noise-free environment, takes less device energy to reproduce (especially important for mobile devices) , and the viewer can consume it at their own pace.  You can skim the text in any order, any time. 
 
-We understand that the approach also has limitations, e.g. it will  perform best on videos where the majority of information is conveyed via words. However, at later stages of the research we can add other separately extracted signals, such as spectrogram of speaker’s voice; emotions on people’s faces, illustrative pictures, etc. (see [Samanth et.al.]). The models for these purposes have been developed better than for processing video as a whole (e.g. see [Jaejin et.al.]), and that’s why this approach referred to as “multimodal” summarization looks very promising to us and has recently received a lot of attention from other researchers (e.g. see [Palaskar et.al.], [Tripathi et.al.]) . 
 \end{itemize}
 
-The focus of our research is on how-to/instructions videos. According to https://mediakix.com/blog/most-popular-youtube-videos/, this type of video is one of the most popular on youtube these days.  Also, viewers of such videos are interested in getting a tangible outcome, as compared to viewers of entertainment or sports videos, therefore adding a summary will add more value. which we will use for training purposes. Pioneering efforts in this area have been done by [Palaskar et.al.] based on dataset of how2 videos [Sanabria et.al.]. We plan to improve on their results by taking advantage of “WikiHow: A Large Scale Text Summarization Dataset” [Mahnaz et.al.], improving the models, and applying more advanced techniques to evaluation of output.
+
+The models for these purposes have been developed better than for processing video as a whole (e.g. see [Jaejin et.al.]), and that’s why this approach referred to as “multimodal” summarization looks very promising to us and has recently received a lot of attention from other researchers (e.g. see [Palaskar et.al.], [Tripathi et.al.]) . 
+
+The focus of our research is on how-to/instructions videos. According to \url{https://mediakix.com/blog/most-popular-youtube-videos/}, this type of video is one of the most popular on youtube these days.  Also, viewers of such videos are interested in getting a tangible outcome, as compared to viewers of entertainment or sports videos, therefore adding a summary will add more value. which we will use for training purposes. Pioneering efforts in this area have been done by [Palaskar et.al.] based on dataset of how2 videos [Sanabria et.al.]. We plan to improve on their results by taking advantage of “WikiHow: A Large Scale Text Summarization Dataset” [Mahnaz et.al.], improving the models, and applying more advanced techniques to evaluation of output.
 Why is it important / challenging?
 We foresee many applications of this approach, especially in education and business, where even minor improvements in information processing may make big differences when applied at scale to online meetings, virtual classrooms and other forms of human interactions via video. 
 
 Summarizing content is challenging even for a human. The rules of identifying what’s important and what can be omitted are subjective, changeable and very hard to formalize. While watching a long video conference, participants often get tired and lose attention. Finally, a lot depends on the context. Yet, as hard as it is, most people get it, and this skill improves through a lot of learning and practice. It gives us hope that training machines to help facilitate this process is both possible and useful. 
 
-From the initial exploration and data analysis we saw that in the process of applying the models of summarization to videos  we will deal with challenges imposed by parsing speech-to-text output add more complexity to text summarization (e.g. errors in word recognition, lack of punctuation in closed captioning, etc.). For example, in one of the sample videos in our test data set closed captioning confuses the speaker’s words “how you get a text from a YouTube video” for  “how you get attacks from a YouTube video”.
+Also, evaluating the quality of summaries and obtaining benchmarks is another problem. As shown in research [Mayu et.al.], engaging human experts for evaluation of results is expensive, while automated techniques lack depth. We will use a combination of both techniques to maximize the quality of results. 
 
-Finally, evaluating the quality of summaries and obtaining benchmarks is another problem. As shown in research [Mayu et.al.], engaging human experts for evaluation of results is expensive, while automated techniques lack depth. We will use a combination of both techniques to maximize the quality of results. 
+In our work, we are exploring transferability of modern text summarization techniques to  instructional videos scripts on large annotated data sets that we created by preprocessing YouTube videos and  data from other authors. We discuss heuristics that were discovered on this data, impacts on the quality of generated summaries, and propose different ways of improving summarization process to deal with these issues. Finally, we identify promising directions for future research.
 
-The contribution of our research is three-fold:
+\section{Prior work}
+
+\subsection{Text Summarization}
+
+Text summarization is the task of generating shorter versions of documents while maintaining important information [need link]. This area of research in the natural language processing community has grown rapidly over the past several years due to its practical applications among various industries such as news, reviews, education. Summarization systems take two general approaches: extractive and abstractive. Extractive summarization provides users with textual summaries that have been copied and concatenated from important parts of a document. It is a reliable task capable of maintaining sentence structure and factual correctness. Abstract summarization generates a summary with content that is not always found in the underlying text. It is a complex task that mimics human summarization by generalizing and paraphrasing key points made in the document. 
+Prior to 2014, summarization was centered on extracting lines from single documents using statistical models and neural networks had limited success[6, 7]. Sutskever et al. and Cho et al work on sequence to sequence models opened up new possibilities for neural networks in natural language processing. From 2014 to 2015, LSTMs (variety of RNN) became the dominant approach that achieved state of the art results. They became successful in tasks such as speech recognition, machine translation, parsing, image captioning, etc. It paved the way for abstractive summarization, which began to score competitively against extractive summarization. In 2017, Attention is all you need [8] provided a solution to the ‘fixed length vector’ problem, enabling neural networks to focus on important parts of the input for prediction tasks. Transformers with attention became more dominant for certain tasks [9].
+
+\subsection{Multi-modal Summarization}
+Research surrounding multimedia has improved greatly to bridge the gaps between multi-modal 
+content such as speech, visuals, and text. Summarization has been used in meeting records [10], sports videos [11], news [12], each encapsulating synchronized speech, videos, and subtitles. Video summaries consist of cutting important frames out of the video to create a succinct compact version. More recently, research around multimodal summarization, which combines the textual and visual modalities to align with the video content, have reached an early benchmark [13 - shruti’s work]. The How2Dataset [5] is a  collection of 2,000 hours of instructional videos with English subtitles and crowdsourced Portuguese translations. It covers different how-to domains such as sports, cooking, and education. The dataset has been created to be used as a benchmark for multimodal natural language tasks, used in various competitions and research settings. This How2Dataset precedes more recent work constructing data from instructional web videos in the How2100M [14] dataset. The dataset is large-scale and has 136 million video clips and transcripts of humans performing or describing various tasks, but there are no human annotated summaries. 
+
+\section{Problem Statement}
+
+In our work we set the following goals:
 \begin{itemize}
 
-\item We created and published a data set of how-to videos with time-tagged scripts, machine-generated summaries
-\item We generalized  existing text summarization models to the scripts extracted from the videos [Sanabria et.al.]
-\item We augmented ROUGE metrics [Chin-Yew Lin] for evaluation of the results with a framework for formalized expert assessment based on our research and criteria proposed by previous works 
+\item Curate and publish a single source of truth data set of text and summaries aggregated and formatted from WikiHow articles, How2 videos, and CNN stories
+\item Apply existing BERT-based text summarization models to make them applicable to auto-generated scripts from instructional videos and generalize them to worj on instructional videos
+\item Augment ROUGE metrics [Chin-Yew Lin] for evaluation of the results with a framework for formalized expert assessment based on our research and criteria proposed by previous works 
 \end{itemize}
 
-At a high level, we hope that our analysis of transferability of summarization techniques from text to videos will have both practical and theoretical impacts by helping identify promising directions for future research.
+\section{Proof of concept}
+For our confidence about the feasibility of the project, we first ran a series of manual experiment by dumping a few auto-generated scripts YouTube scripts and running them through online summarization services. The first results were very disappointing. However, we noticed that auto-generated scripts don't have punctuation and line breaks don't necessarily correspond to the logical ends of sentences. After fixing these issues, we got meaningful summaries and proceeded to generalizing the approach as follows.
+ 
+\section{Methodology}
 
+From the initial exploration and data analysis we saw that in the process of applying existing summarization models to Youtube video scripts  we will deal with challenges imposed by parsing speech-to-text output add more complexity to text summarization. For example, in one of the sample videos in our test data set closed captioning confuses the speaker’s words \emph{“how you get a text from a YouTube video”} for  \emph{“how you get attacks from a YouTube video”}. So, our work includes several iterations of the process described below:
+\begin{itemize}
+\item Collection and aggregation of data from multiple sources (HowTo video scripts, WikiHow, CNN stories, YouTube)
+\item Preprocessing of video scripts to make them fit the text summarization models (e.g. errors in word recognition, lack of punctuation in closed captioning, getting rid of special characters etc.)
+\item Aligning inputs aggregated from multiple sources  to common format
+\item Selection, deployment, training, fine-tuning of text summarization models
+\item Running experiments applying models to the data
+\item Evaluation of the outputs using ROUGE metrics and human expert judgement
+\end{itemize}
+ 
+\subsection{Collection}
+Bryan or Alexandra - write about data sources, sizes in samples and bytes, metadata
 
+\subsection{Preprocessing}
+The work we have done at this stage is based on the heuristics observed during evaluation of results. We expected the differences in conversational style of the video scripts and writtent text of CNN stories (on which the models were pretrained) will impact quality of the output. In our first experiments, it manifested in a very distinct way. The model considered the first one-two sentences to be very important for summaries, and we ended up with getting many summaries looking like "hi!" and "hello, this is <first and last name>". It inspired us for implementing an improvement by using entity detection   \verb+spacy+ and \verb+nltk+ to remove introduction from the text that we feed to summarization model.  
 
-\subsection{Style}
+\subsection{Input format}
+Bryan - write about differences in format of CNN , wikiHow, howTo scripts and how they were converted
 
-Papers to be  to NeurIPS 2020 must be prepared according to the
-instructions presented here. Papers may only be up to eight pages long,
-including figures. Additional pages \emph{containing only a section on the broader impact, acknowledgments and/or cited references} are allowed. Papers that exceed eight pages of content will not be reviewed, or in any other way considered for
-presentation at the conference.
+\subsection{Summarization models}
+Bryan or Alexandra
 
-The margins in 2020 are the same as those in 2007, which allow for $\sim$$15\%$
-more words in the paper compared to earlier years.
+\subsection{Evaluation}
+Alexandra or Bryan
 
-Authors are required to use the NeurIPS \LaTeX{} style files obtainable at the
-NeurIPS website as indicated below. Please make sure you use the current files
-and not previous versions. Tweaking the style files may be grounds for
-rejection.
-
-\subsection{Retrieval of style files}
 
 The style files for NeurIPS and other conference information are available on
 the World Wide Web at
@@ -398,12 +423,16 @@ necessary.
 
 \section*{Broader Impact}
 
-Authors are required to include a statement of the broader impact of their work, including its ethical aspects and future societal consequences. 
-Authors should discuss both positive and negative outcomes, if any. For instance, authors should discuss a) 
-who may benefit from this research, b) who may be put at disadvantage from this research, c) what are the consequences of failure of the system, and d) whether the task/method leverages
-biases in the data. If authors believe this is not applicable to them, authors can simply state this.
+The contribution of our research is three-fold:
+\begin{itemize}
 
-Use unnumbered first level headings for this section, which should go at the end of the paper. {\bf Note that this section does not count towards the eight pages of content that are allowed.}
+\item We created and published a data set of how-to videos with time-tagged scripts, machine-generated summaries
+\item We generalized  existing text summarization models to the scripts extracted from the videos [Sanabria et.al.]
+\item We augmented ROUGE metrics [Chin-Yew Lin] for evaluation of the results with a framework for formalized expert assessment based on our research and criteria proposed by previous works 
+\end{itemize}
+
+At a high level, we hope that our analysis of transferability of summarization techniques from text to videos will have both practical and theoretical impacts by helping identify promising directions for future research.
+
 
 \begin{ack}
 Use unnumbered first level headings for the acknowledgments. All acknowledgments
@@ -426,18 +455,6 @@ when listing the references.
 
 \small
 
-[1] Alexander, J.A.\ \& Mozer, M.C.\ (1995) Template-based algorithms for
-connectionist rule extraction. In G.\ Tesauro, D.S.\ Touretzky and T.K.\ Leen
-(eds.), {\it Advances in Neural Information Processing Systems 7},
-pp.\ 609--616. Cambridge, MA: MIT Press.
-
-[2] Bower, J.M.\ \& Beeman, D.\ (1995) {\it The Book of GENESIS: Exploring
-  Realistic Neural Models with the GEneral NEural SImulation System.}  New York:
-TELOS/Springer--Verlag.
-
-[3] Hasselmo, M.E., Schnell, E.\ \& Barkai, E.\ (1995) Dynamics of learning and
-recall at excitatory recurrent synapses and cholinergic modulation in rat
-hippocampal region CA3. {\it Journal of Neuroscience} {\bf 15}(7):5249-5262.
 
 @article{DBLP:journals/corr/abs-1810-09305,
   author    = {Mahnaz Koupaee and
@@ -452,6 +469,54 @@ hippocampal region CA3. {\it Journal of Neuroscience} {\bf 15}(7):5249-5262.
   timestamp = {Wed, 31 Oct 2018 14:24:29 +0100},
   biburl    = {https://dblp.org/rec/journals/corr/abs-1810-09305.bib},
   bibsource = {dblp computer science bibliography, https://dblp.org}
+
+--------
+
+[1] Yang Liu, Mirella Lapata. Text Summarization with Pretrained Encoders.  \ (2019) URL. https://arxiv.org/abs/1908.08345v2
+
+[2] Abigail See, Peter J. Liu, and Christopher D. Manning.\ (2017) Get to the point: Summarization with pointer-generator networks. In {\it Proceedings of the 55th Annual Meeting of the Association for Computational Linguistics \ (Volume 1: Long Papers)}, pages 1073-1083.
+
+[3] Ilya Sutskever, Oriol Vinyals, and Quoc V Le. Sequence to sequence learning with neural networks.
+ {\it Neural Information Processing Systems}, 2014. 
+
+[4] Haoran Li, Junnan Zhu, Cong Ma, Jiajun Zhang, and Chengqing Zong. \ (2017). Multi-modal summarization for
+asynchronous collection of text, image, audio and video. In {\it Proceedings of the 2017 Conference on Empirical
+Methods in Natural Language Processing}, pages 1092–1102. Association for Computational Linguistics.
+
+[5] Sanabria, R., Caglayan, O., Palaskar, S., Elliott, D., Barrault, L., Specia, L., and Metze, F. How2: A large-scale dataset for multimodal language understanding. {\it CoRR}, abs/1811.00347, 2018. URL. https://arxiv.org/abs/1811.00347
+
+[6] Nenkova, A. (2005). Automatic text summarization of newswire: Lessons learned from the document understanding conference. In Proceedings of AAAI 2005, Pittsburgh, USA.
+
+[7] Svore, K., Vanderwende, L., and Burges, C. (2007). Enhancing single-document summarization by combining RankNet and third-party sources. In Proceedings of the EMNLP-CoNLL, pages 448–457. [7, 8] 
+
+[8] Yu-Hsiang Huang. Attention is all you need - pytorch. https://github.com/ jadore801120/attention-is-all-you-need-pytorch, 2018.
+
+[9] Nima Sanjabi. Abstractive text summarization with attention-based mechanism. Master’s thesis, Universitat Politècnica de Catalunya, July 2018.
+
+[10] Berna Erol, D-S Lee, and Jonathan Hull. 2003. Multimodal summarization of meeting recordings. In Multimedia and Expo, 2003. ICME’03. Proceedings. 2003 International Conference on, volume 3, pages III–25. IEEE.
+
+[11] Dian Tjondronegoro, Xiaohui Tao, Johannes Sasongko, and Cher Han Lau. 2011. Multi-modal summarization of key events and top players in sports tournament videos. In Applications of Computer Vision (WACV), 2011 IEEE Workshop on, pages 471–478. IEEE
+
+[12] Alexander M. Rush, Sumit Chopra, and Jason Weston. 2015. A neural attention model for abstractive sentence summarization. In Proceedings of the 2015 Conference on Empirical Methods in Natural Language Processing, pages 379–389. Association for Computational Linguistics.
+
+[13] Shruti Palaskar, Jindrich Libovicky, Spandana Gella, Florian Metze. 2019. Multimodal Abstractive Summarization for How2 Videos. In Proceedings of the 57th Annual Meting of the Association for Computational Linguistics, pages 6587-6596. Association for Computational Linguistics.
+
+[14] Antoine Miech, Dimitri Zhukov, Jean-Baptiste Alayrac, Makarand Tapaswi, Ivan Laptev, Josef Sivic. 2019. HowTo100M: Learning a Text-Video Embedding by Watching Hundred Million Narrated Video Clips. In ICCV 2019. https://arxiv.org/abs/1906.03327.
+
+
+
+[1] Alexander, J.A.\ \& Mozer, M.C.\ (1995) Template-based algorithms for
+connectionist rule extraction. In G.\ Tesauro, D.S.\ Touretzky and T.K.\ Leen
+(eds.), {\it Advances in Neural Information Processing Systems 7},
+pp.\ 609--616. Cambridge, MA: MIT Press.
+
+[2] Bower, J.M.\ \& Beeman, D.\ (1995) {\it The Book of GENESIS: Exploring
+  Realistic Neural Models with the GEneral NEural SImulation System.}  New York:
+TELOS/Springer--Verlag.
+
+[3] Hasselmo, M.E., Schnell, E.\ \& Barkai, E.\ (1995) Dynamics of learning and
+recall at excitatory recurrent synapses and cholinergic modulation in rat
+hippocampal region CA3. {\it Journal of Neuroscience} {\bf 15}(7):5249-5262.
 }
 
 \end{document}
