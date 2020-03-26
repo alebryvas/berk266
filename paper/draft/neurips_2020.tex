@@ -25,6 +25,8 @@
 \usepackage{amsfonts}       % blackboard math symbols
 \usepackage{nicefrac}       % compact symbols for 1/2, etc.
 \usepackage{microtype}      % microtypography
+\usepackage{graphicx}  % <--- added
+
 
 \title{On abstractive and extractive summarization of instructional video transcripts using BERT}
 
@@ -37,7 +39,7 @@
 % \AND instead of \And before the third author name.
 
 \author{%
-  David S.~Hippocampus\thanks{Use footnote for providing further information
+  David S.~Hippocampus\thanks{Use  for providing further information
     about author (webpage, alternative address)---\emph{not} for acknowledging
     funding agencies.} \\
   Department of Computer Science\\
@@ -79,7 +81,7 @@ The overflow of video content in the Internet (from YouTube, MOOCs, news portals
 \section{Introduction}
  
 
-According to Forbes, more than 500 million hours of videos are watched on YouTube every day and a lot of time is wasted watching videos that are not useful. Video content is rapidly growing and will remain the mainstream for sharing information in future. In this project YAVA (“Your Active Virtual Audience”) we are aspiring to make online exchanges of information between people via audio or video more efficient and enjoyable. 
+According to Forbes \textit{[link TBA]}, more than 500 million hours of videos are watched on YouTube every day and a lot of time is wasted watching videos that are not useful. Video content is rapidly growing and will remain the mainstream for sharing information in future. In this project YAVA (“Your Active Virtual Audience”) we are aspiring to make online exchanges of information between people via audio or video more efficient and enjoyable. 
 
 There have been a lot of research efforts recently focused on video summarization [e.g. see [Cai et.al.], [Shemer et.al.], [Kaufman et.al.]. The known methods work by extracting the most important segments and concatenating them together. However, it has been demonstrated that a lot of the time the result is not substantially better and sometimes even worse than random selection of video fragments ([Mayu et.al.]). 
 
@@ -154,284 +156,78 @@ As part of this research, we are exploring different combinations of data during
 
 
 \subsection{Preprocessing}
+\label{Preprocessing}
 
 The format of CNN /Daily Mail stories, wikiHow articles, and howTo scripts is different. We invested substantial efforts into converting them to a format that can be used. For the convenience of other researchers who may want to use similar methodology, we shared the results of aligning them to the same fromat that can be training. 
 
 Another stream of work we have done at this stage is based on the heuristics observed during evaluation of results. We expected the differences in conversational style of the video scripts and writtent text of CNN stories (on which the models were pretrained) will impact quality of the output. In our first experiments, it manifested in a very distinct way. The model considered the first one-two sentences to be very important for summaries, and we ended up with getting many summaries looking like "hi!" and "hello, this is <first and last name>". It inspired us for implementing an improvement by using entity detection   \verb+spacy+ and \verb+nltk+ to remove introduction from the text that we feed to summarization model.  
 
-The CNN/Daily Mail dataset has been preprocessed to remove news anchor introductions. For our Wikihow and How2 transcripts, we first split sentences using the Stanford Core NLP toolkit and preprocessed the data in the same method used by (See et. al.) - non anonymized versions of the data.  
+The CNN/Daily Mail dataset has been preprocessed to remove news anchor introductions. For our Wikihow and How2 transcripts, we  split sentences using the Stanford Core NLP toolkit and preprocessed the data in the same method used by (See et. al.).  
 
 
 \subsection{Summarization models}
-For our experiments, we trained the PreSumm abstractive model on 5,000 samples from the How2 dataset, 3,097 samples from Wikihow with a 100,000 step size. 
-We also trained the PreSumm extractive model on 13,907 Wikihow dataset, 5,000 How2 dataset with 50,000 steps.
-
+For our first large-scale experiment, we used an out-of-box PreSumm abstractive model  created by Yang trained on CNN and Daily Mail [Yang] .  Next, we used the PreSumm abstractive model  trained on 5,000 samples from the How2 dataset, 3,097 samples from Wikihow with a 100,000 step size. In our most recent, but not final,  experiment we also trained the PreSumm extractive model on 13,907 Wikihow dataset, 5,000 How2 dataset with 50,000 steps.
+These models are very demanding in terms of both memory and computational resources. Training has to be run on very powerful machines. We leveraged VMs in GCP and Azure, thanks to the free limits allocated to students by both. We started with trying to deploy on TPU, but after several days of trying and porting the code we got blocked on transient memory failures and defaulted to using VMs with multiple GPUs and a big SSD to allow for storing checkpoints of the models. Compared to a CPU-based machine, we got several orders of magnitude improvements. [to be added: which models we use]
 
 \subsection{Evaluation}
-Alexandra or Bryan
+The PreSumm model created by Yang trained on CNN and Daily Mail [Yang] resulted in SOTA rouge scores when applied to samples from those datasets. However, when tested on our How2 Test dataset, it gave very poor performance and a lack of generalization in the model (see Table~\ref{table1}). Looking at the data, we found that the model tends to pick the first one or two sentences for the summary. This can be explained by the fact that the first paragraph of a news article often captures the gits of it, which the model learned. However, in the case of our instructional videos, the first sentences would be a non-informative introduction, such as "Hi there! My name is ...". Based on that, we hypothesized that removing introuductions from the text will help improve ROUGE scores. Indeed, we got a few points better after applying  preprocessing described in the Section \ref{Preprocessing} above. Yet another improvement in the score was accomplished by taking advantage of one more observation: most curated summaries follow a template that starts with "Learn how ...". So, we added these two words in the beginning of the summary at post-processing stage. With all that, we still couldn't get higher than 22.5 ROUGE-1 F1 and 20 ROUGE-L F1. Reviewing scores and texts of individual summaries showed that the model is doing better on some topics, such as medicine, and worse on others, such as sports. Again, this makes sense for a model that is trained on news: it isn't reasonable for it to be good with yoga-specific terminology, while news about health care are very common.
 
-\section{Conclusion}
-
-The style files for NeurIPS and other conference information are available on
-the World Wide Web at
-\begin{center}
-  \url{http://www.neurips.cc/}
-\end{center}
-The file \verb+neurips_2020.pdf+ contains these instructions and illustrates the
-various formatting requirements your NeurIPS paper must satisfy.
-
-The only supported style file for NeurIPS 2020 is \verb+neurips_2020.sty+,
-rewritten for \LaTeXe{}.  \textbf{Previous style files for \LaTeX{} 2.09,
-  Microsoft Word, and RTF are no longer supported!}
-
-The \LaTeX{} style file contains three optional arguments: \verb+final+, which
-creates a camera-ready copy, \verb+preprint+, which creates a preprint for
-submission to, e.g., arXiv, and \verb+nonatbib+, which will not load the
-\verb+natbib+ package for you in case of package clash.
-
-\paragraph{Preprint option}
-If you wish to post a preprint of your work online, e.g., on arXiv, using the
-NeurIPS style, please use the \verb+preprint+ option. This will create a
-nonanonymized version of your work with the text ``Preprint. Work in progress.''
-in the footer. This version may be distributed as you see fit. Please \textbf{do
-  not} use the \verb+final+ option, which should \textbf{only} be used for
-papers accepted to NeurIPS.
-
-At submission time, please omit the \verb+final+ and \verb+preprint+
-options. This will anonymize your submission and add line numbers to aid
-review. Please do \emph{not} refer to these line numbers in your paper as they
-will be removed during generation of camera-ready copies.
-
-The file \verb+neurips_2020.tex+ may be used as a ``shell'' for writing your
-paper. All you have to do is replace the author, title, abstract, and text of
-the paper with your own.
-
-The formatting instructions contained in these style files are summarized in
-Sections \ref{gen_inst}, \ref{headings}, and \ref{others} below.
-
-\section{General formatting instructions}
-\label{gen_inst}
-
-The text must be confined within a rectangle 5.5~inches (33~picas) wide and
-9~inches (54~picas) long. The left margin is 1.5~inch (9~picas).  Use 10~point
-type with a vertical spacing (leading) of 11~points.  Times New Roman is the
-preferred typeface throughout, and will be selected for you by default.
-Paragraphs are separated by \nicefrac{1}{2}~line space (5.5 points), with no
-indentation.
-
-The paper title should be 17~point, initial caps/lower case, bold, centered
-between two horizontal rules. The top rule should be 4~points thick and the
-bottom rule should be 1~point thick. Allow \nicefrac{1}{4}~inch space above and
-below the title to rules. All pages should start at 1~inch (6~picas) from the
-top of the page.
-
-For the final version, authors' names are set in boldface, and each name is
-centered above the corresponding address. The lead author's name is to be listed
-first (left-most), and the co-authors' names (if different address) are set to
-follow. If there is only one co-author, list both author and co-author side by
-side.
-
-Please pay special attention to the instructions in Section \ref{others}
-regarding figures, tables, acknowledgments, and references.
-
-\section{Headings: first level}
-\label{headings}
-
-All headings should be lower case (except for first word and proper nouns),
-flush left, and bold.
-
-First-level headings should be in 12-point type.
-
-\subsection{Headings: second level}
-
-Second-level headings should be in 10-point type.
-
-\subsubsection{Headings: third level}
-
-Third-level headings should be in 10-point type.
-
-\paragraph{Paragraphs}
-
-There is also a \verb+\paragraph+ command available, which sets the heading in
-bold, flush left, and inline with the text, with the heading followed by 1\,em
-of space.
-
-\section{Citations, figures, tables, references}
-\label{others}
-
-These instructions apply to everyone.
-
-\subsection{Citations within the text}
-
-The \verb+natbib+ package will be loaded for you by default.  Citations may be
-author/year or numeric, as long as you maintain internal consistency.  As to the
-format of the references themselves, any style is acceptable as long as it is
-used consistently.
-
-The documentation for \verb+natbib+ may be found at
-\begin{center}
-  \url{http://mirrors.ctan.org/macros/latex/contrib/natbib/natnotes.pdf}
-\end{center}
-Of note is the command \verb+\citet+, which produces citations appropriate for
-use in inline text.  For example,
-\begin{verbatim}
-   \citet{hasselmo} investigated\dots
-\end{verbatim}
-produces
-\begin{quote}
-  Hasselmo, et al.\ (1995) investigated\dots
-\end{quote}
-
-If you wish to load the \verb+natbib+ package with options, you may add the
-following before loading the \verb+neurips_2020+ package:
-\begin{verbatim}
-   \PassOptionsToPackage{options}{natbib}
-\end{verbatim}
-
-If \verb+natbib+ clashes with another package you load, you can add the optional
-argument \verb+nonatbib+ when loading the style file:
-\begin{verbatim}
-   \usepackage[nonatbib]{neurips_2020}
-\end{verbatim}
-
-As submission is double blind, refer to your own published work in the third
-person. That is, use ``In the previous work of Jones et al.\ [4],'' not ``In our
-previous work [4].'' If you cite your other papers that are not widely available
-(e.g., a journal paper under review), use anonymous author names in the
-citation, e.g., an author of the form ``A.\ Anonymous.''
-
-\subsection{Footnotes}
-
-Footnotes should be used sparingly.  If you do require a footnote, indicate
-footnotes with a number\footnote{Sample of the first footnote.} in the
-text. Place the footnotes at the bottom of the page on which they appear.
-Precede the footnote with a horizontal rule of 2~inches (12~picas).
-
-Note that footnotes are properly typeset \emph{after} punctuation
-marks.\footnote{As in this example.}
-
-\subsection{Figures}
-
-\begin{figure}
-  \centering
-  \fbox{\rule[-.5cm]{0cm}{4cm} \rule[-.5cm]{4cm}{0cm}}
-  \caption{Sample figure caption.}
-\end{figure}
-
-All artwork must be neat, clean, and legible. Lines should be dark enough for
-purposes of reproduction. The figure number and caption always appear after the
-figure. Place one line space before the figure caption and one line space after
-the figure. The figure caption should be lower case (except for first word and
-proper nouns); figures are numbered consecutively.
-
-You may use color figures.  However, it is best for the figure captions and the
-paper body to be legible if the paper is printed in either black/white or in
-color.
-
-\subsection{Tables}
-
-All tables must be centered, neat, clean and legible.  The table number and
-title always appear before the table.  See Table~\ref{sample-table}.
-
-Place one line space before the table title, one line space after the
-table title, and one line space after the table. The table title must
-be lower case (except for first word and proper nouns); tables are
-numbered consecutively.
-
-Note that publication-quality tables \emph{do not contain vertical rules.} We
-strongly suggest the use of the \verb+booktabs+ package, which allows for
-typesetting high-quality, professional tables:
-\begin{center}
-  \url{https://www.ctan.org/pkg/booktabs}
-\end{center}
-This package was used to typeset Table~\ref{sample-table}.
+So, in our next series of experiments, we used our own dataset for training. We were able to push the scores higher: by 4 for ROUGE-1 and 2.5 ROUGE-L F1 on the results with and without preprocessing, compared to the CNN-trained model. However, there is still a lot of room for improvement, as more specialized model by [Shruti et.al.] claims to go above 40 ROUGE score.
 
 \begin{table}
-  \caption{Sample table title}
-  \label{sample-table}
+  \caption{Comparison of results}
+  \label{table1}
   \centering
-  \begin{tabular}{lll}
+  \begin{tabular}{llll}
     \toprule
-    \multicolumn{2}{c}{Part}                   \\
+    \multicolumn{2}{c}{Experiment}                   \\
     \cmidrule(r){1-2}
-    Name     & Description     & Size ($\mu$m) \\
+    Model     & Pretraining Data     & Rouge-1 &Rouge-L\\
     \midrule
-    Dendrite & Input terminal  & $\sim$100     \\
-    Axon     & Output terminal & $\sim$10      \\
-    Soma     & Cell body       & up to $10^6$  \\
-    \bottomrule
+    PreSum  & CNN  and Daily Mail &18.08 &18.01    \\
+ \midrule   
+    PreSum with     & CNN  and Daily Mail & 20.51 &18.86     \\
+      preprocessing    & & \\
+\midrule
+    PreSum with pre-     & CNN  and Daily Mail  & 22.47&20.07  \\
+      and postprocessing    & & \\
+\midrule
+  PreSum  & How-To, WikiHow,   & 24.4 &21.45     \\
+& CNN  and Daily Mail&\\
+\midrule
+   PreSum with  & How-To, WikiHow, & 26.32 &22.47    \\
+postprocessing &CNN  and Daily Mail &\\
+     \bottomrule
   \end{tabular}
 \end{table}
 
-\section{Final instructions}
-
-Do not change any aspects of the formatting parameters in the style files.  In
-particular, do not modify the width or length of the rectangle the text should
-fit into, and do not change font sizes (except perhaps in the
-\textbf{References} section; see below). Please note that pages should be
-numbered.
-
-\section{Preparing PDF files}
-
-Please prepare submission files with paper size ``US Letter,'' and not, for
-example, ``A4.''
-
-Fonts were the main cause of problems in the past years. Your PDF file must only
-contain Type 1 or Embedded TrueType fonts. Here are a few instructions to
-achieve this.
-
-\begin{itemize}
-
-\item You should directly generate PDF files using \verb+pdflatex+.
-
-\item You can check which fonts a PDF files uses.  In Acrobat Reader, select the
-  menu Files$>$Document Properties$>$Fonts and select Show All Fonts. You can
-  also use the program \verb+pdffonts+ which comes with \verb+xpdf+ and is
-  available out-of-the-box on most Linux machines.
-
-\item The IEEE has recommendations for generating PDF files whose fonts are also
-  acceptable for NeurIPS. Please see
-  \url{http://www.emfield.org/icuwb2010/downloads/IEEE-PDF-SpecV32.pdf}
-
-\item \verb+xfig+ "patterned" shapes are implemented with bitmap fonts.  Use
-  "solid" shapes instead.
-
-\item The \verb+\bbold+ package almost always uses bitmap fonts.  You should use
-  the equivalent AMS Fonts:
+In order to calculate ROUGE metrics, we used \verb+py-rouge+ package and initialized evaluator with a 100-word limit penalty as follows:
 \begin{verbatim}
-   \usepackage{amsfonts}
+#nltk.download("punkt")
+rouge_evaluator = rouge.Rouge(
+    metrics=["rouge-n", "rouge-l"],
+    max_n=4,
+    limit_length=True,
+    length_limit=100,
+    length_limit_type="words",
+    apply_avg=True,
+    apply_best=False,
+    alpha=0.5,  # Default F1_score
+    weight_factor=1.2,
+    stemming=True,
+)
 \end{verbatim}
-followed by, e.g., \verb+\mathbb{R}+, \verb+\mathbb{N}+, or \verb+\mathbb{C}+
-for $\mathbb{R}$, $\mathbb{N}$ or $\mathbb{C}$.  You can also use the following
-workaround for reals, natural and complex:
-\begin{verbatim}
-   \newcommand{\RR}{I\!\!R} %real numbers
-   \newcommand{\Nat}{I\!\!N} %natural numbers
-   \newcommand{\CC}{I\!\!\!\!C} %complex numbers
-\end{verbatim}
-Note that \verb+amsfonts+ is automatically loaded by the \verb+amssymb+ package.
 
-\end{itemize}
+We have observed examples of bad summaries with high ROUGE score, such as in Figure \ref{funnysummary}, and good summaries with low ROUGE score. We believe that ROUGE is fine as a starting point for comparison, but the real evaluation of the output quality still requires human experts.
 
-If your file contains type 3 fonts or non embedded TrueType fonts, we will ask
-you to fix it.
+\begin{figure}
+  \includegraphics[width=\linewidth]{pic1.png}
+  \caption{An example where ROUGE metric is confusing.}
+  \label{fig:funnysummary}
+\end{figure}
 
-\subsection{Margins in \LaTeX{}}
-
-Most of the margin problems come from figures positioned by hand using
-\verb+\special+ or other commands. We suggest using the command
-\verb+\includegraphics+ from the \verb+graphicx+ package. Always specify the
-figure width as a multiple of the line width as in the example below:
-\begin{verbatim}
-   \usepackage[pdftex]{graphicx} ...
-   \includegraphics[width=0.8\linewidth]{myfile.pdf}
-\end{verbatim}
-See Section 4.4 in the graphics bundle documentation
-(\url{http://mirrors.ctan.org/macros/latex/required/graphics/grfguide.pdf})
-
-A number of width problems arise when \LaTeX{} cannot properly hyphenate a
-line. Please give LaTeX hyphenation hints using the \verb+\-+ command when
-necessary.
+\section{Conclusion}
+We are continuing to work on improving summarization for instructional videos, as measured by both ROUGE and human experts. By the end of the project, we hope to accomplish scores that are comparable to current SOTA, but more generalizable. We also plan to provide a more detailed analysis on correlations between features of a video (e.g. topic, length, number of likes) and the quality of summaries produced on our experiments, as well as a more detailed description of our expert evaluation process.
 
 
 \section*{Broader Impact}
@@ -439,53 +235,22 @@ necessary.
 The contribution of our research is three-fold:
 \begin{itemize}
 
-\item We created and published a data set of how-to videos with time-tagged scripts, machine-generated summaries
+\item We created and published a data set of how-to videos with time-tagged scripts, machine-generated summaries \footnote{https://github.com/alebryvas/berk266/ - it's not public repository yet, but we can provide access upon request}
 \item We generalized  existing text summarization models to the scripts extracted from the videos [Sanabria et.al.]
-\item We augmented ROUGE metrics [Chin-Yew Lin] for evaluation of the results with a framework for formalized expert assessment based on our research and criteria proposed by previous works 
+\item We augmented ROUGE metrics [Chin-Yew Lin] for evaluation of the results with a framework for formalized expert assessment based on our research and criteria proposed by previous works \textit{[that's in work]}
 \end{itemize}
 
 At a high level, we hope that our analysis of transferability of summarization techniques from text to videos will have both practical and theoretical impacts by helping identify promising directions for future research.
 
 
-\begin{ack}
-Use unnumbered first level headings for the acknowledgments. All acknowledgments
-go at the end of the paper before the list of references. Moreover, you are required to declare 
-funding (financial activities supporting the submitted work) and competing interests (related financial activities outside the submitted work). 
-More information about this disclosure can be found at: \url{https://neurips.cc/Conferences/2020/PaperInformation/FundingDisclosure}.
+\section*{References} 
 
-
-Do {\bf not} include this section in the anonymized submission, only in the final paper. You can use the \texttt{ack} environment provided in the style file to autmoatically hide this section in the anonymized submission.
-\end{ack}
-
-\section*{References}
-
-References follow the acknowledgments. Use unnumbered first-level heading for
-the references. Any choice of citation style is acceptable as long as you are
-consistent. It is permissible to reduce the font size to \verb+small+ (9 point)
-when listing the references.
-{\bf Note that the Reference section does not count towards the eight pages of content that are allowed.}
+{\bf We will allign the formatting of references for the final submission. Current list is accurate, but not standardized.}
 \medskip
 
-\small
 
 
-@article{DBLP:journals/corr/abs-1810-09305,
-  author    = {Mahnaz Koupaee and
-               William Yang Wang},
-  title     = {WikiHow: {A} Large Scale Text Summarization Dataset},
-  journal   = {CoRR},
-  volume    = {abs/1810.09305},
-  year      = {2018},
-  url       = {http://arxiv.org/abs/1810.09305},
-  archivePrefix = {arXiv},
-  eprint    = {1810.09305},
-  timestamp = {Wed, 31 Oct 2018 14:24:29 +0100},
-  biburl    = {https://dblp.org/rec/journals/corr/abs-1810-09305.bib},
-  bibsource = {dblp computer science bibliography, https://dblp.org}
-
---------
-
-[1] Yang Liu, Mirella Lapata. Text Summarization with Pretrained Encoders.  \ (2019) URL. https://arxiv.org/abs/1908.08345v2
+[1] Yang Liu, Mirella Lapata. Text Summarization with Pretrained Encoders.  \ (2019) URL. \url{https://arxiv.org/abs/1908.08345v2}
 
 [2] Abigail See, Peter J. Liu, and Christopher D. Manning.\ (2017) Get to the point: Summarization with pointer-generator networks. In {\it Proceedings of the 55th Annual Meeting of the Association for Computational Linguistics \ (Volume 1: Long Papers)}, pages 1073-1083.
 
@@ -517,19 +282,5 @@ Methods in Natural Language Processing}, pages 1092–1102. Association for Comp
 [14] Antoine Miech, Dimitri Zhukov, Jean-Baptiste Alayrac, Makarand Tapaswi, Ivan Laptev, Josef Sivic. 2019. HowTo100M: Learning a Text-Video Embedding by Watching Hundred Million Narrated Video Clips. In ICCV 2019. https://arxiv.org/abs/1906.03327.
 
 
-
-[1] Alexander, J.A.\ \& Mozer, M.C.\ (1995) Template-based algorithms for
-connectionist rule extraction. In G.\ Tesauro, D.S.\ Touretzky and T.K.\ Leen
-(eds.), {\it Advances in Neural Information Processing Systems 7},
-pp.\ 609--616. Cambridge, MA: MIT Press.
-
-[2] Bower, J.M.\ \& Beeman, D.\ (1995) {\it The Book of GENESIS: Exploring
-  Realistic Neural Models with the GEneral NEural SImulation System.}  New York:
-TELOS/Springer--Verlag.
-
-[3] Hasselmo, M.E., Schnell, E.\ \& Barkai, E.\ (1995) Dynamics of learning and
-recall at excitatory recurrent synapses and cholinergic modulation in rat
-hippocampal region CA3. {\it Journal of Neuroscience} {\bf 15}(7):5249-5262.
-}
 
 \end{document}
