@@ -72,7 +72,7 @@
 \maketitle
 
 \begin{abstract}
-The overflow of video content in the Internet (from YouTube, MOOCs, news portals) necessitates automated summarizations of data. In our paper, we study extractive and abstractive summarization for of instructional videos. Previously, natural language processing efforts have been focused to meticulously curated datasets far removed from textual inconsistencies that are inherent to videos. Our work on text preprocessing allows to extend the approach summarization of auto-generated amateur video transcripts. Next, we apply state-of-the-art pretrained BERT transformer models to the problem and evaluate the efficiency of  training and fine tuning with datasets from WikiHow, How2 videos, and CNN. The results are evaluated using ROUGE, Content F1, and blind assessments by human experts.
+The overflow of video content in the Internet (from YouTube, MOOCs, news portals) necessitates automated summarizations of data. In our paper, we study extractive and abstractive summarization for of instructional videos. Previously, natural language processing efforts have been focused to meticulously curated datasets far removed from textual inconsistencies that are inherent to videos. Our work on text preprocessing allows to extend the approach summarization of auto-generated amateur video transcripts. Next, we apply state-of-the-art pretrained BERT transformer models to the problem and evaluate the efficiency of  training and fine tuning with datasets from WikiHow, How2 videos, and CNN. The results are evaluated using ROUGE F1 and blind assessments by human experts.
 
 \end{abstract}
 
@@ -112,6 +112,7 @@ In our work, we are exploring transferability of modern text summarization techn
 \subsection{Text Summarization}
 
 Text summarization is the task of generating shorter versions of documents while maintaining important information [need link]. This area of research in the natural language processing community has grown rapidly over the past several years due to its practical applications among various industries such as news, reviews, education. Summarization systems take two general approaches: extractive and abstractive. Extractive summarization provides users with textual summaries that have been copied and concatenated from important parts of a document. It is a reliable task capable of maintaining sentence structure and factual correctness. Abstract summarization generates a summary with content that is not always found in the underlying text. It is a complex task that mimics human summarization by generalizing and paraphrasing key points made in the document. 
+
 Prior to 2014, summarization was centered on extracting lines from single documents using statistical models and neural networks had limited success[6, 7]. Sutskever et al. and Cho et al work on sequence to sequence models opened up new possibilities for neural networks in natural language processing. From 2014 to 2015, LSTMs (variety of RNN) became the dominant approach that achieved state of the art results. They became successful in tasks such as speech recognition, machine translation, parsing, image captioning, etc. It paved the way for abstractive summarization, which began to score competitively against extractive summarization. In 2017, Attention is all you need [8] provided a solution to the ‘fixed length vector’ problem, enabling neural networks to focus on important parts of the input for prediction tasks. Transformers with attention became more dominant for certain tasks [9].
 
 \subsection{Multi-modal Summarization}
@@ -128,7 +129,6 @@ In our work we set the following goals:
 \item Augment ROUGE metrics [Chin-Yew Lin] for evaluation of the results with a framework for formalized expert assessment based on our research and criteria proposed by previous works 
 \end{itemize}
 
-\section{Proof of concept}
 For our confidence about the feasibility of the project, we first ran a series of manual experiment by dumping a few auto-generated scripts YouTube scripts and running them through online summarization services. The first results were very disappointing. However, we noticed that auto-generated scripts don't have punctuation and line breaks don't necessarily correspond to the logical ends of sentences. After fixing these issues, we got meaningful summaries and proceeded to generalizing the approach as follows.
  
 \section{Methodology}
@@ -136,28 +136,41 @@ For our confidence about the feasibility of the project, we first ran a series o
 From the initial exploration and data analysis we saw that in the process of applying existing summarization models to Youtube video scripts  we will deal with challenges imposed by parsing speech-to-text output add more complexity to text summarization. For example, in one of the sample videos in our test data set closed captioning confuses the speaker’s words \emph{“how you get a text from a YouTube video”} for  \emph{“how you get attacks from a YouTube video”}. So, our work includes several iterations of the process described below:
 \begin{itemize}
 \item Collection and aggregation of data from multiple sources (HowTo video scripts, WikiHow, CNN stories, YouTube)
-\item Preprocessing of video scripts to make them fit the text summarization models (e.g. errors in word recognition, lack of punctuation in closed captioning, getting rid of special characters etc.)
-\item Aligning inputs aggregated from multiple sources  to common format
-\item Selection, deployment, training, fine-tuning of text summarization models
-\item Running experiments applying models to the data
-\item Evaluation of the outputs using ROUGE metrics and human expert judgement
+\item Preprocessing of video scripts to make them fit the text summarization models (e.g. errors in word recognition, lack of punctuation in closed captioning, getting rid of special characters etc., aligning inputs aggregated from multiple sources  to common format)
+\item Text summarization models: selection, deployment, training,  and fine-tuning 
+\item Experiments: applying models to the data and evaluation of the outputs using ROUGE metrics and human expert judgements
 \end{itemize}
  
 \subsection{Collection}
-Bryan or Alexandra - write about data sources, sizes in samples and bytes, metadata
+We believe that sentence fluency and generalization is best captured in the larger corpus of news, instructional texts, and youtube videos. For this reason, we combined the following three datasets: 
+\begin{itemize}
+
+\item \textbf{CNN/Daily Mail dataset} provided by Hermann et. al 2015, the How2 Dataset, and Wikihow. The datasets illustrate different summary styles that range from one sentence long phrases to short paragraph summaries. CNN/Daily mail includes a combination of news articles and story highlights written in various lengths. 
+\item \textbf{Wikihow dataset}, a large scale text summarization containing over 200,000 single document summaries. We included it to increase performance and generalizability, we included the  Wikihow is a variety of ‘How To’ instructional texts compiled from wikihow.com, ranging from topics such as ‘How to deal with coronavirus anxiety’ to ‘How to play Uno.’ Similar to CNN news articles, the articles inside the dataset vary in size and topic but are structured to drive across direct messages / instructions to the user. 
+\item \textbf{How2 Dataset} of 8,000 videos (approximately 2,000 hours). This dataset was constructed from 'How To' YoutTube videos that averaged 90 seconds long and 291 word long transcripts. It also includes human generated sentence summaries written to generate interest in the viewer. Summaries were two to three sentences in length with an average length of 33 words. 
+\end{itemize}
+
+As part of this research, we are exploring different combinations of data during training of summarization models and evaluate how they perform on  instructional video scripts in any domain.  
+
 
 \subsection{Preprocessing}
-The work we have done at this stage is based on the heuristics observed during evaluation of results. We expected the differences in conversational style of the video scripts and writtent text of CNN stories (on which the models were pretrained) will impact quality of the output. In our first experiments, it manifested in a very distinct way. The model considered the first one-two sentences to be very important for summaries, and we ended up with getting many summaries looking like "hi!" and "hello, this is <first and last name>". It inspired us for implementing an improvement by using entity detection   \verb+spacy+ and \verb+nltk+ to remove introduction from the text that we feed to summarization model.  
 
-\subsection{Input format}
-Bryan - write about differences in format of CNN , wikiHow, howTo scripts and how they were converted
+The format of CNN /Daily Mail stories, wikiHow articles, and howTo scripts is different. We invested substantial efforts into converting them to a format that can be used. For the convenience of other researchers who may want to use similar methodology, we shared the results of aligning them to the same fromat that can be training. 
+
+Another stream of work we have done at this stage is based on the heuristics observed during evaluation of results. We expected the differences in conversational style of the video scripts and writtent text of CNN stories (on which the models were pretrained) will impact quality of the output. In our first experiments, it manifested in a very distinct way. The model considered the first one-two sentences to be very important for summaries, and we ended up with getting many summaries looking like "hi!" and "hello, this is <first and last name>". It inspired us for implementing an improvement by using entity detection   \verb+spacy+ and \verb+nltk+ to remove introduction from the text that we feed to summarization model.  
+
+The CNN/Daily Mail dataset has been preprocessed to remove news anchor introductions. For our Wikihow and How2 transcripts, we first split sentences using the Stanford Core NLP toolkit and preprocessed the data in the same method used by (See et. al.) - non anonymized versions of the data.  
+
 
 \subsection{Summarization models}
-Bryan or Alexandra
+For our experiments, we trained the PreSumm abstractive model on 5,000 samples from the How2 dataset, 3,097 samples from Wikihow with a 100,000 step size. 
+We also trained the PreSumm extractive model on 13,907 Wikihow dataset, 5,000 How2 dataset with 50,000 steps.
+
 
 \subsection{Evaluation}
 Alexandra or Bryan
 
+\section{Conclusion}
 
 The style files for NeurIPS and other conference information are available on
 the World Wide Web at
