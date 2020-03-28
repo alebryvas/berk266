@@ -38,7 +38,7 @@
 % authors names on the first line, and the last on the second line, try using
 % \AND instead of \And before the third author name.
 
-\author{%
+\author{
   David S.~Hippocampus\thanks{Use  for providing further information
     about author (webpage, alternative address)---\emph{not} for acknowledging
     funding agencies.} \\
@@ -184,18 +184,18 @@ So, in our next series of experiments, we used our own dataset for training. We 
     \cmidrule(r){1-2}
     Model     & Pretraining Data     & Rouge-1 &Rouge-L\\
     \midrule
-    PreSum  & CNN  and Daily Mail &18.08 &18.01    \\
+   1. PreSum  & CNN  and Daily Mail &18.08 &18.01    \\
  \midrule   
-    PreSum with     & CNN  and Daily Mail & 20.51 &18.86     \\
+    2. PreSum with     & CNN  and Daily Mail & 20.51 &18.86     \\
       preprocessing    & & \\
 \midrule
-    PreSum with pre-     & CNN  and Daily Mail  & 22.47&20.07  \\
+    3. PreSum with pre-     & CNN  and Daily Mail  & 22.47&20.07  \\
       and postprocessing    & & \\
 \midrule
-  PreSum  & How-To, WikiHow,   & 24.4 &21.45     \\
+  4. PreSum  & How-To, WikiHow,   & 24.4 &21.45     \\
 & CNN  and Daily Mail&\\
 \midrule
-   PreSum with  & How-To, WikiHow, & 26.32 &22.47    \\
+  5. PreSum with  & How-To, WikiHow, & 26.32 &22.47    \\
 postprocessing &CNN  and Daily Mail &\\
      \bottomrule
   \end{tabular}
@@ -226,6 +226,8 @@ We have observed examples of bad summaries with high ROUGE score, such as in Fig
   \label{fig:funnysummary}
 \end{figure}
 
+Even though the difference in ROUGE scores for the results on [1-3] are not drastically different from [4-5], the quality of summaries from the perspective of human judges is qualitatively different. From anecdotal paragraphs that made no sense, we went to very fluent and understandable video descriptions which give a clear idea about the content. We are still working on formalizing the expert evaluation framework and will provide more details on it in the next version of the paper. 
+
 \section{Conclusion}
 We are continuing to work on improving summarization for instructional videos, as measured by both ROUGE and human experts. By the end of the project, we hope to accomplish scores that are comparable to current SOTA, but more generalizable. We also plan to provide a more detailed analysis on correlations between features of a video (e.g. topic, length, number of likes) and the quality of summaries produced on our experiments, as well as a more detailed description of our expert evaluation process.
 
@@ -236,7 +238,8 @@ The contribution of our research is three-fold:
 \begin{itemize}
 
 \item We created and published a data set of how-to videos with time-tagged scripts, machine-generated summaries \footnote{https://github.com/alebryvas/berk266/ - it's not public repository yet, but we can provide access upon request}
-\item We generalized  existing text summarization models to the scripts extracted from the videos [Sanabria et.al.]
+\item We explored different combinations of data during training of summarization models and evaluated how they perform on instructional video scripts in different domains
+\item We generalized  existing text summarization models to the scripts extracted from instructional videos  
 \item We augmented ROUGE metrics [Chin-Yew Lin] for evaluation of the results with a framework for formalized expert assessment based on our research and criteria proposed by previous works \textit{[that's in work]}
 \end{itemize}
 
