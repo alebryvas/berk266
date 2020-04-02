@@ -14,3 +14,7 @@ Top 2 step checkpoints based on evaluation loss on validation set listed below.
 
 1. results.21000
 2. results.24000
+
+Date: 4/2/2020
+Training Parameters:
+
