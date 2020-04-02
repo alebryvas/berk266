@@ -18,3 +18,12 @@ Top 2 step checkpoints based on evaluation loss on validation set listed below.
 Date: 4/2/2020
 Training Parameters:
 
+Trained on:
+How2Dataset - All
+Wikihow - All
+CNN/DM - All
+Preprocessed: Alexandra, then Stanford CoreNLP
+Batch Size: 50
+Time to train: 4 days
+
+1. 195,000 candidate, gold file
