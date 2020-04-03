@@ -27,3 +27,17 @@ Batch Size: 50
 Time to train: 4 days
 
 1. 195,000 candidate, gold file
+
+
+Date: 4/3/2020
+Training Parameters:
+
+Trained on:
+How2Dataset - All
+Wikihow - All
+CNN/DM - All
+Preprocessed: Alexandra, then Stanford CoreNLP
+Batch Size: 50
+Time to train: 4 days
+
+1. 210,000 candidate, gold and raw files
