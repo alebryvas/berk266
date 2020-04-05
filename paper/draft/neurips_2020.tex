@@ -38,7 +38,7 @@
 % authors names on the first line, and the last on the second line, try using
 % \AND instead of \And before the third author name.
 
-\author{
+\author{%
   David S.~Hippocampus\thanks{Use  for providing further information
     about author (webpage, alternative address)---\emph{not} for acknowledging
     funding agencies.} \\
@@ -172,7 +172,7 @@ These models are very demanding in terms of both memory and computational resour
 \subsection{Evaluation}
 The PreSumm model created by Yang trained on CNN and Daily Mail [Yang] resulted in SOTA rouge scores when applied to samples from those datasets. However, when tested on our How2 Test dataset, it gave very poor performance and a lack of generalization in the model (see Table~\ref{table1}). Looking at the data, we found that the model tends to pick the first one or two sentences for the summary. This can be explained by the fact that the first paragraph of a news article often captures the gits of it, which the model learned. However, in the case of our instructional videos, the first sentences would be a non-informative introduction, such as "Hi there! My name is ...". Based on that, we hypothesized that removing introuductions from the text will help improve ROUGE scores. Indeed, we got a few points better after applying  preprocessing described in the Section \ref{Preprocessing} above. Yet another improvement in the score was accomplished by taking advantage of one more observation: most curated summaries follow a template that starts with "Learn how ...". So, we added these two words in the beginning of the summary at post-processing stage. With all that, we still couldn't get higher than 22.5 ROUGE-1 F1 and 20 ROUGE-L F1. Reviewing scores and texts of individual summaries showed that the model is doing better on some topics, such as medicine, and worse on others, such as sports. Again, this makes sense for a model that is trained on news: it isn't reasonable for it to be good with yoga-specific terminology, while news about health care are very common.
 
-So, in our next series of experiments, we used our own dataset for training. We were able to push the scores higher: by 4 for ROUGE-1 and 2.5 ROUGE-L F1 on the results with and without preprocessing, compared to the CNN-trained model. However, there is still a lot of room for improvement, as more specialized model by [Shruti et.al.] claims to go above 40 ROUGE score.
+So, in our next series of experiments, we used our own dataset for training. We were able to push the scores higher: by 4 for ROUGE-1 and 2.5 ROUGE-L F1 on the results with and without preprocessing, compared to the CNN-trained model. Current best results was accomplished with setting shuffling parameter to false when we train on CNN, HowTo Wiki, and HowTo Video scripts. Our results for videos have reached the level of the best scores for news [1]. However, there is still some  room for improvement, as more specialized model by [Shruti et.al.] claims to go above 50 ROUGE score.
 
 \begin{table}
   \caption{Comparison of results}
@@ -197,6 +197,9 @@ So, in our next series of experiments, we used our own dataset for training. We 
 \midrule
   5. PreSum with  & How-To, WikiHow, & 26.32 &22.47    \\
 postprocessing &CNN  and Daily Mail &\\
+\midrule
+ 6. PreSum with  no shuffling& How-To, WikiHow, & 48.26 &44.02    \\
+and more training data &CNN  and Daily Mail &\\
      \bottomrule
   \end{tabular}
 \end{table}
