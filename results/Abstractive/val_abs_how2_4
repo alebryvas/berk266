@@ -1,0 +1,612 @@
+[2020-04-07 14:17:23,946 INFO] Loading checkpoint from ../models/model_step_40500.pt
+[2020-04-07 14:17:46,924 INFO] loading configuration file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-config.json from cache at ../temp/4dad0251492946e18ac39290fcfe91b89d370fee250efe9521476438fe8ca185.8f56353af4a709bf5ff0fbc915d8f5b42bfff892cbb6ac98c3c45f481a03c685
+[2020-04-07 14:17:46,924 INFO] Model config {
+  "architectures": [
+    "BertForMaskedLM"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "finetuning_task": null,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 768,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "num_attention_heads": 12,
+  "num_hidden_layers": 12,
+  "num_labels": 2,
+  "output_attentions": false,
+  "output_hidden_states": false,
+  "pruned_heads": {},
+  "torchscript": false,
+  "type_vocab_size": 2,
+  "vocab_size": 30522
+}
+
+[2020-04-07 14:17:47,208 INFO] loading weights file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-pytorch_model.bin from cache at ../temp/aa1ef1aede4482d0dbcd4d52baad8ae300e60902e88fcb0bebdec09afd232066.36ca03ab34a1a5d5fa7bc3d03d55c4fa650fed07220e2eeebc06ce58d0e9a157
+[2020-04-07 14:17:56,887 INFO] Loading valid dataset from ../bert_data/how2/how2.valid.0.bert.pt, number of examples: 1986
+[2020-04-07 14:17:57,207 INFO] loading file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-vocab.txt from cache at ../temp/26bc1ad6c0ac742e9b52263248f6d0f00068293b33709fae12320c0e35ccfbbb.542ce4285a40d23a559526243235df47c5f75c197f04f37d1a0c124c32c9a084
+[2020-04-07 14:17:57,239 INFO] * number of parameters: 180222522
+[2020-04-07 14:19:46,984 INFO] Loading valid dataset from ../bert_data/how2/how2.valid.1.bert.pt, number of examples: 512
+[2020-04-07 14:20:15,852 INFO] Validation perplexity: 33.2314
+[2020-04-07 14:20:15,853 INFO] Validation accuracy: 31.2913
+[2020-04-07 14:20:15,899 INFO] Loading checkpoint from ../models/model_step_41000.pt
+[2020-04-07 14:20:38,686 INFO] loading configuration file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-config.json from cache at ../temp/4dad0251492946e18ac39290fcfe91b89d370fee250efe9521476438fe8ca185.8f56353af4a709bf5ff0fbc915d8f5b42bfff892cbb6ac98c3c45f481a03c685
+[2020-04-07 14:20:38,687 INFO] Model config {
+  "architectures": [
+    "BertForMaskedLM"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "finetuning_task": null,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 768,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "num_attention_heads": 12,
+  "num_hidden_layers": 12,
+  "num_labels": 2,
+  "output_attentions": false,
+  "output_hidden_states": false,
+  "pruned_heads": {},
+  "torchscript": false,
+  "type_vocab_size": 2,
+  "vocab_size": 30522
+}
+
+[2020-04-07 14:20:38,992 INFO] loading weights file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-pytorch_model.bin from cache at ../temp/aa1ef1aede4482d0dbcd4d52baad8ae300e60902e88fcb0bebdec09afd232066.36ca03ab34a1a5d5fa7bc3d03d55c4fa650fed07220e2eeebc06ce58d0e9a157
+[2020-04-07 14:20:44,204 INFO] Loading valid dataset from ../bert_data/how2/how2.valid.0.bert.pt, number of examples: 1986
+[2020-04-07 14:20:44,492 INFO] loading file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-vocab.txt from cache at ../temp/26bc1ad6c0ac742e9b52263248f6d0f00068293b33709fae12320c0e35ccfbbb.542ce4285a40d23a559526243235df47c5f75c197f04f37d1a0c124c32c9a084
+[2020-04-07 14:20:44,531 INFO] * number of parameters: 180222522
+[2020-04-07 14:22:34,692 INFO] Loading valid dataset from ../bert_data/how2/how2.valid.1.bert.pt, number of examples: 512
+[2020-04-07 14:23:03,588 INFO] Validation perplexity: 36.0499
+[2020-04-07 14:23:03,589 INFO] Validation accuracy: 30.1425
+[2020-04-07 14:23:03,604 INFO] Loading checkpoint from ../models/model_step_41500.pt
+[2020-04-07 14:23:26,523 INFO] loading configuration file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-config.json from cache at ../temp/4dad0251492946e18ac39290fcfe91b89d370fee250efe9521476438fe8ca185.8f56353af4a709bf5ff0fbc915d8f5b42bfff892cbb6ac98c3c45f481a03c685
+[2020-04-07 14:23:26,524 INFO] Model config {
+  "architectures": [
+    "BertForMaskedLM"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "finetuning_task": null,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 768,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "num_attention_heads": 12,
+  "num_hidden_layers": 12,
+  "num_labels": 2,
+  "output_attentions": false,
+  "output_hidden_states": false,
+  "pruned_heads": {},
+  "torchscript": false,
+  "type_vocab_size": 2,
+  "vocab_size": 30522
+}
+
+[2020-04-07 14:23:26,822 INFO] loading weights file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-pytorch_model.bin from cache at ../temp/aa1ef1aede4482d0dbcd4d52baad8ae300e60902e88fcb0bebdec09afd232066.36ca03ab34a1a5d5fa7bc3d03d55c4fa650fed07220e2eeebc06ce58d0e9a157
+[2020-04-07 14:23:31,709 INFO] Loading valid dataset from ../bert_data/how2/how2.valid.0.bert.pt, number of examples: 1986
+[2020-04-07 14:23:32,037 INFO] loading file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-vocab.txt from cache at ../temp/26bc1ad6c0ac742e9b52263248f6d0f00068293b33709fae12320c0e35ccfbbb.542ce4285a40d23a559526243235df47c5f75c197f04f37d1a0c124c32c9a084
+[2020-04-07 14:23:32,074 INFO] * number of parameters: 180222522
+[2020-04-07 14:25:22,251 INFO] Loading valid dataset from ../bert_data/how2/how2.valid.1.bert.pt, number of examples: 512
+[2020-04-07 14:25:51,110 INFO] Validation perplexity: 38.2456
+[2020-04-07 14:25:51,110 INFO] Validation accuracy: 29.0355
+[2020-04-07 14:25:51,118 INFO] Loading checkpoint from ../models/model_step_42000.pt
+[2020-04-07 14:26:14,127 INFO] loading configuration file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-config.json from cache at ../temp/4dad0251492946e18ac39290fcfe91b89d370fee250efe9521476438fe8ca185.8f56353af4a709bf5ff0fbc915d8f5b42bfff892cbb6ac98c3c45f481a03c685
+[2020-04-07 14:26:14,127 INFO] Model config {
+  "architectures": [
+    "BertForMaskedLM"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "finetuning_task": null,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 768,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "num_attention_heads": 12,
+  "num_hidden_layers": 12,
+  "num_labels": 2,
+  "output_attentions": false,
+  "output_hidden_states": false,
+  "pruned_heads": {},
+  "torchscript": false,
+  "type_vocab_size": 2,
+  "vocab_size": 30522
+}
+
+[2020-04-07 14:26:14,402 INFO] loading weights file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-pytorch_model.bin from cache at ../temp/aa1ef1aede4482d0dbcd4d52baad8ae300e60902e88fcb0bebdec09afd232066.36ca03ab34a1a5d5fa7bc3d03d55c4fa650fed07220e2eeebc06ce58d0e9a157
+[2020-04-07 14:26:19,353 INFO] Loading valid dataset from ../bert_data/how2/how2.valid.0.bert.pt, number of examples: 1986
+[2020-04-07 14:26:19,644 INFO] loading file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-vocab.txt from cache at ../temp/26bc1ad6c0ac742e9b52263248f6d0f00068293b33709fae12320c0e35ccfbbb.542ce4285a40d23a559526243235df47c5f75c197f04f37d1a0c124c32c9a084
+[2020-04-07 14:26:19,678 INFO] * number of parameters: 180222522
+[2020-04-07 14:28:10,022 INFO] Loading valid dataset from ../bert_data/how2/how2.valid.1.bert.pt, number of examples: 512
+[2020-04-07 14:28:38,989 INFO] Validation perplexity: 38.423
+[2020-04-07 14:28:38,989 INFO] Validation accuracy: 29.0954
+[2020-04-07 14:28:38,998 INFO] Loading checkpoint from ../models/model_step_42500.pt
+[2020-04-07 14:29:01,925 INFO] loading configuration file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-config.json from cache at ../temp/4dad0251492946e18ac39290fcfe91b89d370fee250efe9521476438fe8ca185.8f56353af4a709bf5ff0fbc915d8f5b42bfff892cbb6ac98c3c45f481a03c685
+[2020-04-07 14:29:01,926 INFO] Model config {
+  "architectures": [
+    "BertForMaskedLM"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "finetuning_task": null,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 768,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "num_attention_heads": 12,
+  "num_hidden_layers": 12,
+  "num_labels": 2,
+  "output_attentions": false,
+  "output_hidden_states": false,
+  "pruned_heads": {},
+  "torchscript": false,
+  "type_vocab_size": 2,
+  "vocab_size": 30522
+}
+
+[2020-04-07 14:29:02,214 INFO] loading weights file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-pytorch_model.bin from cache at ../temp/aa1ef1aede4482d0dbcd4d52baad8ae300e60902e88fcb0bebdec09afd232066.36ca03ab34a1a5d5fa7bc3d03d55c4fa650fed07220e2eeebc06ce58d0e9a157
+[2020-04-07 14:29:07,038 INFO] Loading valid dataset from ../bert_data/how2/how2.valid.0.bert.pt, number of examples: 1986
+[2020-04-07 14:29:07,341 INFO] loading file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-vocab.txt from cache at ../temp/26bc1ad6c0ac742e9b52263248f6d0f00068293b33709fae12320c0e35ccfbbb.542ce4285a40d23a559526243235df47c5f75c197f04f37d1a0c124c32c9a084
+[2020-04-07 14:29:07,375 INFO] * number of parameters: 180222522
+[2020-04-07 14:30:57,709 INFO] Loading valid dataset from ../bert_data/how2/how2.valid.1.bert.pt, number of examples: 512
+[2020-04-07 14:31:26,652 INFO] Validation perplexity: 40.3382
+[2020-04-07 14:31:26,652 INFO] Validation accuracy: 28.9937
+[2020-04-07 14:31:26,659 INFO] Loading checkpoint from ../models/model_step_43000.pt
+[2020-04-07 14:31:49,559 INFO] loading configuration file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-config.json from cache at ../temp/4dad0251492946e18ac39290fcfe91b89d370fee250efe9521476438fe8ca185.8f56353af4a709bf5ff0fbc915d8f5b42bfff892cbb6ac98c3c45f481a03c685
+[2020-04-07 14:31:49,560 INFO] Model config {
+  "architectures": [
+    "BertForMaskedLM"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "finetuning_task": null,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 768,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "num_attention_heads": 12,
+  "num_hidden_layers": 12,
+  "num_labels": 2,
+  "output_attentions": false,
+  "output_hidden_states": false,
+  "pruned_heads": {},
+  "torchscript": false,
+  "type_vocab_size": 2,
+  "vocab_size": 30522
+}
+
+[2020-04-07 14:31:49,971 INFO] loading weights file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-pytorch_model.bin from cache at ../temp/aa1ef1aede4482d0dbcd4d52baad8ae300e60902e88fcb0bebdec09afd232066.36ca03ab34a1a5d5fa7bc3d03d55c4fa650fed07220e2eeebc06ce58d0e9a157
+[2020-04-07 14:31:54,956 INFO] Loading valid dataset from ../bert_data/how2/how2.valid.0.bert.pt, number of examples: 1986
+[2020-04-07 14:31:55,226 INFO] loading file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-vocab.txt from cache at ../temp/26bc1ad6c0ac742e9b52263248f6d0f00068293b33709fae12320c0e35ccfbbb.542ce4285a40d23a559526243235df47c5f75c197f04f37d1a0c124c32c9a084
+[2020-04-07 14:31:55,261 INFO] * number of parameters: 180222522
+[2020-04-07 14:33:45,464 INFO] Loading valid dataset from ../bert_data/how2/how2.valid.1.bert.pt, number of examples: 512
+[2020-04-07 14:34:14,463 INFO] Validation perplexity: 46.4885
+[2020-04-07 14:34:14,464 INFO] Validation accuracy: 26.4478
+[2020-04-07 14:34:14,473 INFO] Loading checkpoint from ../models/model_step_43500.pt
+[2020-04-07 14:34:37,219 INFO] loading configuration file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-config.json from cache at ../temp/4dad0251492946e18ac39290fcfe91b89d370fee250efe9521476438fe8ca185.8f56353af4a709bf5ff0fbc915d8f5b42bfff892cbb6ac98c3c45f481a03c685
+[2020-04-07 14:34:37,219 INFO] Model config {
+  "architectures": [
+    "BertForMaskedLM"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "finetuning_task": null,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 768,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "num_attention_heads": 12,
+  "num_hidden_layers": 12,
+  "num_labels": 2,
+  "output_attentions": false,
+  "output_hidden_states": false,
+  "pruned_heads": {},
+  "torchscript": false,
+  "type_vocab_size": 2,
+  "vocab_size": 30522
+}
+
+[2020-04-07 14:34:37,506 INFO] loading weights file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-pytorch_model.bin from cache at ../temp/aa1ef1aede4482d0dbcd4d52baad8ae300e60902e88fcb0bebdec09afd232066.36ca03ab34a1a5d5fa7bc3d03d55c4fa650fed07220e2eeebc06ce58d0e9a157
+[2020-04-07 14:34:42,012 INFO] Loading valid dataset from ../bert_data/how2/how2.valid.0.bert.pt, number of examples: 1986
+[2020-04-07 14:34:42,304 INFO] loading file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-vocab.txt from cache at ../temp/26bc1ad6c0ac742e9b52263248f6d0f00068293b33709fae12320c0e35ccfbbb.542ce4285a40d23a559526243235df47c5f75c197f04f37d1a0c124c32c9a084
+[2020-04-07 14:34:42,339 INFO] * number of parameters: 180222522
+[2020-04-07 14:36:32,604 INFO] Loading valid dataset from ../bert_data/how2/how2.valid.1.bert.pt, number of examples: 512
+[2020-04-07 14:37:01,569 INFO] Validation perplexity: 45.4525
+[2020-04-07 14:37:01,569 INFO] Validation accuracy: 27.0784
+[2020-04-07 14:37:01,576 INFO] Loading checkpoint from ../models/model_step_44000.pt
+[2020-04-07 14:37:24,389 INFO] loading configuration file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-config.json from cache at ../temp/4dad0251492946e18ac39290fcfe91b89d370fee250efe9521476438fe8ca185.8f56353af4a709bf5ff0fbc915d8f5b42bfff892cbb6ac98c3c45f481a03c685
+[2020-04-07 14:37:24,389 INFO] Model config {
+  "architectures": [
+    "BertForMaskedLM"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "finetuning_task": null,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 768,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "num_attention_heads": 12,
+  "num_hidden_layers": 12,
+  "num_labels": 2,
+  "output_attentions": false,
+  "output_hidden_states": false,
+  "pruned_heads": {},
+  "torchscript": false,
+  "type_vocab_size": 2,
+  "vocab_size": 30522
+}
+
+[2020-04-07 14:37:24,672 INFO] loading weights file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-pytorch_model.bin from cache at ../temp/aa1ef1aede4482d0dbcd4d52baad8ae300e60902e88fcb0bebdec09afd232066.36ca03ab34a1a5d5fa7bc3d03d55c4fa650fed07220e2eeebc06ce58d0e9a157
+[2020-04-07 14:37:29,563 INFO] Loading valid dataset from ../bert_data/how2/how2.valid.0.bert.pt, number of examples: 1986
+[2020-04-07 14:37:29,847 INFO] loading file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-vocab.txt from cache at ../temp/26bc1ad6c0ac742e9b52263248f6d0f00068293b33709fae12320c0e35ccfbbb.542ce4285a40d23a559526243235df47c5f75c197f04f37d1a0c124c32c9a084
+[2020-04-07 14:37:29,883 INFO] * number of parameters: 180222522
+[2020-04-07 14:39:20,275 INFO] Loading valid dataset from ../bert_data/how2/how2.valid.1.bert.pt, number of examples: 512
+[2020-04-07 14:39:49,188 INFO] Validation perplexity: 48.0082
+[2020-04-07 14:39:49,189 INFO] Validation accuracy: 26.3418
+[2020-04-07 14:39:49,199 INFO] Loading checkpoint from ../models/model_step_44500.pt
+[2020-04-07 14:40:12,062 INFO] loading configuration file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-config.json from cache at ../temp/4dad0251492946e18ac39290fcfe91b89d370fee250efe9521476438fe8ca185.8f56353af4a709bf5ff0fbc915d8f5b42bfff892cbb6ac98c3c45f481a03c685
+[2020-04-07 14:40:12,063 INFO] Model config {
+  "architectures": [
+    "BertForMaskedLM"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "finetuning_task": null,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 768,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "num_attention_heads": 12,
+  "num_hidden_layers": 12,
+  "num_labels": 2,
+  "output_attentions": false,
+  "output_hidden_states": false,
+  "pruned_heads": {},
+  "torchscript": false,
+  "type_vocab_size": 2,
+  "vocab_size": 30522
+}
+
+[2020-04-07 14:40:12,461 INFO] loading weights file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-pytorch_model.bin from cache at ../temp/aa1ef1aede4482d0dbcd4d52baad8ae300e60902e88fcb0bebdec09afd232066.36ca03ab34a1a5d5fa7bc3d03d55c4fa650fed07220e2eeebc06ce58d0e9a157
+[2020-04-07 14:40:17,421 INFO] Loading valid dataset from ../bert_data/how2/how2.valid.0.bert.pt, number of examples: 1986
+[2020-04-07 14:40:17,713 INFO] loading file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-vocab.txt from cache at ../temp/26bc1ad6c0ac742e9b52263248f6d0f00068293b33709fae12320c0e35ccfbbb.542ce4285a40d23a559526243235df47c5f75c197f04f37d1a0c124c32c9a084
+[2020-04-07 14:40:17,746 INFO] * number of parameters: 180222522
+[2020-04-07 14:42:08,095 INFO] Loading valid dataset from ../bert_data/how2/how2.valid.1.bert.pt, number of examples: 512
+[2020-04-07 14:42:37,024 INFO] Validation perplexity: 42.5727
+[2020-04-07 14:42:37,024 INFO] Validation accuracy: 28.649
+[2020-04-07 14:42:37,033 INFO] Loading checkpoint from ../models/model_step_45000.pt
+[2020-04-07 14:42:59,887 INFO] loading configuration file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-config.json from cache at ../temp/4dad0251492946e18ac39290fcfe91b89d370fee250efe9521476438fe8ca185.8f56353af4a709bf5ff0fbc915d8f5b42bfff892cbb6ac98c3c45f481a03c685
+[2020-04-07 14:42:59,887 INFO] Model config {
+  "architectures": [
+    "BertForMaskedLM"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "finetuning_task": null,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 768,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "num_attention_heads": 12,
+  "num_hidden_layers": 12,
+  "num_labels": 2,
+  "output_attentions": false,
+  "output_hidden_states": false,
+  "pruned_heads": {},
+  "torchscript": false,
+  "type_vocab_size": 2,
+  "vocab_size": 30522
+}
+
+[2020-04-07 14:43:00,178 INFO] loading weights file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-pytorch_model.bin from cache at ../temp/aa1ef1aede4482d0dbcd4d52baad8ae300e60902e88fcb0bebdec09afd232066.36ca03ab34a1a5d5fa7bc3d03d55c4fa650fed07220e2eeebc06ce58d0e9a157
+[2020-04-07 14:43:04,974 INFO] Loading valid dataset from ../bert_data/how2/how2.valid.0.bert.pt, number of examples: 1986
+[2020-04-07 14:43:05,249 INFO] loading file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-vocab.txt from cache at ../temp/26bc1ad6c0ac742e9b52263248f6d0f00068293b33709fae12320c0e35ccfbbb.542ce4285a40d23a559526243235df47c5f75c197f04f37d1a0c124c32c9a084
+[2020-04-07 14:43:05,283 INFO] * number of parameters: 180222522
+[2020-04-07 14:44:55,954 INFO] Loading valid dataset from ../bert_data/how2/how2.valid.1.bert.pt, number of examples: 512
+[2020-04-07 14:45:24,922 INFO] Validation perplexity: 40.2113
+[2020-04-07 14:45:24,923 INFO] Validation accuracy: 28.6972
+[2020-04-07 14:45:24,932 INFO] Loading checkpoint from ../models/model_step_45500.pt
+[2020-04-07 14:45:47,701 INFO] loading configuration file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-config.json from cache at ../temp/4dad0251492946e18ac39290fcfe91b89d370fee250efe9521476438fe8ca185.8f56353af4a709bf5ff0fbc915d8f5b42bfff892cbb6ac98c3c45f481a03c685
+[2020-04-07 14:45:47,702 INFO] Model config {
+  "architectures": [
+    "BertForMaskedLM"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "finetuning_task": null,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 768,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "num_attention_heads": 12,
+  "num_hidden_layers": 12,
+  "num_labels": 2,
+  "output_attentions": false,
+  "output_hidden_states": false,
+  "pruned_heads": {},
+  "torchscript": false,
+  "type_vocab_size": 2,
+  "vocab_size": 30522
+}
+
+[2020-04-07 14:45:48,003 INFO] loading weights file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-pytorch_model.bin from cache at ../temp/aa1ef1aede4482d0dbcd4d52baad8ae300e60902e88fcb0bebdec09afd232066.36ca03ab34a1a5d5fa7bc3d03d55c4fa650fed07220e2eeebc06ce58d0e9a157
+[2020-04-07 14:45:52,778 INFO] Loading valid dataset from ../bert_data/how2/how2.valid.0.bert.pt, number of examples: 1986
+[2020-04-07 14:45:53,081 INFO] loading file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-vocab.txt from cache at ../temp/26bc1ad6c0ac742e9b52263248f6d0f00068293b33709fae12320c0e35ccfbbb.542ce4285a40d23a559526243235df47c5f75c197f04f37d1a0c124c32c9a084
+[2020-04-07 14:45:53,116 INFO] * number of parameters: 180222522
+[2020-04-07 14:47:43,498 INFO] Loading valid dataset from ../bert_data/how2/how2.valid.1.bert.pt, number of examples: 512
+[2020-04-07 14:48:12,537 INFO] Validation perplexity: 39.6261
+[2020-04-07 14:48:12,537 INFO] Validation accuracy: 29.2346
+[2020-04-07 14:48:12,548 INFO] Loading checkpoint from ../models/model_step_46000.pt
+[2020-04-07 14:48:35,433 INFO] loading configuration file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-config.json from cache at ../temp/4dad0251492946e18ac39290fcfe91b89d370fee250efe9521476438fe8ca185.8f56353af4a709bf5ff0fbc915d8f5b42bfff892cbb6ac98c3c45f481a03c685
+[2020-04-07 14:48:35,433 INFO] Model config {
+  "architectures": [
+    "BertForMaskedLM"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "finetuning_task": null,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 768,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "num_attention_heads": 12,
+  "num_hidden_layers": 12,
+  "num_labels": 2,
+  "output_attentions": false,
+  "output_hidden_states": false,
+  "pruned_heads": {},
+  "torchscript": false,
+  "type_vocab_size": 2,
+  "vocab_size": 30522
+}
+
+[2020-04-07 14:48:35,738 INFO] loading weights file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-pytorch_model.bin from cache at ../temp/aa1ef1aede4482d0dbcd4d52baad8ae300e60902e88fcb0bebdec09afd232066.36ca03ab34a1a5d5fa7bc3d03d55c4fa650fed07220e2eeebc06ce58d0e9a157
+[2020-04-07 14:48:40,244 INFO] Loading valid dataset from ../bert_data/how2/how2.valid.0.bert.pt, number of examples: 1986
+[2020-04-07 14:48:40,542 INFO] loading file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-vocab.txt from cache at ../temp/26bc1ad6c0ac742e9b52263248f6d0f00068293b33709fae12320c0e35ccfbbb.542ce4285a40d23a559526243235df47c5f75c197f04f37d1a0c124c32c9a084
+[2020-04-07 14:48:40,580 INFO] * number of parameters: 180222522
+[2020-04-07 14:50:30,794 INFO] Loading valid dataset from ../bert_data/how2/how2.valid.1.bert.pt, number of examples: 512
+[2020-04-07 14:50:59,712 INFO] Validation perplexity: 40.9138
+[2020-04-07 14:50:59,712 INFO] Validation accuracy: 28.1361
+[2020-04-07 14:50:59,732 INFO] PPL [(3.503494575212721, '../models/model_step_40500.pt'), (3.5849031376258993, '../models/model_step_41000.pt'), (3.6440277901731943, '../models/model_step_41500.pt'), (3.648655664269516, '../models/model_step_42000.pt'), (3.679488489960005, '../models/model_step_45500.pt')]
+[2020-04-07 14:50:59,733 INFO] Loading checkpoint from ../models/model_step_40500.pt
+[2020-04-07 14:51:00,979 INFO] loading configuration file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-config.json from cache at ../temp/4dad0251492946e18ac39290fcfe91b89d370fee250efe9521476438fe8ca185.8f56353af4a709bf5ff0fbc915d8f5b42bfff892cbb6ac98c3c45f481a03c685
+[2020-04-07 14:51:00,979 INFO] Model config {
+  "architectures": [
+    "BertForMaskedLM"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "finetuning_task": null,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 768,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "num_attention_heads": 12,
+  "num_hidden_layers": 12,
+  "num_labels": 2,
+  "output_attentions": false,
+  "output_hidden_states": false,
+  "pruned_heads": {},
+  "torchscript": false,
+  "type_vocab_size": 2,
+  "vocab_size": 30522
+}
+
+[2020-04-07 14:51:01,272 INFO] loading weights file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-pytorch_model.bin from cache at ../temp/aa1ef1aede4482d0dbcd4d52baad8ae300e60902e88fcb0bebdec09afd232066.36ca03ab34a1a5d5fa7bc3d03d55c4fa650fed07220e2eeebc06ce58d0e9a157
+[2020-04-07 14:51:06,317 INFO] Loading test dataset from ../bert_data/how2/how2.test.0.bert.pt, number of examples: 1975
+[2020-04-07 14:51:06,588 INFO] loading file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-vocab.txt from cache at ../temp/26bc1ad6c0ac742e9b52263248f6d0f00068293b33709fae12320c0e35ccfbbb.542ce4285a40d23a559526243235df47c5f75c197f04f37d1a0c124c32c9a084
+[2020-04-07 15:15:28,138 INFO] Loading test dataset from ../bert_data/how2/how2.test.1.bert.pt, number of examples: 119
+[2020-04-07 15:16:58,787 INFO] Calculating Rouge
+[2020-04-07 15:16:58,950 INFO] Writing summaries.
+[2020-04-07 15:16:58,950 INFO] Processing summaries. Saving system files to ../temp/tmp4dhunooe/system and model files to ../temp/tmp4dhunooe/model.
+[2020-04-07 15:16:58,951 INFO] Processing files in ../temp/rouge-tmp-2020-04-07-15-16-58/candidate/.
+[2020-04-07 15:16:59,150 INFO] Saved processed files to ../temp/tmp4dhunooe/system.
+[2020-04-07 15:16:59,150 INFO] Processing files in ../temp/rouge-tmp-2020-04-07-15-16-58/reference/.
+[2020-04-07 15:16:59,339 INFO] Saved processed files to ../temp/tmp4dhunooe/model.
+[2020-04-07 15:16:59,353 INFO] Written ROUGE configuration to ../temp/tmpehp39qp2/rouge_conf.xml
+[2020-04-07 15:16:59,353 INFO] Running ROUGE with command /home/alebryvas/w266/pyrouge/rouge/tools/ROUGE-1.5.5/ROUGE-1.5.5.pl -e /home/alebryvas/w266/pyrouge/rouge/tools/ROUGE-1.5.5/data -c 95 -m -r 1000 -n 2 -a ../temp/tmpehp39qp2/rouge_conf.xml
+[2020-04-07 15:17:12,355 INFO] Rouges at step 40500 
+>> ROUGE-F(1/2/3/l): 21.84/4.62/18.43
+ROUGE-R(1/2/3/l): 28.82/6.00/24.30
+
+[2020-04-07 15:17:12,377 INFO] Loading checkpoint from ../models/model_step_41000.pt
+[2020-04-07 15:17:13,706 INFO] loading configuration file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-config.json from cache at ../temp/4dad0251492946e18ac39290fcfe91b89d370fee250efe9521476438fe8ca185.8f56353af4a709bf5ff0fbc915d8f5b42bfff892cbb6ac98c3c45f481a03c685
+[2020-04-07 15:17:13,707 INFO] Model config {
+  "architectures": [
+    "BertForMaskedLM"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "finetuning_task": null,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 768,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "num_attention_heads": 12,
+  "num_hidden_layers": 12,
+  "num_labels": 2,
+  "output_attentions": false,
+  "output_hidden_states": false,
+  "pruned_heads": {},
+  "torchscript": false,
+  "type_vocab_size": 2,
+  "vocab_size": 30522
+}
+
+[2020-04-07 15:17:13,980 INFO] loading weights file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-pytorch_model.bin from cache at ../temp/aa1ef1aede4482d0dbcd4d52baad8ae300e60902e88fcb0bebdec09afd232066.36ca03ab34a1a5d5fa7bc3d03d55c4fa650fed07220e2eeebc06ce58d0e9a157
+[2020-04-07 15:17:18,453 INFO] Loading test dataset from ../bert_data/how2/how2.test.0.bert.pt, number of examples: 1975
+[2020-04-07 15:17:18,787 INFO] loading file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-vocab.txt from cache at ../temp/26bc1ad6c0ac742e9b52263248f6d0f00068293b33709fae12320c0e35ccfbbb.542ce4285a40d23a559526243235df47c5f75c197f04f37d1a0c124c32c9a084
+[2020-04-07 15:40:44,040 INFO] Loading test dataset from ../bert_data/how2/how2.test.1.bert.pt, number of examples: 119
+[2020-04-07 15:42:14,045 INFO] Calculating Rouge
+[2020-04-07 15:42:14,206 INFO] Writing summaries.
+[2020-04-07 15:42:14,206 INFO] Processing summaries. Saving system files to ../temp/tmpogn5laeu/system and model files to ../temp/tmpogn5laeu/model.
+[2020-04-07 15:42:14,206 INFO] Processing files in ../temp/rouge-tmp-2020-04-07-15-42-14/candidate/.
+[2020-04-07 15:42:14,402 INFO] Saved processed files to ../temp/tmpogn5laeu/system.
+[2020-04-07 15:42:14,402 INFO] Processing files in ../temp/rouge-tmp-2020-04-07-15-42-14/reference/.
+[2020-04-07 15:42:14,590 INFO] Saved processed files to ../temp/tmpogn5laeu/model.
+[2020-04-07 15:42:14,604 INFO] Written ROUGE configuration to ../temp/tmp2vqwdutq/rouge_conf.xml
+[2020-04-07 15:42:14,604 INFO] Running ROUGE with command /home/alebryvas/w266/pyrouge/rouge/tools/ROUGE-1.5.5/ROUGE-1.5.5.pl -e /home/alebryvas/w266/pyrouge/rouge/tools/ROUGE-1.5.5/data -c 95 -m -r 1000 -n 2 -a ../temp/tmp2vqwdutq/rouge_conf.xml
+[2020-04-07 15:42:27,497 INFO] Rouges at step 41000 
+>> ROUGE-F(1/2/3/l): 22.05/4.50/18.49
+ROUGE-R(1/2/3/l): 29.40/5.89/24.60
+
+[2020-04-07 15:42:27,535 INFO] Loading checkpoint from ../models/model_step_41500.pt
+[2020-04-07 15:42:28,918 INFO] loading configuration file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-config.json from cache at ../temp/4dad0251492946e18ac39290fcfe91b89d370fee250efe9521476438fe8ca185.8f56353af4a709bf5ff0fbc915d8f5b42bfff892cbb6ac98c3c45f481a03c685
+[2020-04-07 15:42:28,919 INFO] Model config {
+  "architectures": [
+    "BertForMaskedLM"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "finetuning_task": null,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 768,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "num_attention_heads": 12,
+  "num_hidden_layers": 12,
+  "num_labels": 2,
+  "output_attentions": false,
+  "output_hidden_states": false,
+  "pruned_heads": {},
+  "torchscript": false,
+  "type_vocab_size": 2,
+  "vocab_size": 30522
+}
+
+[2020-04-07 15:42:29,201 INFO] loading weights file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-pytorch_model.bin from cache at ../temp/aa1ef1aede4482d0dbcd4d52baad8ae300e60902e88fcb0bebdec09afd232066.36ca03ab34a1a5d5fa7bc3d03d55c4fa650fed07220e2eeebc06ce58d0e9a157
+[2020-04-07 15:42:33,675 INFO] Loading test dataset from ../bert_data/how2/how2.test.0.bert.pt, number of examples: 1975
+[2020-04-07 15:42:33,973 INFO] loading file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-vocab.txt from cache at ../temp/26bc1ad6c0ac742e9b52263248f6d0f00068293b33709fae12320c0e35ccfbbb.542ce4285a40d23a559526243235df47c5f75c197f04f37d1a0c124c32c9a084
+[2020-04-07 16:03:49,050 INFO] Loading test dataset from ../bert_data/how2/how2.test.1.bert.pt, number of examples: 119
+[2020-04-07 16:05:08,355 INFO] Calculating Rouge
+[2020-04-07 16:05:08,516 INFO] Writing summaries.
+[2020-04-07 16:05:08,516 INFO] Processing summaries. Saving system files to ../temp/tmp00d6rld8/system and model files to ../temp/tmp00d6rld8/model.
+[2020-04-07 16:05:08,516 INFO] Processing files in ../temp/rouge-tmp-2020-04-07-16-05-08/candidate/.
+[2020-04-07 16:05:08,717 INFO] Saved processed files to ../temp/tmp00d6rld8/system.
+[2020-04-07 16:05:08,717 INFO] Processing files in ../temp/rouge-tmp-2020-04-07-16-05-08/reference/.
+[2020-04-07 16:05:08,905 INFO] Saved processed files to ../temp/tmp00d6rld8/model.
+[2020-04-07 16:05:08,919 INFO] Written ROUGE configuration to ../temp/tmpithijatn/rouge_conf.xml
+[2020-04-07 16:05:08,919 INFO] Running ROUGE with command /home/alebryvas/w266/pyrouge/rouge/tools/ROUGE-1.5.5/ROUGE-1.5.5.pl -e /home/alebryvas/w266/pyrouge/rouge/tools/ROUGE-1.5.5/data -c 95 -m -r 1000 -n 2 -a ../temp/tmpithijatn/rouge_conf.xml
+[2020-04-07 16:05:21,796 INFO] Rouges at step 41500 
+>> ROUGE-F(1/2/3/l): 21.82/4.37/18.26
+ROUGE-R(1/2/3/l): 28.70/5.64/24.00
+
+[2020-04-07 16:05:21,839 INFO] Loading checkpoint from ../models/model_step_42000.pt
+[2020-04-07 16:05:23,245 INFO] loading configuration file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-config.json from cache at ../temp/4dad0251492946e18ac39290fcfe91b89d370fee250efe9521476438fe8ca185.8f56353af4a709bf5ff0fbc915d8f5b42bfff892cbb6ac98c3c45f481a03c685
+[2020-04-07 16:05:23,245 INFO] Model config {
+  "architectures": [
+    "BertForMaskedLM"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "finetuning_task": null,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 768,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "num_attention_heads": 12,
+  "num_hidden_layers": 12,
+  "num_labels": 2,
+  "output_attentions": false,
+  "output_hidden_states": false,
+  "pruned_heads": {},
+  "torchscript": false,
+  "type_vocab_size": 2,
+  "vocab_size": 30522
+}
+
+[2020-04-07 16:05:23,519 INFO] loading weights file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-pytorch_model.bin from cache at ../temp/aa1ef1aede4482d0dbcd4d52baad8ae300e60902e88fcb0bebdec09afd232066.36ca03ab34a1a5d5fa7bc3d03d55c4fa650fed07220e2eeebc06ce58d0e9a157
+[2020-04-07 16:05:28,498 INFO] Loading test dataset from ../bert_data/how2/how2.test.0.bert.pt, number of examples: 1975
+[2020-04-07 16:05:28,796 INFO] loading file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-vocab.txt from cache at ../temp/26bc1ad6c0ac742e9b52263248f6d0f00068293b33709fae12320c0e35ccfbbb.542ce4285a40d23a559526243235df47c5f75c197f04f37d1a0c124c32c9a084
+[2020-04-07 16:28:07,689 INFO] Loading test dataset from ../bert_data/how2/how2.test.1.bert.pt, number of examples: 119
+[2020-04-07 16:29:36,818 INFO] Calculating Rouge
+[2020-04-07 16:29:36,991 INFO] Writing summaries.
+[2020-04-07 16:29:36,991 INFO] Processing summaries. Saving system files to ../temp/tmpqe2vkq9o/system and model files to ../temp/tmpqe2vkq9o/model.
+[2020-04-07 16:29:36,991 INFO] Processing files in ../temp/rouge-tmp-2020-04-07-16-29-36/candidate/.
+[2020-04-07 16:29:37,188 INFO] Saved processed files to ../temp/tmpqe2vkq9o/system.
+[2020-04-07 16:29:37,188 INFO] Processing files in ../temp/rouge-tmp-2020-04-07-16-29-36/reference/.
+[2020-04-07 16:29:37,375 INFO] Saved processed files to ../temp/tmpqe2vkq9o/model.
+[2020-04-07 16:29:37,390 INFO] Written ROUGE configuration to ../temp/tmpdh6ztubp/rouge_conf.xml
+[2020-04-07 16:29:37,391 INFO] Running ROUGE with command /home/alebryvas/w266/pyrouge/rouge/tools/ROUGE-1.5.5/ROUGE-1.5.5.pl -e /home/alebryvas/w266/pyrouge/rouge/tools/ROUGE-1.5.5/data -c 95 -m -r 1000 -n 2 -a ../temp/tmpdh6ztubp/rouge_conf.xml
+[2020-04-07 16:29:50,081 INFO] Rouges at step 42000 
+>> ROUGE-F(1/2/3/l): 21.28/4.26/17.88
+ROUGE-R(1/2/3/l): 27.81/5.47/23.35
+
+[2020-04-07 16:29:50,130 INFO] Loading checkpoint from ../models/model_step_45500.pt
+[2020-04-07 16:29:51,438 INFO] loading configuration file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-config.json from cache at ../temp/4dad0251492946e18ac39290fcfe91b89d370fee250efe9521476438fe8ca185.8f56353af4a709bf5ff0fbc915d8f5b42bfff892cbb6ac98c3c45f481a03c685
+[2020-04-07 16:29:51,439 INFO] Model config {
+  "architectures": [
+    "BertForMaskedLM"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "finetuning_task": null,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 768,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "num_attention_heads": 12,
+  "num_hidden_layers": 12,
+  "num_labels": 2,
+  "output_attentions": false,
+  "output_hidden_states": false,
+  "pruned_heads": {},
+  "torchscript": false,
+  "type_vocab_size": 2,
+  "vocab_size": 30522
+}
+
+[2020-04-07 16:29:51,722 INFO] loading weights file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-pytorch_model.bin from cache at ../temp/aa1ef1aede4482d0dbcd4d52baad8ae300e60902e88fcb0bebdec09afd232066.36ca03ab34a1a5d5fa7bc3d03d55c4fa650fed07220e2eeebc06ce58d0e9a157
+[2020-04-07 16:29:56,573 INFO] Loading test dataset from ../bert_data/how2/how2.test.0.bert.pt, number of examples: 1975
+[2020-04-07 16:29:56,868 INFO] loading file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-vocab.txt from cache at ../temp/26bc1ad6c0ac742e9b52263248f6d0f00068293b33709fae12320c0e35ccfbbb.542ce4285a40d23a559526243235df47c5f75c197f04f37d1a0c124c32c9a084
+[2020-04-07 17:16:43,392 INFO] Loading test dataset from ../bert_data/how2/how2.test.1.bert.pt, number of examples: 119
+[2020-04-07 17:19:41,127 INFO] Calculating Rouge
+[2020-04-07 17:19:41,287 INFO] Writing summaries.
+[2020-04-07 17:19:41,288 INFO] Processing summaries. Saving system files to ../temp/tmpx9eljezp/system and model files to ../temp/tmpx9eljezp/model.
+[2020-04-07 17:19:41,288 INFO] Processing files in ../temp/rouge-tmp-2020-04-07-17-19-41/candidate/.
+[2020-04-07 17:19:41,487 INFO] Saved processed files to ../temp/tmpx9eljezp/system.
+[2020-04-07 17:19:41,487 INFO] Processing files in ../temp/rouge-tmp-2020-04-07-17-19-41/reference/.
+[2020-04-07 17:19:41,676 INFO] Saved processed files to ../temp/tmpx9eljezp/model.
+[2020-04-07 17:19:41,690 INFO] Written ROUGE configuration to ../temp/tmp4l29fru7/rouge_conf.xml
+[2020-04-07 17:19:41,690 INFO] Running ROUGE with command /home/alebryvas/w266/pyrouge/rouge/tools/ROUGE-1.5.5/ROUGE-1.5.5.pl -e /home/alebryvas/w266/pyrouge/rouge/tools/ROUGE-1.5.5/data -c 95 -m -r 1000 -n 2 -a ../temp/tmp4l29fru7/rouge_conf.xml
+[2020-04-07 17:19:53,330 INFO] Rouges at step 45500 
+>> ROUGE-F(1/2/3/l): 23.16/5.48/20.73
+ROUGE-R(1/2/3/l): 25.27/5.95/22.63
+
