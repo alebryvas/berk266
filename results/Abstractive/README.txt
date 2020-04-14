@@ -41,3 +41,5 @@ Batch Size: 50
 Time to train: 4 days
 
 1. 210,000 candidate, gold and raw files
+2. puncyoutuberesults.196000.candidate - 4/14/2020: This is our YouTube test with additional punctuation from spacey and '[ ]' bug removal.
+
