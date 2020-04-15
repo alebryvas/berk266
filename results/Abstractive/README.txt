@@ -43,3 +43,17 @@ Time to train: 4 days
 1. 210,000 candidate, gold and raw files
 2. puncyoutuberesults.196000.candidate - 4/14/2020: This is our YouTube test with additional punctuation from spacey and '[ ]' bug removal.
 
+
+Date; 4/15/2020
+Testing: how2_100million
+Files:
+-----
+Step 150000:
+how2100millionresults.195000.candidate
+how2100millionresults.195000.gold
+how2100millionresults.195000.raw_src
+
+Step 160000:
+how2100millionresults.196000.candidate
+how2100millionresults.196000.gold
+how2100millionresults.196000.raw_src
