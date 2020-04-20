@@ -123,11 +123,29 @@ We hypothesized that the more labelled summarization data we bring, the more our
 \item \textbf{CNN/Daily Mail dataset} provided by Hermann et. al 2015, the How2 Dataset, and Wikihow. The datasets illustrate different summary styles that range from single sentence phrases to short paragraphs. CNN and Daily Mail includes a combination of news articles and story highlights written with an average length of 119 words per article and 83 words per summary.
 \item \textbf{Wikihow dataset}, a large scale text summarization containing over 200,000 single document summaries. Wikihow is a consolidated set of recent ‘How To’ instructional texts compiled from wikihow.com, ranging from topics such as ‘How to deal with coronavirus anxiety’ to ‘How to play Uno.’ The articles inside the dataset vary in size and topic but are structured to drive instructions across to the user. The first sentences of each paragraph are concatenated for form a summary for each article. 
 \item \textbf{How2 Dataset} of 8,000 videos (approximately 2,000 hours). This YouTube compilation has videos averaging 90 seconds long and 291 word transcript length. It includes human written summaries where video owners were instructed to write with the interest of the viewer in mind. Summaries were two to three sentences in length with an average length of 33 words. 
-Our research explored different combinations of the listed data during model training. 
 
 \end{itemize}
 
-As part of this research, we are exploring different combinations of data during training of summarization models and evaluate how they perform on  instructional video scripts in any domain.  
+Despite the development of instructional datasets such as Wikihow and How2, advancements in summarization have been limited by the availability of human annotated transcripts and summaries. Such datasets are difficult to obtain and expensive to create, often resulting in repetitive usage of singular-tasked and highly structured data . As seen in the How2 dataset, videos with a certain length and structured summary are used for training and testing. We introduce a new dataset, obtained from several How To and Do-It-Yourself youtube playlists and video sampling from the published HowTo100Million Dataset. The HowTo100Million Dataset is a large scale dataset of over 100 million video clips taken from narrated instructional videos across 140 categories. Our dataset incorporates a sample across all categories and utilizes the natural language annotations from automatically transcribed narrations provided by YouTube.
+
+\begin{table}[H]
+  \caption{DataSet}
+  \label{dataset}
+  \centering
+  \begin{tabular}{llll}
+    \toprule
+  Dataset Size  &  5,195 (Youtube: 1,809. HowTo100Million: 3,386)    \\
+ \midrule   
+   YouTube Min/Max Length  &  4/1,940 words     \\
+\midrule
+YouTube Average Length & 259 words    \\
+\midrule
+  HowTo100Million Sample Min/Max Length & 5/6,587 words    \\
+\midrule
+HowTo100Million Sample Average Length & 859 words   \\
+\bottomrule
+  \end{tabular}
+\end{table}
 
 \subsection{Preprocessing}
 \label{Preprocessing}
@@ -143,20 +161,20 @@ The CNN/Daily Mail dataset has been preprocessed to remove news anchor introduct
 
 \subsection{Summarization models}
 
-We used the BertSum model created by Yang trained on CNN and Daily Mail [Yang]  for our paper. This paper has 2 separate models for Extractive and abstractive summarization. Extractive summarization is generally a binary classification task with labels indicating whether sentences should be included in the summary. Abstractive summarization, on the other hand, requires language generation capabilities to create summaries containing novel words and phrases not found in the source text. 
+We used the BertSum model created by Yang trained on CNN and Daily Mail [Yang et. al.]  for our paper. This paper has 2 separate models for Extractive and abstractive summarization. Extractive summarization is generally a binary classification task with labels indicating whether sentences should be included in the summary. Abstractive summarization, on the other hand, requires language generation capabilities to create summaries containing novel words and phrases not found in the source text. 
 
 The architecture in the Figure \ref{fig:architecure} shows the BERTSUM model. It uses a novel documentation level encoder based on BERT which can encode a document and obtain representation for the sentences. CLS token is added to every sentence instead of just 1 CLS token in the original BERT model. Abstractive model uses an encoder-decoder architecture, combining the same pretrained BERT encoder with a randomly initialized Transformer decoder. The model uses a special technique where the encoder portion is almost kept same with a very low learning rate and a separate learning rate is used for the decoder to make it learn better. 
 
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.5]{bertsumarchitecture.png}
-  \caption{BERTSUM Architecture}
+  \caption{BERTSUM Architecture. From [Yang et. al.]}
   \label{fig:architecure}
 \end{figure}
 
 We used a 4-GPU Linux machine and first trained on a small model with 10,000 steps using Extractive summarization in the beginning. Extractive summarization uses BERT base uncased and took around 12 hours to train. We fine tuned the whole model including the BERT layer. We established the baseline by training on 5,000 samples from the How2 dataset. We tuned few hyper parameters with different steps, batch sizes and epochs sizes. Then, we added CNN/Dailymail,full how2 dataset and 3,097 samples from Wikihow with a 50,000 step size to the training set and got better summaries. 
 
-Finally, we used the Abstractive summarization model and all the datasets(CNN/DM, Wikihow and how2 datasets) and trained for 210,000 steps in a specific order to get novel words and to get fluent summaries.This was done at the end as the abstractive model was very big and it took 4 days to train this model.These models are very demanding in terms of both memory and computational resources. The model has more than 180 million parameters and has 2 Adam optimizers with $\beta_1$=0.9 and $\beta_2$ =0.999 for encoder and decoder respectively. Encoder uses a learning rate of 0.002 and the decoder has a learning rate of 0.2. This is to make sure that the encoder is trained with more accurate gradients when the decoder is becoming stable.
+Finally, we used the Abstractive summarization model and all the datasets(CNN/DM, Wikihow and how2 datasets) with a total of 535527 examples and trained for 210,000 steps with a training batch size of 50 and more than 20 epochs in a specific order to get novel words and to get fluent summaries.This was done at the end as the abstractive model was very big and it took 4 days to train this model. These models were very demanding in terms of both memory and computational resources. The original model had more than 180 million parameters and had 2 Adam optimizers with $\beta_1$=0.9 and $\beta_2$ =0.999 for encoder and decoder respectively. Encoder used a learning rate of 0.002 and the decoder had a learning rate of 0.2. This was to make sure that the encoder was trained with more accurate gradients when the decoder is becoming stable.
 
 \subsection{Scoring of resuls}
 \label{Scoring}
