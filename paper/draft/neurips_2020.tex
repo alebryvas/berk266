@@ -26,7 +26,7 @@
 \usepackage{nicefrac}       % compact symbols for 1/2, etc.
 \usepackage{microtype}      % microtypography
 \usepackage{graphicx}  % <--- added
-
+\usepackage{subcaption}
 
 \title{On abstractive and extractive summarization of instructional video transcripts using BERT}
 
@@ -177,6 +177,25 @@ In the beginning, we used a 4-GPU Linux machine and first trained on a small mod
 
 Finally, We used the Abstractive summarization model and all the datasets(CNN/DM, Wikihow and how2 datasets) and trained for 210,000 steps in a specific order to get novel words and to get fluent summaries.This was done at the end as the abstractive model was very big and it took 4 days to train this model.These models are very demanding in terms of both memory and computational resources. The model has around 180 million parameters and has 2 Adam optimizers with $\beta_1$=0.9 and $\beta_2$ =0.999 for encoder and the decoder respectively. Encoder uses a learning rate of 0.002 and the decoder has a learning rate of 0.2. This is to make sure that the encoder is trained with more accurate gradients when the decoder is becoming stable.
 
+\begin{figure}
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{xent.png}
+  \caption{Cross Entropy: Training vs Validation}
+  \label{fig:xent}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{accuracy.png}
+  \caption{Accuracy: Training vs Validation}
+  \label{fig:accuracy}
+\end{subfigure}
+\caption{BertSum Abstractive Summarization: Model Performance}
+\label{fig:modelperf}
+\end{figure}
+
+The cross entropy chart shows that the model is neither overfitting nor underfitting the training data. We want to see the lines meet and as seen here the model seems to be a good fit.Chart on the right shows the model’s accuracy metric on the Training and Validation sets. The model is validated using the how2 dataset against the training dataset that includes all 4 sources. The model improves as expected with more steps(or epochs). 
 
 \subsection{Evaluation}
 The BertSum model created by Yang trained on CNN and Daily Mail [Yang] resulted in SOTA rouge scores when applied to samples from those datasets. However, when tested on our How2 Test dataset, it gave very poor performance and a lack of generalization in the model (see Table~\ref{table1}). Looking at the data, we found that the model tends to pick the first one or two sentences for the summary. This can be explained by the fact that the first paragraph of a news article often captures the gits of it, which the model learned. However, in the case of our instructional videos, the first sentences would be a non-informative introduction, such as "Hi there! My name is ...". Based on that, we hypothesized that removing introuductions from the text will help improve ROUGE scores. Indeed, we got a few points better after applying  preprocessing described in the Section \ref{Preprocessing} above. Yet another improvement in the score was accomplished by taking advantage of one more observation: most curated summaries follow a template that starts with "Learn how ...". So, we added these two words in the beginning of the summary at post-processing stage. With all that, we still couldn't get higher than 22.5 ROUGE-1 F1 and 20 ROUGE-L F1. Reviewing scores and texts of individual summaries showed that the model is doing better on some topics, such as medicine, and worse on others, such as sports. Again, this makes sense for a model that is trained on news: it isn't reasonable for it to be good with yoga-specific terminology, while news about health care are very common.
