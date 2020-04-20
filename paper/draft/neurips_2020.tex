@@ -27,6 +27,7 @@
 \usepackage{microtype}      % microtypography
 \usepackage{graphicx}  % <--- added
 \usepackage{subcaption}
+\usepackage{float}
 
 \title{On abstractive and extractive summarization of instructional video transcripts using BERT}
 
@@ -157,7 +158,7 @@ As part of this research, we are exploring different combinations of data during
 Due to diversity and complexity of our input data, a lot of our effort went into building a preprocessing pipeline out of blocks described in Figure \ref{fig:Preprocessing}. The format of CNN /Daily Mail stories, wikiHow articles, and howTo scripts is different. We invested substantial efforts into converting them to a format that can be used. For the convenience of other researchers who may want to use similar methodology, we shared the results of aligning them to the same fromat that can be training. 
 
 
-\begin{figure}
+\begin{figure}[H]
   \includegraphics[width=\linewidth]{preprocessing.png}
   \caption{Preprocessing steps}
   \label{fig:Preprocessing}
@@ -172,19 +173,19 @@ The CNN/Daily Mail dataset has been preprocessed to remove news anchor introduct
 
 \subsection{Summarization models}
 
-We used an  BertSum model created by Yang trained on CNN and Daily Mail [Yang]  for our paper. This paper has 2 separate models for Extractive and abstractive summarization. Extractive summarization is generally a binary classification task with labels indicating whether sentences should be included in the summary. Abstractive summarization, on the other hand, requires language generation capabilities to create summaries containing novel words and phrases not found in the source text. 
+We used the BertSum model created by Yang trained on CNN and Daily Mail [Yang]  for our paper. This paper has 2 separate models for Extractive and abstractive summarization. Extractive summarization is generally a binary classification task with labels indicating whether sentences should be included in the summary. Abstractive summarization, on the other hand, requires language generation capabilities to create summaries containing novel words and phrases not found in the source text. 
 
-The architecture in the Figure \ref{fig:architecure} shows the BERTSUM model. It uses a novel documentation level encoder based on BERT which can encode a document and obtain representation for the sentences. CLS token is added to every sentence instead of just 1 CLS token in the original BERT model. Abstractive model uses an encoder-decoder architecture, combining the same pretrained BERT encoder with a randomly initialized Transformer decoder.The model uses a special technique where the encoder portion is almost kept same with a very low learning rate and create a separate learning rate for the decoder to make it learn better. 
+The architecture in the Figure \ref{fig:architecure} shows the BERTSUM model. It uses a novel documentation level encoder based on BERT which can encode a document and obtain representation for the sentences. CLS token is added to every sentence instead of just 1 CLS token in the original BERT model. Abstractive model uses an encoder-decoder architecture, combining the same pretrained BERT encoder with a randomly initialized Transformer decoder.The model uses a special technique where the encoder portion is almost kept same with a very low learning rate and a separate learning rate is used for the decoder to make it learn better. 
 
-\begin{figure}
+\begin{figure}[H]
   \includegraphics[width=\linewidth]{bertsumarchitecture.png}
   \caption{BERTSUM Architecture}
   \label{fig:architecure}
 \end{figure}
 
-In the beginning, we used a 4-GPU Linux machine and first trained on a small model with 10,000 steps using Extractive summarization. Extractive summarization uses BERT base uncased and took around 12 hours to train. We fine tuned the whole model including the BERT layer. We established the baseline by training on 5,000 samples from the How2 dataset. We tuned few hyper parameters with different steps, batch sizes and epochs sizes. Then, we added CNN/DM and full how2 dataset 3,097 samples from Wikihow with a 50,000 step size to the training set and got better summaries. 
+In the beginning, we used a 4-GPU Linux machine and first trained on a small model with 10,000 steps using Extractive summarization. Extractive summarization uses BERT base uncased and took around 12 hours to train. We fine tuned the whole model including the BERT layer. We established the baseline by training on 5,000 samples from the How2 dataset. We tuned few hyper parameters with different steps, batch sizes and epochs sizes. Then, we added CNN/Dailymail,full how2 dataset and 3,097 samples from Wikihow with a 50,000 step size to the training set and got better summaries. 
 
-Finally, we used the Abstractive summarization model and all the datasets(CNN/DM, Wikihow and how2 datasets) and trained for 210,000 steps in a specific order to get novel words and to get fluent summaries.This was done at the end as the abstractive model was very big and it took 4 days to train this model.These models are very demanding in terms of both memory and computational resources. The model has around 180 million parameters and has 2 Adam optimizers with $\beta_1$=0.9 and $\beta_2$ =0.999 for encoder and the decoder respectively. Encoder uses a learning rate of 0.002 and the decoder has a learning rate of 0.2. This is to make sure that the encoder is trained with more accurate gradients when the decoder is becoming stable.
+Finally, we used the Abstractive summarization model and all the datasets(CNN/DM, Wikihow and how2 datasets) and trained for 210,000 steps in a specific order to get novel words and to get fluent summaries.This was done at the end as the abstractive model was very big and it took 4 days to train this model.These models are very demanding in terms of both memory and computational resources. The model has more than 180 million parameters and has 2 Adam optimizers with $\beta_1$=0.9 and $\beta_2$ =0.999 for encoder and decoder respectively. Encoder uses a learning rate of 0.002 and the decoder has a learning rate of 0.2. This is to make sure that the encoder is trained with more accurate gradients when the decoder is becoming stable.
 
 
 \section{Experiments and Results}
@@ -192,7 +193,7 @@ Finally, we used the Abstractive summarization model and all the datasets(CNN/DM
 \subsection{Training}
 In order to create a generalizable model, we trained on large corpus of news. This allows our model to understand structured texts. We then introduced a comprehensive instructional text called Wikihow, which introduces the model to the how-to domain. Finally, we train and validate on the how-to dataset, narrowing the focus of the model to a selectively structured format. 
 
-\begin{figure}
+\begin{figure}[H]
 \centering
 \begin{subfigure}{.5\textwidth}
   \centering
@@ -210,7 +211,7 @@ In order to create a generalizable model, we trained on large corpus of news. Th
 \label{fig:modelperf}
 \end{figure}
 
-The cross entropy chart shows that the model is neither overfitting nor underfitting the training data. We want to see the lines meet and as seen here the model seems to be a good fit.Chart on the right shows the model’s accuracy metric on the Training and Validation sets. The model is validated using the how2 dataset against the training dataset that includes all 4 sources. The model improves as expected with more steps(or epochs). 
+The cross entropy chart  in the Figure \ref{fig:xent} shows that the model is neither overfitting nor underfitting the training data. We want to see the lines meet and as seen here the model seems to be a good fit. Figure \ref{fig:accuracy} shows the model’s accuracy metric on the training and validation sets. The model is validated using the how2 dataset against the training dataset that includes all 4 sources. The model improves as expected with more steps(or epochs). 
 
 
 \subsection{Evaluation}
@@ -218,7 +219,7 @@ The BertSum model created by Yang trained on CNN and Daily Mail [Yang] resulted 
 
 So, in our next series of experiments, we used our own dataset for training. We were able to push the scores higher: by 4 for ROUGE-1 and 2.5 ROUGE-L F1 on the results with and without preprocessing, compared to the CNN-trained model. Current best results was accomplished with setting shuffling parameter to false when we train on CNN, HowTo Wiki, and HowTo Video scripts. Our results for videos have reached the level of the best scores for news [1]. However, there is still some  room for improvement, as more specialized model by [Shruti et.al.] claims to go above 50 ROUGE score.
 
-\begin{table}
+\begin{table}[H]
   \caption{Comparison of results}
   \label{table1}
   \centering
@@ -267,7 +268,7 @@ rouge_evaluator = rouge.Rouge(
 
 We have observed examples of bad summaries with high ROUGE score, such as in Figure \ref{fig:funnysummary}, and good summaries with low ROUGE score. We believe that ROUGE is fine as a starting point for comparison, but the real evaluation of the output quality still requires human experts.
 
-\begin{figure}
+\begin{figure}[H]
   \includegraphics[width=\linewidth]{pic1.png}
   \caption{An example where ROUGE metric is confusing.}
   \label{fig:funnysummary}
