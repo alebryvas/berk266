@@ -188,7 +188,7 @@ Options for grading of results are as follows: 1: Bad   2: Below Average   3: Av
 \section{Experiments and Results}
 
 \subsection{Training}
-Our baseline results were obtained from applying the state-of-the art extractive presum model pretrained on CNN/DailyMail. With the super power of BERT, we hoped to also see decent scores on howto videos, but that didn’t happen. Even more was our disappointment when we looked at the summaries the model generated: useless, confusing, and extremely funny, examples of which you can see in this slide. However, that experiment produced a ton of learnings: first, we saw that the model was doing relatively good on the health domain that is substantially covered in the news, and extremely poorly with topics like sports, arts, or culinary. Next, we realized that extractive summarization is not the right choice for our goal: that’s because most youtube videos are in very casual conversational style, while summaries have to be formal; so our only way is abstractive summarization, even though it’s harder. 
+Our baseline results were obtained from applying the state-of-the art extractive BertSum model pretrained on CNN/DailyMail. With the super power of BERT, we hoped to also see decent scores on howto videos, but that didn’t happen. Even more was our disappointment when we looked at the summaries the model generated: useless, confusing, and extremely funny, examples of which you can see in this slide. However, that experiment produced a ton of learnings: first, we saw that the model was doing relatively good on the health domain that is substantially covered in the news, and extremely poorly with topics like sports, arts, or culinary. Next, we realized that extractive summarization is not the right choice for our goal: that’s because most youtube videos are in very casual conversational style, while summaries have to be formal; so our only way is abstractive summarization, even though it’s harder. 
 
 In order to create a generalizable abstractive model, we trained on large corpus of news. This allows our model to understand structured texts. We then introduced a comprehensive instructional text called Wikihow, which introduces the model to the how-to domain. Finally, we train and validate on the how-to dataset, narrowing the focus of the model to a selectively structured format. 
 
@@ -228,21 +228,21 @@ So, in our next series of experiments, we used our own dataset for training. We 
     \cmidrule(r){1-2}
     Model     & Pretraining Data     & Rouge-1 &Rouge-L\\
     \midrule
-   1. PreSum  & CNN  and Daily Mail &18.08 &18.01    \\
+   1. BertSum  & CNN  and Daily Mail &18.08 &18.01    \\
  \midrule   
-    2. PreSum with     & CNN  and Daily Mail & 20.51 &18.86     \\
+    2. BertSum with  & CNN  and Daily Mail & 20.51 &18.86     \\
       preprocessing    & & \\
 \midrule
-    3. PreSum with pre-     & CNN  and Daily Mail  & 22.47&20.07  \\
+    3. BertSum with pre-     & CNN  and Daily Mail  & 22.47&20.07  \\
       and postprocessing    & & \\
 \midrule
-  4. PreSum  & How-To, WikiHow,   & 24.4 &21.45     \\
+  4. BertSum  & How-To, WikiHow,   & 24.4 &21.45     \\
 & CNN  and Daily Mail&\\
 \midrule
-  5. PreSum with  & How-To, WikiHow, & 26.32 &22.47    \\
+  5. BertSum with  & How-To, WikiHow, & 26.32 &22.47    \\
 postprocessing &CNN  and Daily Mail &\\
 \midrule
- 6. PreSum with  no shuffling& How-To, WikiHow, & 48.26 &44.02    \\
+ 6. BertSum with  no shuffling& How-To, WikiHow, & 48.26 &44.02    \\
 and more training data &CNN  and Daily Mail &\\
      \bottomrule
   \end{tabular}
@@ -324,8 +324,6 @@ Methods in Natural Language Processing}, pages 1092–1102. Association for Comp
  
 [15] TBA WikiHow
 =======
-\section*{Appendix}  
 
-\subsection{TODO}
 
 \end{document}
