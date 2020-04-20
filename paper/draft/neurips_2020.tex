@@ -160,7 +160,8 @@ We used the BertSum model created by Yang trained on CNN and Daily Mail [Yang]  
 The architecture in the Figure \ref{fig:architecure} shows the BERTSUM model. It uses a novel documentation level encoder based on BERT which can encode a document and obtain representation for the sentences. CLS token is added to every sentence instead of just 1 CLS token in the original BERT model. Abstractive model uses an encoder-decoder architecture, combining the same pretrained BERT encoder with a randomly initialized Transformer decoder. The model uses a special technique where the encoder portion is almost kept same with a very low learning rate and a separate learning rate is used for the decoder to make it learn better. 
 
 \begin{figure}[H]
-  \includegraphics[width=\linewidth]{bertsumarchitecture.png}
+  \centering
+  \includegraphics[scale=0.5]{bertsumarchitecture.png}
   \caption{BERTSUM Architecture}
   \label{fig:architecure}
 \end{figure}
@@ -296,6 +297,8 @@ Methods in Natural Language Processing}, pages 1092–1102. Association for Comp
 
 [14] Antoine Miech, Dimitri Zhukov, Jean-Baptiste Alayrac, Makarand Tapaswi, Ivan Laptev, Josef Sivic. 2019. HowTo100M: Learning a Text-Video Embedding by Watching Hundred Million Narrated Video Clips. In ICCV 2019. https://arxiv.org/abs/1906.03327.
 
+\section*{Appendix} 
 
+\subsection{TODO}
 
 \end{document}
