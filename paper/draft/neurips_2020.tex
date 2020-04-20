@@ -29,7 +29,7 @@
 \usepackage{subcaption}
 \usepackage{float}
 
-\title{On abstractive and extractive summarization of instructional video transcripts using BERT}
+\title{Summarization of instructional video transcripts using BERT}
 
 % The \author macro works with any number of authors. There are two commands
 % used to separate the names and addresses of multiple authors: \And and \AND.
@@ -75,7 +75,7 @@
 \maketitle
 
 \begin{abstract}
-In this paper, we study abstractive summarization among a variety of “How-to” instructional videos and various written texts. Unlike traditional video summarization which focuses on condensing select video frames, our work transfers unique step-by-step learning from written articles and videos to generate short summaries given video transcripts. We showcase how a top performing document-level encoder based on BERT can boost the fluency and generalizability of summaries across a wide variety of instructional text and videos. In addition to our fine tuning and ordered training methods, we present a novel dataset with over 5,000 transcripts extracted and constructed from open-domain videos and an online dataset written by different researchers. Our video dataset spans a wide variety of categories and are highly diverse in length and style to allow for greater variation. We demonstrate that our model is highly generalizable and produces summaries comparable to human written texts. To capture the semantic adequacy of our results, we use Content F1, Meteor, and human evaluations to score our abstract summaries.
+In this paper, we study  summarization among a variety of “How-to” instructional videos and various written texts. Unlike traditional video summarization which focuses on condensing select video frames, our work transfers unique step-by-step learning from written articles and videos to generate short summaries given video transcripts. We showcase how a top performing document-level encoder based on BERT can boost the fluency and generalizability of summaries across a wide variety of instructional text and videos. In addition to our fine tuning and ordered training methods, we present a novel dataset with over 5,000 transcripts extracted and constructed from open-domain videos and an online dataset written by different researchers. Our video dataset spans a wide variety of categories and are highly diverse in length and style to allow for greater variation. We demonstrate that our model is highly generalizable and produces summaries comparable to human written texts. To capture the semantic adequacy of our results, we use Content F1, Meteor, and human evaluations to score our abstract summaries.
 
 \end{abstract}
 
@@ -103,10 +103,6 @@ Given the way we employ our pre-trained language model for abstract summarizatio
 Text summarization is the task of generating shorter versions of documents while maintaining important information [need link]. This area of research in the natural language processing community has grown rapidly over the past several years due to its practical applications among various industries such as news, reviews, education. Summarization systems take two general approaches: extractive and abstractive. Extractive summarization provides users with textual summaries that have been copied and concatenated from important parts of a document. It is a reliable task capable of maintaining sentence structure and factual correctness. Abstract summarization generates a summary with content that is not always found in the underlying text. It is a complex task that mimics human summarization by generalizing and paraphrasing key points made in the document. 
 
 Prior to 2014, summarization was centered on extracting lines from single documents using statistical models and neural networks had limited success[6, 7]. Sutskever et al. and Cho et al work on sequence to sequence models opened up new possibilities for neural networks in natural language processing. From 2014 to 2015, LSTMs (variety of RNN) became the dominant approach that achieved state of the art results. They became successful in tasks such as speech recognition, machine translation, parsing, image captioning, etc. It paved the way for abstractive summarization, which began to score competitively against extractive summarization. In 2017, Attention is all you need [8] provided a solution to the ‘fixed length vector’ problem, enabling neural networks to focus on important parts of the input for prediction tasks. Transformers with attention became more dominant for certain tasks [9].
-
-\subsection{Multi-modal Summarization}
-Research surrounding multimedia has improved greatly to bridge the gaps between multi-modal 
-content such as speech, visuals, and text. Summarization has been used in meeting records [10], sports videos [11], news [12], each encapsulating synchronized speech, videos, and subtitles. Video summaries consist of cutting important frames out of the video to create a succinct compact version. More recently, research around multimodal summarization, which combines the textual and visual modalities to align with the video content, have reached an early benchmark [13 - shruti’s work]. The How2Dataset [5] is a  collection of 2,000 hours of instructional videos with English subtitles and crowdsourced Portuguese translations. It covers different how-to domains such as sports, cooking, and education. The dataset has been created to be used as a benchmark for multimodal natural language tasks, used in various competitions and research settings. This How2Dataset precedes more recent work constructing data from instructional web videos in the HowTo100M [14] dataset. The dataset is large-scale and has 136 million video clips and transcripts of humans performing or describing various tasks, but there are no human annotated summaries. 
 
 \section{Problem Statement}
 
@@ -145,24 +141,10 @@ Our research explored different combinations of the listed data during model tra
 
 As part of this research, we are exploring different combinations of data during training of summarization models and evaluate how they perform on  instructional video scripts in any domain.  
 
-\begin{figure}
-  \includegraphics[width=\linewidth]{samplevideo.png}
-  \caption{Sample Video}
-  \label{fig:samplevideo}
-\end{figure}
-
-
 \subsection{Preprocessing}
 \label{Preprocessing}
 
-Due to diversity and complexity of our input data, a lot of our effort went into building a preprocessing pipeline out of blocks described in Figure \ref{fig:Preprocessing}. The format of CNN /Daily Mail stories, wikiHow articles, and howTo scripts is different. We invested substantial efforts into converting them to a format that can be used. For the convenience of other researchers who may want to use similar methodology, we shared the results of aligning them to the same fromat that can be training. 
-
-
-\begin{figure}[H]
-  \includegraphics[width=\linewidth]{preprocessing.png}
-  \caption{Preprocessing steps}
-  \label{fig:Preprocessing}
-\end{figure}
+Due to diversity and complexity of our input data, a lot of our effort went into building a preprocessing pipeline out of blocks. The format of CNN/Daily Mail stories, wikiHow articles, and howTo scripts is different. We invested substantial efforts into converting them to a format that can be used. For the convenience of other researchers who may want to use similar methodology, we shared the results of aligning them to the same fromat that can be training. 
 
 Another stream of work we have done at this stage is based on the heuristics observed during evaluation of results. Many scripts from YouTube (for the videos that we dupmed and HowTo100M dataset) have no punctuation, or it is not comprehensive. As a result, the model is misinterpreting text segment boundaries and produces low quality summaries or no summaries at all. With the help of Spacy library, we were able to fix this and restore sentence structures. 
 
@@ -175,7 +157,7 @@ The CNN/Daily Mail dataset has been preprocessed to remove news anchor introduct
 
 We used the BertSum model created by Yang trained on CNN and Daily Mail [Yang]  for our paper. This paper has 2 separate models for Extractive and abstractive summarization. Extractive summarization is generally a binary classification task with labels indicating whether sentences should be included in the summary. Abstractive summarization, on the other hand, requires language generation capabilities to create summaries containing novel words and phrases not found in the source text. 
 
-The architecture in the Figure \ref{fig:architecure} shows the BERTSUM model. It uses a novel documentation level encoder based on BERT which can encode a document and obtain representation for the sentences. CLS token is added to every sentence instead of just 1 CLS token in the original BERT model. Abstractive model uses an encoder-decoder architecture, combining the same pretrained BERT encoder with a randomly initialized Transformer decoder.The model uses a special technique where the encoder portion is almost kept same with a very low learning rate and a separate learning rate is used for the decoder to make it learn better. 
+The architecture in the Figure \ref{fig:architecure} shows the BERTSUM model. It uses a novel documentation level encoder based on BERT which can encode a document and obtain representation for the sentences. CLS token is added to every sentence instead of just 1 CLS token in the original BERT model. Abstractive model uses an encoder-decoder architecture, combining the same pretrained BERT encoder with a randomly initialized Transformer decoder. The model uses a special technique where the encoder portion is almost kept same with a very low learning rate and a separate learning rate is used for the decoder to make it learn better. 
 
 \begin{figure}[H]
   \includegraphics[width=\linewidth]{bertsumarchitecture.png}
@@ -183,7 +165,7 @@ The architecture in the Figure \ref{fig:architecure} shows the BERTSUM model. It
   \label{fig:architecure}
 \end{figure}
 
-In the beginning, we used a 4-GPU Linux machine and first trained on a small model with 10,000 steps using Extractive summarization. Extractive summarization uses BERT base uncased and took around 12 hours to train. We fine tuned the whole model including the BERT layer. We established the baseline by training on 5,000 samples from the How2 dataset. We tuned few hyper parameters with different steps, batch sizes and epochs sizes. Then, we added CNN/Dailymail,full how2 dataset and 3,097 samples from Wikihow with a 50,000 step size to the training set and got better summaries. 
+We used a 4-GPU Linux machine and first trained on a small model with 10,000 steps using Extractive summarization in the beginning. Extractive summarization uses BERT base uncased and took around 12 hours to train. We fine tuned the whole model including the BERT layer. We established the baseline by training on 5,000 samples from the How2 dataset. We tuned few hyper parameters with different steps, batch sizes and epochs sizes. Then, we added CNN/Dailymail,full how2 dataset and 3,097 samples from Wikihow with a 50,000 step size to the training set and got better summaries. 
 
 Finally, we used the Abstractive summarization model and all the datasets(CNN/DM, Wikihow and how2 datasets) and trained for 210,000 steps in a specific order to get novel words and to get fluent summaries.This was done at the end as the abstractive model was very big and it took 4 days to train this model.These models are very demanding in terms of both memory and computational resources. The model has more than 180 million parameters and has 2 Adam optimizers with $\beta_1$=0.9 and $\beta_2$ =0.999 for encoder and decoder respectively. Encoder uses a learning rate of 0.002 and the decoder has a learning rate of 0.2. This is to make sure that the encoder is trained with more accurate gradients when the decoder is becoming stable.
 
@@ -194,14 +176,13 @@ Finally, we used the Abstractive summarization model and all the datasets(CNN/DM
 In order to create a generalizable model, we trained on large corpus of news. This allows our model to understand structured texts. We then introduced a comprehensive instructional text called Wikihow, which introduces the model to the how-to domain. Finally, we train and validate on the how-to dataset, narrowing the focus of the model to a selectively structured format. 
 
 \begin{figure}[H]
-\centering
-\begin{subfigure}{.5\textwidth}
+\begin{subfigure}{.6\textwidth}
   \centering
   \includegraphics[width=\linewidth]{xent.png}
   \caption{Cross Entropy: Training vs Validation}
   \label{fig:xent}
 \end{subfigure}%
-\begin{subfigure}{.5\textwidth}
+\begin{subfigure}{.6\textwidth}
   \centering
   \includegraphics[width=\linewidth]{accuracy.png}
   \caption{Accuracy: Training vs Validation}
@@ -248,23 +229,6 @@ and more training data &CNN  and Daily Mail &\\
      \bottomrule
   \end{tabular}
 \end{table}
-
-In order to calculate ROUGE metrics, we used \verb+py-rouge+ package and initialized evaluator with a 100-word limit penalty as follows:
-\begin{verbatim}
-#nltk.download("punkt")
-rouge_evaluator = rouge.Rouge(
-    metrics=["rouge-n", "rouge-l"],
-    max_n=4,
-    limit_length=True,
-    length_limit=100,
-    length_limit_type="words",
-    apply_avg=True,
-    apply_best=False,
-    alpha=0.5,  # Default F1_score
-    weight_factor=1.2,
-    stemming=True,
-)
-\end{verbatim}
 
 We have observed examples of bad summaries with high ROUGE score, such as in Figure \ref{fig:funnysummary}, and good summaries with low ROUGE score. We believe that ROUGE is fine as a starting point for comparison, but the real evaluation of the output quality still requires human experts.
 
