@@ -82,19 +82,7 @@ In this paper, we study summarization of narrated instructional videos and vario
 \section{Introduction}
  
 Google Insights states that how-to-videos are one of the most top watched videos on YouTube every year. Video content is rapidly growing and continues to be a prominent source for sharing information. With the increase in content, there has been a large demand for generating attractive content, keywords, and descriptions for marketing videos on such online platforms. Currently, many descriptions for video content are human written and configured to maximize results through search engine optimization. Our research attempts to address these issues by improving the semantic quality of short, textual summaries associated with such videos. We help contextualize videos by offering meaningful descriptions to enhance user engagement and experience.
-Natural language processing tasks such as sentiment analysis, question and answering, and natural language generation have greatly advanced with the development of transformers and pre-trained models. Summarization, which is the task of condensing textual information into a short and concise form, has been improved on structured datasets. News articles and single documents are often used to enhance summary model performance. (citation). In abstractive video summarization, models which incorporate variations of LSTM and deep layered neural networks have become state of the art performers. More recently, multi-modal summarization, which combines speech, visual, and textual modalities seek to enhance summaries has emerged. However, the lack of human annotated data has limited the amount of benchmarked datasets available for such research. Additionally, most work in the field of video summarization has traditionally focused on the isolation and concatenation of important video frames using natural language processing techniques. Summarizing videos given conversational text is difficult to model. There are often inconsistencies and stylistic changes that are difficult to translate from spoken words. 
-In this work, we challenge video summarizations by transferring top performing pretrained language models in single-document domains to that of open-domain videos. To overcome the issue of limited datasets, we present a large test dataset which has been curated with samples across instructional YouTube videos and the HowTo100Million published dataset. We experimentally show that our model is generalizable across multiple domains and improves summaries in the abstractive setting. Our contributions in this work are four-fold:
-
-\begin{itemize}
-
-\item We introduce a step by step training sequence mimicking human logical learning.
-\item We create a generalizable model capable of creating comprehensive summaries for open domain videos across various categories. 
-\item Under abstractive settings, we surpass results against instructional dataset Wikihow.
-\item  We curate a dataset from various topics under how-to videos, sampling from YouTube and HowTo100Million. 
-
-\end{itemize}
-
-Given the way we employ our pre-trained language model for abstract summarization, we believe that improvements to the dataset, machine resources, or model architecture would lead to even stronger future results. 
+Natural language processing tasks such as sentiment analysis, question and answering, and natural language generation have greatly advanced with the development of transformers and pre-trained models. Summarization, which is the task of condensing textual information into a short and concise form, has been improved on structured datasets. News articles and single documents are often used to enhance summary model performance. (citation). In abstractive video summarization, models which incorporate variations of LSTM and deep layered neural networks have become state of the art performers. More recently, multi-modal summarization, which combines speech, visual, and textual modalities seek to enhance summaries has emerged. However, the lack of human annotated data has limited the amount of benchmarked datasets available for such research. Additionally, most work in the field of video summarization has traditionally focused on the isolation and concatenation of important video frames using natural language processing techniques. Summarizing videos given conversational text is difficult to model. There are often inconsistencies and stylistic changes that are difficult to translate from spoken words. In this work, we challenge video summarizations by transferring top performing pretrained language models in single-document domains to that of open-domain videos.  
 
 \section{Prior work}
 
@@ -182,11 +170,15 @@ We have observed examples of bad summaries with high ROUGE score, such as in Fig
 This is why we added another score to the rating -  Content F1, which was proposed in Carnegie Mellon university | to focus on the relevance of content. In calculation it is very similar to ROUGE, but discounts stop words and buzz words that frequently occur in the domain (in our case it was “learn from experts how to in this free online video”).  
 
 In addition to automatically calculated scores, it is important to have human judges review the results. We have been doing this at all stages, but in addition to that we wanted to come up with a more formalized, objective and reusable process for engaging independent experts. In this effort we came up with a framework of criteria for evaluation that we implemented using Python, Google Forms, and Excel spreadsheets. Summaries for the surveys are randomly sampled to avoid biases.  In order to avoid leaking a hint about whether a summary was created by a human or our AI, we lower-cased all summaries, since the output of our model is uncased. We had two types of questions: one, a version of famous Turing test, was a challenge to distinguish AI from human-curated descriptions. Second was to give quality ratings to the summaries, so that we can see where to focus for further improvements. Below are definitions of criteria for clarity:
-- Fluency: Does the text have a natural flow and rhythm?
-- Usefulness: Does it have enough information to make a user decide whether they want to spend time watching the video?
-- Succinctness: Does the text look concise or do does it have redundancy?
-- Consistency: Are there any ambiguous, confusing or contradicting statements in the text?
-- Realisticity: Is there anything that seems far-fetched and bizarre in words combinations, or do the statements look "normal"?
+\begin{itemize}
+
+\item Fluency: Does the text have a natural flow and rhythm?
+\item Usefulness: Does it have enough information to make a user decide whether they want to spend time watching the video?
+\item Succinctness: Does the text look concise or do does it have redundancy?
+\item Consistency: Are there any ambiguous, confusing or contradicting statements in the text?
+\item Realisticity: Is there anything that seems far-fetched and bizarre in words combinations, or do the statements look "normal"?
+
+\end{itemize}
 
 \section{Experiments and Results}
 
