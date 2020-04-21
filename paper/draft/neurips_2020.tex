@@ -15,7 +15,7 @@
 %     \usepackage[final]{neurips_2020}
 
 % to avoid loading the natbib package, add option nonatbib:
-     \usepackage[preprint]{neurips_2020}
+     \usepackage[nonatbib]{neurips_2020}
 
 \usepackage[utf8]{inputenc} % allow utf-8 input
 \usepackage[T1]{fontenc}    % use 8-bit T1 fonts
@@ -82,8 +82,15 @@ In this paper, we study abstractive summarization among a variety of “How-to�
 \section{Introduction}
  
 Demand for generating keywords and descriptions for user-generated instructional videos has increased as online platforms boost video marketing. Currently, many descriptions for video content are human written and configured to maximize results through search engine optimization. However, descriptions do not always provide clear information on video content and sometimes fail to capture the most important parts of the video. Our research model abstracts from video transcripts to create short descriptions with improved semantic qualities to enhance user engagement and experience.
-Summarization is the task of condensing information into a short and concise form. In abstractive video summarization, models which incorporate variations of LSTM and deep layered neural networks have become state of the art performers. However, generating summaries from conversational texts in videos are still difficult. The deficiency of human annotated data has limited the amount of benchmarked datasets available for such research. Additionally, most work in the field of video summarization has traditionally focused on the isolation and concatenation of important video frames using natural language processing techniques. There are often inconsistencies and stylistic changes that are difficult to translate from spoken words. In this work, we approach video summarizations by extending top performing single-document text summarization model to narrated instructional videos [reference]. 
 
+In our work we trained a BERT-based model  that generates summaries from ASR (speech-to-text) scripts of competitive quality to human-curated descriptions on  narrated instructional YouTube amateur videos. The contribution of this work is three-fold:
+
+\begin{itemize}
+
+\item Curate and publish a single source of truth data set of text and summaries aggregated and formatted from WikiHow articles, How2 videos, and CNN/DM stories;
+\item Finetune existing BERT-based text summarization models to make them applicable to auto-generated scripts from instructional videos; 
+\item Augment automated  metrics [Chin-Yew Lin] for evaluation of summaries with a framework for formalized expert assessment based on our research and criteria proposed by previous works.
+\end{itemize}
 
 \section{Prior work}
 
@@ -92,55 +99,39 @@ Prior to 2014, summarization was centered on extracting lines from single docume
 In abstractive video summarization, models which incorporate variations of LSTM and deep layered neural networks have become state of the art performers. However, generating summaries from conversational texts in videos are still difficult. The deficiency of human annotated data has limited the amount of benchmarked datasets available for such research. Additionally, most work in the field of video summarization has traditionally focused on the isolation and concatenation of important video frames using natural language processing techniques. There are often inconsistencies and stylistic changes that are difficult to translate from spoken words. In this work, we approach video summarizations by extending top performing single-document text summarization models to narrated instructional videos [12]. 
 
 
-\section{Problem Statement}
-
-In our work we set a challenge to train a BERT-based model  that generates summaries from ASR (speech-to-text) scripts of competitive quality to human-curated descriptions on YouTube amateur narrated instructional . This challenge breaks down to the following low-level goals:
-\begin{itemize}
-
-\item Curate and publish a single source of truth data set of text and summaries aggregated and formatted from WikiHow articles, How2 videos, and CNN/DM stories;
-\item Finetune existing BERT-based text summarization models to make them applicable to auto-generated scripts from instructional videos; 
-\item Augment automated  metrics [Chin-Yew Lin] for evaluation of summaries with a framework for formalized expert assessment based on our research and criteria proposed by previous works.
-\end{itemize}
 
 
  
 \section{Methodology}
 
-From the initial exploration and data analysis we saw that in the process of applying existing summarization models to Youtube video scripts  we will deal with challenges imposed by parsing speech-to-text output add more complexity to text summarization. For example, in one of the sample videos in our test data set closed captioning confuses the speaker’s words \emph{“how you get a text from a YouTube video”} for  \emph{“how you get attacks from a YouTube video”}. So, our work includes several iterations of the process described below:
-\begin{itemize}
-\item Collection and aggregation of data from multiple sources (HowTo video scripts, WikiHow, CNN stories, YouTube)
-\item Preprocessing of video scripts to make them fit the text summarization models (e.g. errors in word recognition, lack of punctuation in closed captioning, getting rid of special characters etc., aligning inputs aggregated from multiple sources  to common format)
-\item Text summarization models: selection, deployment, training,  and fine-tuning 
-\item Experiments: applying models to the data and evaluation of the outputs using ROUGE metrics and human expert judgements
-\end{itemize}
+Initial EDA indicates that post processing improves summarization performance. For example, in one of the sample videos in our test data set closed captioning confuses the speaker’s words \emph{“how you get a text from a YouTube video”} for  \emph{“how you get attacks from a YouTube video”}. Our work iterates through the process described in the following sections.
  
 \subsection{Data Collection}
-We hypothesized that the more labelled summarization data we bring, the more our model will benefit in the training process in terms of generalizability. 
-
+We hypothesized that the more labeled summarization data we bring, the more our model will benefit in the training process in terms of generalizability. The datasets illustrate different summary styles that range from single sentence phrases to short paragraphs. 
 
 \begin{itemize}
 
-\item \textbf{CNN/Daily Mail dataset} provided by Hermann et. al 2015, the How2 Dataset, and Wikihow. The datasets illustrate different summary styles that range from single sentence phrases to short paragraphs. CNN and Daily Mail includes a combination of news articles and story highlights written with an average length of 119 words per article and 83 words per summary.
-\item \textbf{Wikihow dataset}, a large scale text summarization containing over 200,000 single document summaries. Wikihow is a consolidated set of recent ‘How To’ instructional texts compiled from wikihow.com, ranging from topics such as ‘How to deal with coronavirus anxiety’ to ‘How to play Uno.’ The articles inside the dataset vary in size and topic but are structured to drive instructions across to the user. The first sentences of each paragraph are concatenated for form a summary for each article. 
-\item \textbf{How2 Dataset} of 8,000 videos (approximately 2,000 hours). This YouTube compilation has videos averaging 90 seconds long and 291 word transcript length. It includes human written summaries where video owners were instructed to write with the interest of the viewer in mind. Summaries were two to three sentences in length with an average length of 33 words. 
+\item \textbf{CNN/Daily Mail dataset}  [?]:. CNN and Daily Mail includes a combination of news articles and story highlights written with an average length of 119 words per article and 83 words per summary.
+\item \textbf{Wikihow dataset}: a large scale text dataset containing over 200,000 single document summaries. Wikihow is a consolidated set of recent ‘How To’ instructional texts compiled from wikihow.com, ranging from topics such as ‘How to deal with coronavirus anxiety’ to ‘How to play Uno.’ These articles vary in size and topic but are structured to drive instructions across to the user. The first sentences of each paragraph within the article are concatenated to form a summaries. 
+\item \textbf{How2 Dataset}:  This YouTube compilation has videos (8,000 videos - approximately 2,000 hours) averaging 90 seconds long and 291 words in transcript length. It includes human written summaries which video owners were instructed to write summaries to maximize the audience. Summaries are two to three sentences in length with an average length of 33 words. 
 
 \end{itemize}
 
-Despite the development of instructional datasets such as Wikihow and How2, advancements in summarization have been limited by the availability of human annotated transcripts and summaries. Such datasets are difficult to obtain and expensive to create, often resulting in repetitive usage of singular-tasked and highly structured data . As seen in the How2 dataset, videos with a certain length and structured summary are used for training and testing. We introduce a new dataset, obtained from several How To and Do-It-Yourself youtube playlists and video sampling from the published HowTo100Million Dataset. The HowTo100Million Dataset is a large scale dataset of over 100 million video clips taken from narrated instructional videos across 140 categories. Our dataset incorporates a sample across all categories and utilizes the natural language annotations from automatically transcribed narrations provided by YouTube.
+Despite the development of instructional datasets such as Wikihow and How2, advancements in summarization have been limited by the availability of human annotated transcripts and summaries. Such datasets are difficult to obtain and expensive to create, often resulting in repetitive usage of singular-tasked and highly structured data . As seen in the How2 dataset, videos with a certain length and structured summary are used for training and testing. We introduce a new dataset, obtained from several How To and Do-It-Yourself YouTube playlists and video sampling from the published HowTo100Million Dataset. The HowTo100Million Dataset is a large scale dataset of over 100 million video clips taken from narrated instructional videos across 140 categories. Our dataset incorporates a sample across all categories and utilizes the natural language annotations from automatically transcribed narrations provided by YouTube.
 
 \begin{table}[H]
-  \caption{DataSet}
+  \caption{DataSet details}
   \label{dataset}
   \centering
   \begin{tabular}{llll}
     \toprule
-  Dataset Size  &  5,195 (Youtube: 1,809. HowTo100Million: 3,386)    \\
+  Dataset Size  &  5,195 videos (Youtube: 1,809. HowTo100Million: 3,386)    \\
  \midrule   
-   YouTube Min/Max Length  &  4/1,940 words     \\
+   YouTube Min / Max Length  &  4 / 1,940 words     \\
 \midrule
 YouTube Average Length & 259 words    \\
 \midrule
-  HowTo100Million Sample Min/Max Length & 5/6,587 words    \\
+  HowTo100Million Sample Min / Max Length & 5 / 6,587 words    \\
 \midrule
 HowTo100Million Sample Average Length & 859 words   \\
 \bottomrule
@@ -150,20 +141,24 @@ HowTo100Million Sample Average Length & 859 words   \\
 \subsection{Preprocessing}
 \label{Preprocessing}
 
-Due to diversity and complexity of our input data, a lot of our effort went into building a preprocessing pipeline out of blocks. The format of CNN/Daily Mail stories, wikiHow articles, and howTo scripts is different. We invested substantial efforts into converting them to a format that can be used. For the convenience of other researchers who may want to use similar methodology, we shared the results of aligning them to the same fromat that can be training. 
+Due to diversity and complexity of our input data, we built a preprocessing pipeline for aligning the data to a common format. We observed issues including lack of punctuation, incorrect words and unnecessary introduction such as greetings. With these challenges, the model misinterprets text segment boundaries and produces poor quality summaries or fails to produce summaries at all. Furthermore, we faced challenges translating conversational language into written text. We clean and restore sentence structure using spacy as shown in the figure \ref{fig:preprocessing}.
 
-Another stream of work we have done at this stage is based on the heuristics observed during evaluation of results. Many scripts from YouTube (for the videos that we dupmed and HowTo100M dataset) have no punctuation, or it is not comprehensive. As a result, the model is misinterpreting text segment boundaries and produces low quality summaries or no summaries at all. With the help of Spacy library, we were able to fix this and restore sentence structures. 
+\begin{figure}[H]
+  \includegraphics[width=\linewidth]{preprocessing.PNG}
+  \caption{Preprocessing.}
+  \label{fig:preprocessing}
+\end{figure}
 
-We expected the differences in conversational style of the video scripts and writtent text of news stories (on which the models were pretrained) will impact quality of the output. In our first experiments with applying extractive summarization model that was pretrained on CNN/DM dataset, it manifested in a very distinct way. The model considered the first one-two sentences to be very important for summaries (this phenomena is referred to byt [15] as N-lead, where N is the number of important first sentences), and we ended up with getting many summaries looking like "hi!" and "hello, this is <first and last name>". It inspired us for implementing an improvement by using entity detection   \verb+spacy+ and \verb+nltk+ to remove introduction from the text that we feed to summarization model.  
+The differences in conversational style of the video scripts and writtent text of news stories (on which the models were pretrained) impacted quality of the output. In our first experiments with applying extractive summarization model that was pretrained on CNN/DM dataset, it manifested in a very distinct way. The model considered the first one-two sentences to be very important for summaries (this phenomena is referred to byt [15] as N-lead, where N is the number of important first sentences), and we ended up with getting many summaries looking like "hi!" and "hello, this is <first and last name>". It inspired us for implementing an improvement by using entity detection   \verb+spacy+ and \verb+nltk+ to remove introduction from the text that we feed to summarization model.  
 
 The CNN/Daily Mail dataset has been preprocessed to remove news anchor introductions. For our Wikihow and How2 transcripts, we  did tokenization using the Stanford Core NLP toolkit and preprocessed the data in the same method used by (See et. al.).  
 
 
 \subsection{Summarization models}
 
-We used the BertSum model created by Yang trained on CNN and Daily Mail [Yang et. al.]  for our paper. This paper has 2 separate models for Extractive and abstractive summarizations and we have used both of them in this paper. 
+We used the BertSum model created by Yang trained on CNN and Daily Mail [Yang et. al.]  for our research. This paper has 2 separate models for Extractive and Abstractive summarizations and we have used both of them in this paper. 
 
-We used a 4-GPU Linux machine and first trained on a small model with 10,000 steps using Extractive summarization in the beginning. Extractive summarization uses BERT base uncased and took around 12 hours to train. We fine tuned the whole model including the BERT layer. We established the baseline by training on 5,000 samples from the How2 dataset. We tuned few hyper parameters with different steps, batch sizes and epochs sizes. Then, we added CNN/Dailymail,full how2 dataset and 3,097 samples from Wikihow with a 50,000 step size to the training set and got better summaries. 
+We used a 4-GPU Linux machine and first trained on a small subset of the data with 10,000 steps using Extractive summarization in the beginning. Extractive summarization uses BERT base uncased and took around 12 hours to train. We fine tuned the whole model including the BERT layer. We established the baseline by training on 5,000 samples from the How2 dataset. We tuned few hyper parameters with different steps, batch sizes and epochs sizes. Then, we added CNN/Dailymail,full how2 dataset and 3,097 samples from Wikihow with a 50,000 step size to the training set and got better summaries. 
 
 Finally, we used the Abstractive summarization model and all the datasets(CNN/DM, Wikihow and how2 datasets) with a total of 535527 examples and trained for 210,000 steps with a training batch size of 50 and more than 20 epochs in a specific order to get novel words and to get fluent summaries.This was done at the end as the abstractive model was very big and it took 4 days to train this model. These models were very demanding in terms of both memory and computational resources. The original model had more than 180 million parameters and had 2 Adam optimizers with $\beta_1$=0.9 and $\beta_2$ =0.999 for encoder and decoder respectively. Encoder used a learning rate of 0.002 and the decoder had a learning rate of 0.2. This was to make sure that the encoder was trained with more accurate gradients when the decoder was becoming stable.
 
