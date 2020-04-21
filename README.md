@@ -1,1 +1,3 @@
-# berk266
+# Summarization of instructional video transcripts using BERT
+
+
