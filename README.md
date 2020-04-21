@@ -11,9 +11,13 @@ For shuffle logic:src/models/data_loader.py
 
 ## Preprocessed data
 We have already preprocessed the data for CNN/Dailymail, WikiHow and How2datasets and they are available in the repo at the below locations. 
+
 CNN/DM - cnndm/
+
 How2 dataset - how2_all/ and how2dataset/
+
 WikiHow datasets - wikihow all/ and wikihow_train/
+
 How2 100million - 100million/
 
 You can train/validate and test datasets from the above folders and apply them to the models directly using the code below .
