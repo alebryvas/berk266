@@ -9,39 +9,14 @@ For Preprocessing:
 2 files have been changed - src/preprocess.py and src/prepro/data_builder.py
 For shuffle logic:src/models/data_loader.py
 
-## Preprocess the data
+## Preprocessed data
+We have already preprocessed the data for CNN/Dailymail, WikiHow and How2datasets and they are available in the repo at the below locations. 
+CNN/DM - cnndm/
+How2 dataset - how2_all/ and how2dataset/
+WikiHow datasets - wikihow all/ and wikihow_train/
+How2 100million - 100million/
 
-#### Step 1 Download Stories
-Download and unzip the `stories` directories from [here](http://cs.nyu.edu/~kcho/DMQA/) for both CNN and Daily Mail. Put all  `.story` files in one directory (e.g. `../raw_stories`)
-
-####  Step 2. Download Stanford CoreNLP
-We will need Stanford CoreNLP to tokenize the data. Download it [here](https://stanfordnlp.github.io/CoreNLP/) and unzip it. Then add the following command to your bash_profile:
-```
-export CLASSPATH=/path/to/stanford-corenlp-full-2017-06-09/stanford-corenlp-3.8.0.jar
-```
-replacing `/path/to/` with the path to where you saved the `stanford-corenlp-full-2017-06-09` directory. 
-
-####  Step 3. Sentence Splitting and Tokenization
-
-```
-python preprocess.py -mode tokenize -raw_path RAW_PATH -save_path TOKENIZED_PATH
-```
-
-* `RAW_PATH` is the directory containing story files (`../raw_stories`), `JSON_PATH` is the target directory to save the generated json files (`../merged_stories_tokenized`)
-
-
-####  Step 4. Format to Simpler Json Files
- 
-```
-python preprocess.py -mode format_to_lines -raw_path RAW_PATH -save_path JSON_PATH -n_cpus 1 -use_bert_basic_tokenizer false -map_path MAP_PATH
-```
-
-* `RAW_PATH` is the directory containing tokenized files (`../merged_stories_tokenized`), `JSON_PATH` is the target directory to save the generated json files (`../json_data/cnndm`), `MAP_PATH` is the  directory containing the urls files (`../urls`)
-
-####  Step 5. Format to PyTorch Files
-```
-python preprocess.py -mode format_to_bert -raw_path JSON_PATH -save_path BERT_DATA_PATH  -lower -n_cpus 1 -log_file ../logs/preprocess.log
-```
+You can train/validate and test datasets from the above folders and apply them to the models directly using the code below .
 
 ## Training the model
 ```
