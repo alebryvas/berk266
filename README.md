@@ -4,7 +4,7 @@
 
 We took the original BERTSUM paper and it is available at code\bertsumabs folder. The original source code had compliation errors when we compiled them in a Ubuntu VM machine. We made multiple changes for compliation. In addition we added the preprocessing logic and removed shuffle logic. Shuffle logic randomly shuffles the input datafiles. We wanted to train the model in a specific order.
 
-####Changes files:
+#### Changes files:
 For Preprocessing:
 2 files have been changed - src/preprocess.py and src/prepro/data_builder.py
 For shuffle logic:src/models/data_loader.py
