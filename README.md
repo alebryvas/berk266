@@ -2,12 +2,13 @@
 
 ## Source Code:
 
-We took the original BERTSUM paper and it is available at code\bertsumabs folder. **This code is for EMNLP 2019 paper [Text Summarization with Pretrained Encoders](https://arxiv.org/abs/1908.08345)**. The original source code had compliation errors when we compiled them in a Ubuntu VM machine. We made multiple changes for compliation. In addition we added the preprocessing logic and removed shuffle logic. Shuffle logic randomly shuffles the input datafiles. We wanted to train the model in a specific order.
+We took the original BERTSUM paper and it is available at code/bertsumabs folder. **This code is for EMNLP 2019 paper [Text Summarization with Pretrained Encoders](https://arxiv.org/abs/1908.08345)**. The original source code had compliation errors when we compiled them in a Ubuntu VM machine. We made multiple changes for compliation. In addition we added the preprocessing logic and removed shuffle logic. Shuffle logic randomly shuffles the input datafiles. We wanted to train the model in a specific order.
 
+Furthermore, we used python scripts from downloading the youtube transcripts, descriptions, title etc and the source code for that is checked in to the code/datacollection/ folder
 #### Changed files:
 For Preprocessing:
-2 files have been changed - src/preprocess.py and src/prepro/data_builder.py
-For shuffle logic:src/models/data_loader.py
+2 files have been changed - code/bertsumabs/src/preprocess.py and code/bertsumabs/src/prepro/data_builder.py
+For shuffle logic:code/bertsumabs/src/models/data_loader.py
 
 ## Preprocessed data
 We have already preprocessed the data for CNN/Dailymail, WikiHow, How2 and How2 100million datasets and they are available in the repo at the below locations:
@@ -19,6 +20,8 @@ We have already preprocessed the data for CNN/Dailymail, WikiHow, How2 and How2 
 * WikiHow datasets - wikihow all/ and wikihow_train/
 
 * How2 100million - 100million/
+
+
 
 If you want to preprocess the data yourself, please check out our paper at the url https://github.com/alebryvas/berk266/blob/master/paper/draft/neurips_2020.pdf.
 
