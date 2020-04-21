@@ -4,23 +4,23 @@
 
 We took the original BERTSUM paper and it is available at code\bertsumabs folder. **This code is for EMNLP 2019 paper [Text Summarization with Pretrained Encoders](https://arxiv.org/abs/1908.08345)**The original source code had compliation errors when we compiled them in a Ubuntu VM machine. We made multiple changes for compliation. In addition we added the preprocessing logic and removed shuffle logic. Shuffle logic randomly shuffles the input datafiles. We wanted to train the model in a specific order.
 
-#### Changes files:
+#### Changed files:
 For Preprocessing:
 2 files have been changed - src/preprocess.py and src/prepro/data_builder.py
 For shuffle logic:src/models/data_loader.py
 
 ## Preprocessed data
-We have already preprocessed the data for CNN/Dailymail, WikiHow, How2 and How2 100million datasets and they are available in the repo at the below locations. 
+We have already preprocessed the data for CNN/Dailymail, WikiHow, How2 and How2 100million datasets and they are available in the repo at the below locations:
 
-CNN/DM - cnndm/
+* CNN/DM - cnndm/
 
-How2 dataset - how2_all/ and how2dataset/
+* How2 dataset - how2_all/ and how2dataset/
 
-WikiHow datasets - wikihow all/ and wikihow_train/
+* WikiHow datasets - wikihow all/ and wikihow_train/
 
-How2 100million - 100million/
+* How2 100million - 100million/
 
-You can train/validate and test datasets from the above folders and apply them to the models directly using the code below .
+You can train/validate and test datasets from the above folders and apply them to the models directly using the code below.
 
 ## Training the model
 ```
