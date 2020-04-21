@@ -22,16 +22,16 @@ from prepro.utils import _get_word_ngrams
 
 import xml.etree.ElementTree as ET
 
-nyt_remove_words = ["photo", "graph", "chart", "map", "table", "drawing", "@article", "@summary"]  # Bryan added @article to be removed
+nyt_remove_words = ["photo", "graph", "chart", "map", "table", "drawing", "@article", "@summary"]
 
 
 def recover_from_corenlp(s):
     s = re.sub(r' \'{\w}', '\'\g<1>', s)
     s = re.sub(r'\'\' {\w}', '\'\'\g<1>', s)
 
-#################################################################### BRYAN's files for WIKIHOW
+# WIKIHOW
 
-def load_json(p, lower):    # This has been changed for better preprocessing.
+def load_jsonwiki(p, lower):   
     source = []
     tgt = []
     flag = False
@@ -42,19 +42,19 @@ def load_json(p, lower):    # This has been changed for better preprocessing.
         if (lower):
             tokens = [t.lower() for t in tokens]
             print("tokens are now this:", tokens)
-        
-        if (tokens[0] == '@summary'):           # Bryan change this to @highlight (original)
+
+        if (tokens[0] == '@summary'):
             flag = True
-                                         # Can't do this tokens.remove('@summary') messes up indexing
+
             tgt.append([])
-                                        # Bryan removed 'continue'
-                
-        if (tokens[0] == '@article'):  # Bryan added these lines
+
+
+        if (tokens[0] == '@article'):
             flag = False
-                                          # Cannot do tokens.remove('@article') because it messes up indexing later
+
             source.append(tokens[1:])
             continue
-            
+
         if (flag):
             print("tokens:", tokens)
             if (tokens[0] != '@summary'):
@@ -69,33 +69,32 @@ def load_json(p, lower):    # This has been changed for better preprocessing.
     tgt = [clean(' '.join(sent)).split() for sent in tgt]
     return source, tgt
 
-# ########################################################################## End Bryan's Files
 
-######################################## Ingestion for HOW2DATASET
+# How2 Dataset
 
-# def load_json(p, lower):
-#     source = []
-#     tgt = []
-#     flag = False
-#     for sent in json.load(open(p))['sentences']:
-#         tokens = [t['word'] for t in sent['tokens']]
-#         if (lower):
-#             tokens = [t.lower() for t in tokens]
-#         if (tokens[0] == '@highlight'):
-#             flag = True
-#             tgt.append([])
-#             continue
-#         if (flag):
-#             tgt[-1].extend(tokens)
-#         else:
-#             source.append(tokens)
+def load_json1(p, lower):
+    source = []
+    tgt = []
+    flag = False
+    for sent in json.load(open(p))['sentences']:
+        tokens = [t['word'] for t in sent['tokens']]
+        if (lower):
+            tokens = [t.lower() for t in tokens]
+        if (tokens[0] == '@highlight'):
+            flag = True
+            tgt.append([])
+            continue
+        if (flag):
+            tgt[-1].extend(tokens)
+        else:
+            source.append(tokens)
 
-#     source = [clean(' '.join(sent)).split() for sent in source]
-#     tgt = [clean(' '.join(sent)).split() for sent in tgt]
-#     return source, tgt
+    source = [clean(' '.join(sent)).split() for sent in source]
+    tgt = [clean(' '.join(sent)).split() for sent in tgt]
+    return source, tgt
 
 
-##############################################################################
+
 
 
 def load_xml(p):
@@ -161,7 +160,7 @@ def tokenize(args):
     print("Making list of files to tokenize...")
     with open("mapping_for_corenlp.txt", "w") as f:
         for s in stories:
-            if (not s.endswith('txt')):       # Bryan change this back to story if necessary.
+            # if (not s.endswith('txt')):
                 continue
             f.write("%s\n" % (os.path.join(stories_dir, s)))
     command = ['java', 'edu.stanford.nlp.pipeline.StanfordCoreNLP', '-annotators', 'tokenize,ssplit',
@@ -424,9 +423,12 @@ def format_to_lines(args):
 def _format_to_lines(params):
     f, args = params
     print(f)
-    source, tgt = load_json(f, args.lower)
-    return {'src': source, 'tgt': tgt}
-
+    if (args.datasource == 'wikihow'):
+        source, tgt = load_jsonwiki(f, args.lower)
+        return {'src': source, 'tgt': tgt}
+    else:
+        source, tgt = load_json(f, args.lower)
+        return {'src': source, 'tgt': tgt}
 
 
 
@@ -437,6 +439,7 @@ def format_xsum_to_lines(args):
         datasets = ['train', 'test', 'valid']
 
     corpus_mapping = json.load(open(pjoin(args.raw_path, 'XSum-TRAINING-DEV-TEST-SPLIT-90-5-5.json')))
+
 
     for corpus_type in datasets:
         mapped_fnames = corpus_mapping[corpus_type]
