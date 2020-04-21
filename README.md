@@ -2,7 +2,7 @@
 
 ## Source Code:
 
-We took the original BERTSUM paper and it is available at code\bertsumabs folder. The original source code had compliation errors when we compiled them in a Ubuntu VM machine. We made multiple changes for compliation. In addition we added the preprocessing logic and removed shuffle logic. Shuffle logic randomly shuffles the input datafiles. We wanted to train the model in a specific order.
+We took the original BERTSUM paper and it is available at code\bertsumabs folder. **This code is for EMNLP 2019 paper [Text Summarization with Pretrained Encoders](https://arxiv.org/abs/1908.08345)**The original source code had compliation errors when we compiled them in a Ubuntu VM machine. We made multiple changes for compliation. In addition we added the preprocessing logic and removed shuffle logic. Shuffle logic randomly shuffles the input datafiles. We wanted to train the model in a specific order.
 
 #### Changes files:
 For Preprocessing:
