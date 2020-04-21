@@ -98,20 +98,15 @@ Prior to 2014, summarization was centered on extracting lines from single docume
 
 In abstractive video summarization, models which incorporate variations of LSTM and deep layered neural networks have become state of the art performers. However, generating summaries from conversational texts in videos are still difficult. The deficiency of human annotated data has limited the amount of benchmarked datasets available for such research. Additionally, most work in the field of video summarization has traditionally focused on the isolation and concatenation of important video frames using natural language processing techniques. There are often inconsistencies and stylistic changes in spoken langauge that are difficult to translate into written text. In this work, we approach video summarizations by extending top performing single-document text summarization models [12] to narrated instructional videos.
 
-
-
-
  
 \section{Methodology}
 
-Initial exploratory data analysis indicates that post processing improves summarization performance. For example, in one of the sample videos in our test data set closed captioning confuses the speaker’s words \emph{“how you get a text from a YouTube video”} for  \emph{“how you get attacks from a YouTube video”}. Our work iterates through the process described in the following sections.
- 
 \subsection{Data Collection}
 We hypothesized that the more labeled summarization data we bring, the more our model will benefit in the training process in terms of generalizability. The datasets illustrate different summary styles that range from single sentence phrases to short paragraphs. 
 
 \begin{itemize}
 
-\item \textbf{CNN/Daily Mail dataset}  [?]:. CNN and Daily Mail includes a combination of news articles and story highlights written with an average length of 119 words per article and 83 words per summary.
+\item \textbf{CNN/Daily Mail dataset}: CNN and Daily Mail includes a combination of news articles and story highlights written with an average length of 119 words per article and 83 words per summary.
 \item \textbf{Wikihow dataset}: a large scale text dataset containing over 200,000 single document summaries. Wikihow is a consolidated set of recent ‘How To’ instructional texts compiled from wikihow.com, ranging from topics such as ‘How to deal with coronavirus anxiety’ to ‘How to play Uno.’ These articles vary in size and topic but are structured to drive instructions across to the user. The first sentences of each paragraph within the article are concatenated to form a summaries. 
 \item \textbf{How2 Dataset}:  This YouTube compilation has videos (8,000 videos - approximately 2,000 hours) averaging 90 seconds long and 291 words in transcript length. It includes human written summaries which video owners were instructed to write summaries to maximize the audience. Summaries are two to three sentences in length with an average length of 33 words. 
 
@@ -153,7 +148,6 @@ Due to diversity and complexity of our input data, we built a preprocessing pipe
 
 The differences in conversational style of the video scripts and transcribed news stories (on which the models were pretrained) impacted the quality of the model output. In our initial application of the extractive summarization model pretrained on CNN/DM dataset, stylistic errors manifested in a distinct way. The model considered initial introductory sentences to be important in generating summaries (this phenomena is referred to byt [15] as N-lead, where N is the number of important first sentences). Our model generated short, simple worded summaries such as "hi!" and "hello, this is <first and last name>". In order to improve the quality and score of our model output, we used entity detection   \verb+spacy+ and \verb+nltk+ to remove introductions from the CNN/Daily Mail  input to our summarization model. We did not anonymize entities in our datasets. We split sentences and tokenized using the Stanford Core NLP toolkit on all datasets and preprocessed the data in the same method used by (See et. al.).  
 
-
 \subsection{Summarization models}
 
 We utilized the BertSum models created by Yang et al[1] for our research. This includes both Extractive and Abstractive summarization models, which employs a documentation level encoder based on Bert. Novelty in transformer architecture comes from a pretrained BERT encoder with a randomly initialized Transformer decoder. The model uses two different learning rates: a low rate for the encoder and a separate higher rate for the decoder to enhance learning.
@@ -168,19 +162,7 @@ Results were scored using ROUGE. While we expected a correlation between good su
 
 Additionally, we added Content F1 scoring, a metric proposed by Carnegie Mellon University to focus on the relevance of content. Similar to ROUGE, Content F1 scores summaries with a weighted f-score and a penalty for incorrect word order. It also discounts stop and buzz words that frequently occur in the how-to domain, such as “learn from experts how to in this free online video”.  
 
-In addition to automatically calculated scores, it is important to have human judges review the results. We created a framework of criteria for evaluation using Python, Google Forms, and Excel spreadsheets. Summaries for the surveys are randomly sampled from our dataset to avoid biases. In order to avoid asymmetrical information between human versus machine generated summaries, we removed capitalized text. We used two types of questions: A Turing test question for participants to distinguish AI from human-generated descriptions. The second involves selecting quality ratings for summaries. Below are definitions of criteria for clarity:
-\begin{itemize}
-
-\item Fluency: Does the text have a natural flow and rhythm?
-\item Usefulness: Does it have enough information to make a user decide whether they want to spend time watching the video?
-\item Succinctness: Does the text look concise or do does it have redundancy?
-\item Consistency: Are there any ambiguous, confusing or contradicting statements in the text?
-\item Realisticity: Is there anything that seems far-fetched and bizarre in words combinations, or do the statements look "normal"?
-
-\end{itemize}
-
-Options for grading of results are as follows: 1: Bad   2: Below Average   3: Average   4: Good   5: Great.
-
+In addition to automatically calculated scores, it is important to have human judges review the results. We created a framework of criteria for evaluation using Python, Google Forms, and Excel spreadsheets. Summaries for the surveys are randomly sampled from our dataset to avoid biases. In order to avoid asymmetrical information between human versus machine generated summaries, we removed capitalized text. We used two types of questions: A Turing test question for participants to distinguish AI from human-generated descriptions. The second involves selecting quality ratings for summaries. Please see appendix for definitions.
 
 \section{Experiments and Results}
 
@@ -367,5 +349,22 @@ The architecture in the Figure \ref{fig:architecure} shows the BERTSUM model. It
 \item Reference 2: hide thick arms by wearing clothes sleeves that almost reach the waist to camouflage the area .conceal the thickness at the top of the arms with tips from an image consultant in this free video on fashion.
 
 \end{itemize}
+
+\subsection{Evaluation Criteria Details}
+
+Below are definitions of criteria for clarity:
+\begin{itemize}
+
+\item Fluency: Does the text have a natural flow and rhythm?
+\item Usefulness: Does it have enough information to make a user decide whether they want to spend time watching the video?
+\item Succinctness: Does the text look concise or do does it have redundancy?
+\item Consistency: Are there any ambiguous, confusing or contradicting statements in the text?
+\item Realisticity: Is there anything that seems far-fetched and bizarre in words combinations, or do the statements look "normal"?
+
+\end{itemize}
+
+Options for grading of results are as follows: 1: Bad   2: Below Average   3: Average   4: Good   5: Great.
+
+
 
 \end{document}
