@@ -20,6 +20,8 @@ We have already preprocessed the data for CNN/Dailymail, WikiHow, How2 and How2 
 
 * How2 100million - 100million/
 
+If you want to preprocess the data yourself, please check out our paper at the url https://github.com/alebryvas/berk266/blob/master/paper/draft/neurips_2020.pdf.
+
 You can train/validate and test datasets from the above folders and apply them to the models directly using the code below.
 
 ## Training the model
