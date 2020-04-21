@@ -15,7 +15,7 @@
 %     \usepackage[final]{neurips_2020}
 
 % to avoid loading the natbib package, add option nonatbib:
-     \usepackage[nonatbib]{neurips_2020}
+     \usepackage[preprint]{neurips_2020}
 
 \usepackage[utf8]{inputenc} % allow utf-8 input
 \usepackage[T1]{fontenc}    % use 8-bit T1 fonts
@@ -40,13 +40,13 @@
 % \AND instead of \And before the third author name.
 
 \author{%
-  David S.~Hippocampus\thanks{Use  for providing further information
-    about author (webpage, alternative address)---\emph{not} for acknowledging
-    funding agencies.} \\
-  Department of Computer Science\\
-  Cranberry-Lemon University\\
-  Pittsburgh, PA 15213 \\
-  \texttt{hippo@cs.cranberry-lemon.edu} \\
+ 
+  Alexandra Savelieva*\AND
+  Bryan Au-Yeung*\AND
+  Vasanth Ramani* \\
+\\
+**equal contribution 
+
   % examples of more authors
   % \And
   % Coauthor \\
@@ -70,28 +70,22 @@
   % \texttt{email} \\
 }
 
+
 \begin{document}
 
 \maketitle
 
 \begin{abstract}
-In this paper, we study summarization of narrated instructional videos and various written texts. Unlike traditional video summarization which focuses on condensing select video frames, our work transfers unique step-by-step learning from written articles and videos to generate short summaries given video transcripts. We showcase how a top performing document-level encoder based on BERT can boost the fluency and generalizability of summaries across a wide variety of instructional text and videos. In addition to our fine tuning and ordered training methods, we present a novel dataset with over 5,000 transcripts extracted and constructed from open-domain videos and an online dataset written by different researchers. We demonstrate that our model is highly generalizable and produces summaries comparable to human written texts. To capture the semantic adequacy of our results, we use Content F1, Meteor, and human evaluations with a new framework that we designed for this project to score summaries.
-
+In this paper, we study abstractive summarization among a variety of “How-to” instructional videos and various written texts. Unlike traditional video summarization which focuses on condensing select video frames, our work uses step by step learning from a combination of news stories, Wikihow articles, and video transcripts. We showcase how a top performing document-level encoder based on BERT can boost the fluency and generalizability of summaries across a wide variety of instructional text and videos. In addition to our fine tuning and order preserving training methods, we present a novel dataset with over 5,000 transcripts extracted and constructed from open-domain videos from YouTube and the HowTo100Million Dataset. Our video dataset spans a variety of categories and is highly diverse in length and style. We demonstrate that our model is highly generalizable and produces summaries comparable to human written texts. To score the semantic adequacy of our abstract summaries, we use Content F1, Meteor, and human evaluations.
 \end{abstract}
 
 \section{Introduction}
  
 Google Insights states that how-to-videos are one of the most top watched videos on YouTube every year. Video content is rapidly growing and continues to be a prominent source for sharing information. With the increase in content, there has been a large demand for generating attractive content, keywords, and descriptions for marketing videos on such online platforms. Currently, many descriptions for video content are human written and configured to maximize results through search engine optimization. Our research attempts to address these issues by improving the semantic quality of short, textual summaries associated with such videos. We help contextualize videos by offering meaningful descriptions to enhance user engagement and experience.
 
-Natural language processing tasks such as sentiment analysis, question and answering, and natural language generation have greatly advanced with the development of transformers and pre-trained models. Summarization, which is the task of condensing textual information into a short and concise form, has been improved on structured datasets. News articles and single documents are often used to enhance summary model performance. (citation). In abstractive video summarization, models which incorporate variations of LSTM and deep layered neural networks have become state of the art performers. More recently, multi-modal summarization, which combines speech, visual, and textual modalities seek to enhance summaries has emerged. However, the lack of human annotated data has limited the amount of benchmarked datasets available for such research. Additionally, most work in the field of video summarization has traditionally focused on the isolation and concatenation of important video frames using natural language processing techniques. Summarizing videos given conversational text is difficult to model. There are often inconsistencies and stylistic changes that are difficult to translate from spoken words. In this work, we challenge video summarizations by transferring top performing pretrained language models in single-document domains to that of open-domain videos.  
-
 \section{Prior work}
 
-\subsection{Text Summarization}
-
-Text summarization is the task of generating shorter versions of documents while maintaining important information [need link]. This area of research in the natural language processing community has grown rapidly over the past several years due to its practical applications among various industries such as news, reviews, education. Summarization systems take two general approaches: extractive and abstractive. Extractive summarization provides users with textual summaries that have been copied and concatenated from important parts of a document. It is a reliable task capable of maintaining sentence structure and factual correctness. Abstract summarization generates a summary with content that is not always found in the underlying text. It is a complex task that mimics human summarization by generalizing and paraphrasing key points made in the document. 
-
-Prior to 2014, summarization was centered on extracting lines from single documents using statistical models and neural networks had limited success[6, 7]. Sutskever et al. and Cho et al work on sequence to sequence models opened up new possibilities for neural networks in natural language processing. From 2014 to 2015, LSTMs (variety of RNN) became the dominant approach that achieved state of the art results. They became successful in tasks such as speech recognition, machine translation, parsing, image captioning, etc. It paved the way for abstractive summarization, which began to score competitively against extractive summarization. In 2017, Attention is all you need [8] provided a solution to the ‘fixed length vector’ problem, enabling neural networks to focus on important parts of the input for prediction tasks. Transformers with attention became more dominant for certain tasks [9].
+Natural language processing tasks such as sentiment analysis, question and answering, and natural language generation have greatly advanced with the development of transformers and pre-trained models. Summarization, which is the task of condensing textual information into a short and concise form, has made rapid improvements on news and document datasets. In abstractive video summarization, models which incorporate variations of LSTM and deep layered neural networks have become state of the art performers. However, generating summaries from conversational texts in videos are still difficult to model. The lack of human annotated data has limited the amount of benchmarked datasets available for such research. Additionally, most work in the field of video summarization has traditionally focused on the isolation and concatenation of important video frames using natural language processing techniques. There are often inconsistencies and stylistic changes that are difficult to translate from spoken words. In this work, we challenge video summarizations by transferring top performing pretrained language models in single-document domains to that of open-domain videos. 
 
 \section{Problem Statement}
 
@@ -162,16 +156,7 @@ The CNN/Daily Mail dataset has been preprocessed to remove news anchor introduct
 
 \subsection{Summarization models}
 
-We used the BertSum model created by Yang trained on CNN and Daily Mail [Yang et. al.]  for our paper. This paper has 2 separate models for Extractive and abstractive summarization. Extractive summarization is generally a binary classification task with labels indicating whether sentences should be included in the summary. Abstractive summarization, on the other hand, requires language generation capabilities to create summaries containing novel words and phrases not found in the source text. 
-
-The architecture in the Figure \ref{fig:architecure} shows the BERTSUM model. It uses a novel documentation level encoder based on BERT which can encode a document and obtain representation for the sentences. CLS token is added to every sentence instead of just 1 CLS token in the original BERT model. Abstractive model uses an encoder-decoder architecture, combining the same pretrained BERT encoder with a randomly initialized Transformer decoder. The model uses a special technique where the encoder portion is almost kept same with a very low learning rate and a separate learning rate is used for the decoder to make it learn better. 
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[scale=0.5]{bertsumarchitecture.png}
-  \caption{BERTSUM Architecture. From [Yang et. al.]}
-  \label{fig:architecure}
-\end{figure}
+We used the BertSum model created by Yang trained on CNN and Daily Mail [Yang et. al.]  for our paper. This paper has 2 separate models for Extractive and abstractive summarizations and we have used both of them in this paper. 
 
 We used a 4-GPU Linux machine and first trained on a small model with 10,000 steps using Extractive summarization in the beginning. Extractive summarization uses BERT base uncased and took around 12 hours to train. We fine tuned the whole model including the BERT layer. We established the baseline by training on 5,000 samples from the How2 dataset. We tuned few hyper parameters with different steps, batch sizes and epochs sizes. Then, we added CNN/Dailymail,full how2 dataset and 3,097 samples from Wikihow with a 50,000 step size to the training set and got better summaries. 
 
@@ -180,12 +165,6 @@ Finally, we used the Abstractive summarization model and all the datasets(CNN/DM
 \subsection{Scoring of resuls}
 \label{Scoring}
 We have observed examples of bad summaries with high ROUGE score, such as in Figure \ref{fig:funnysummary}, and good summaries with low ROUGE score. We believe that ROUGE is fine as a starting point for comparison, but the real evaluation of the output quality still requires human experts.
-
-\begin{figure}[H]
-  \includegraphics[width=\linewidth]{pic1.png}
-  \caption{An example where ROUGE metric is confusing.}
-  \label{fig:funnysummary}
-\end{figure}
 
 This is why we added another score to the rating -  Content F1, which was proposed in Carnegie Mellon university | to focus on the relevance of content. In calculation it is very similar to ROUGE, but discounts stop words and buzz words that frequently occur in the domain (in our case it was “learn from experts how to in this free online video”).  
 
@@ -203,7 +182,6 @@ In addition to automatically calculated scores, it is important to have human ju
 Options for grading of results are as follows: 1: Bad   2: Below Average   3: Average   4: Good   5: Great.
 
 
-
 \section{Experiments and Results}
 
 \subsection{Training}
@@ -212,13 +190,13 @@ Our baseline results were obtained from applying the state-of-the art extractive
 In order to create a generalizable abstractive model, we trained on large corpus of news. This allows our model to understand structured texts. We then introduced a comprehensive instructional text called Wikihow, which introduces the model to the how-to domain. Finally, we train and validate on the how-to dataset, narrowing the focus of the model to a selectively structured format. 
 
 \begin{figure}[H]
-\begin{subfigure}{.6\textwidth}
+\begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=\linewidth]{xent.png}
   \caption{Cross Entropy: Training vs Validation}
   \label{fig:xent}
 \end{subfigure}%
-\begin{subfigure}{.6\textwidth}
+\begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=\linewidth]{accuracy.png}
   \caption{Accuracy: Training vs Validation}
@@ -267,19 +245,9 @@ and more training data &CNN  and Daily Mail &\\
 \end{table}
 
 
-From anecdotal paragraphs that made no sense, we went to very fluent and understandable video descriptions which give a clear idea about the content. However, our scores are not beating the scores from other researchers, even though we are using BERT and they had a mix of rule-based extractive and abstractive model running on much older engine. Closer look at comparison of the texts, though, showed that our summaries are in fluency and usefulness of summaries. Some examples are given below:
+From anecdotal paragraphs that made no sense, we went to very fluent and understandable video descriptions which give a clear idea about the content. However, our scores are not beating the scores from other researchers, even though we are using BERT and they had a mix of rule-based extractive and abstractive model running on much older engine. Closer look at comparison of the texts, though, showed that our summaries are in fluency and usefulness of summaries. Some examples are given in the appendix:
 
-\begin{itemize}
 
-\item Summary 1: growing rudbeckia requires full hot sun and good drainage. grow rudbeckia with tips from a gardening specialist in this free video on plant and flower care. care for rudbeckia with gardening tips from an experienced gardener
-\item Benchmark 1: growing black - eyed - susan is easy with these tips, get expert gardening tips in this free gardening video .
-\item Reference 1: growing rudbeckia plants requires a good deal of hot sun and plenty of good drainage for water . start a rudbeckia plant in the winter or anytime of year with advice from a gardening specialist in this free video on plant and flower care 
- 
-\item Summary 2: camouflage thick arms by wearing sleeves that are not close to the arms and that have a line that goes all the way to the waist. avoid wearing jackets and jackets with tips from an image consultant in this free video on fashion. learn how to dress for fashion modeling
-\item Benchmark 2: hide thick arms and arms by wearing clothes that hold the arms in the top of the arm. avoid damaging the arm and avoid damaging the arms with tips from an image consultant in this free video on fashion .
-\item Reference 2: hide thick arms by wearing clothes sleeves that almost reach the waist to camouflage the area .conceal the thickness at the top of the arms with tips from an image consultant in this free video on fashion.
-
-\end{itemize}
 
 Based on these observations, we decided that the model is mature enough for us move on to the final stage and leverage the power of independent experts and evaluate the quality of our summaries in comparison to descriptions that users provide for their videos on Youtube. We recruited a diverse group of 30 volunteers (27 have responded at the time of writing this paper) to blindly evaluate a set of 25 randomly selected video summaries  that were generated by our model and descriptions of videos on Youtube  from the dataset that we curated and HowTo100M (13 AI + 12 human-curated). We had two types of questions: one, a version of famous Turing test, was a challenge to distinguish AI from human-curated descriptions and used the framework described in Section \ref{Scoring}. You can see aggregated results for both evaluations in Figures \ref{fig:scores} - \ref{fig:quality}. We can see that nobody has been able to get 100\% accuracy in their Turing test answers, with many false positives and false negatives. This means that quality of the model output is comparable to average youtube summaries. Second, as we expected, the fluency of our summaries is almost as good as  human-curated text. Realisticity is the main growth opportunity, because the abstactive model makes up weird things, like “use chicken for an easy vegetarian recipe”.
 
@@ -315,7 +283,7 @@ The contributions of our research are addressing multiple issues that we identif
 
 \item We complemented existing labeled summarization datasets with autogenerated instructional video scripts and human-curated descriptions 
 \item We explored how different combinations of traing data and parameters  impact the training perfomance  of BertSum abstractive summarization model
-\item We came up with novel preprocessing steps fpr auto-generated closed captioning scripts before summarization
+\item We came up with novel preprocessing steps for auto-generated closed captioning scripts before summarization
 \item We generalized BertSum abstractive summarization model to autogenerated instructional video scripts with the quality level that is close to randomly sampled descriptions created by Youtube users
 \item We designed and implemented a new framework for blind unbiased review that produces more actionable and objective scores,  augmenting ROUGE, BLEU and Content F1
 \end{itemize}
@@ -358,5 +326,38 @@ Methods in Natural Language Processing}, pages 1092–1102. Association for Comp
 [15] TBA WikiHow
 =======
 
+\section{Appendix}
+\subsection{Model details}
+Extractive summarization is generally a binary classification task with labels indicating whether sentences should be included in the summary. Abstractive summarization, on the other hand, requires language generation capabilities to create summaries containing novel words and phrases not found in the source text. 
+
+The architecture in the Figure \ref{fig:architecure} shows the BERTSUM model. It uses a novel documentation level encoder based on BERT which can encode a document and obtain representation for the sentences. CLS token is added to every sentence instead of just 1 CLS token in the original BERT model. Abstractive model uses an encoder-decoder architecture, combining the same pretrained BERT encoder with a randomly initialized Transformer decoder. The model uses a special technique where the encoder portion is almost kept same with a very low learning rate and a separate learning rate is used for the decoder to make it learn better. 
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.5]{bertsumarchitecture.png}
+  \caption{BERTSUM Architecture. From [Yang et. al.]}
+  \label{fig:architecure}
+\end{figure}
+
+\subsection{Illustrated Example of why ROUGE metrics is not sufficient}
+
+\begin{figure}[H]
+  \includegraphics[width=\linewidth]{pic1.png}
+  \caption{An example where ROUGE metric is confusing.}
+  \label{fig:funnysummary}
+\end{figure}
+
+\subsection{Examples of Comparison of our model output vs Benchmark and reference summaries}
+\begin{itemize}
+
+\item Summary 1: growing rudbeckia requires full hot sun and good drainage. grow rudbeckia with tips from a gardening specialist in this free video on plant and flower care. care for rudbeckia with gardening tips from an experienced gardener
+\item Benchmark 1: growing black - eyed - susan is easy with these tips, get expert gardening tips in this free gardening video .
+\item Reference 1: growing rudbeckia plants requires a good deal of hot sun and plenty of good drainage for water . start a rudbeckia plant in the winter or anytime of year with advice from a gardening specialist in this free video on plant and flower care 
+ 
+\item Summary 2: camouflage thick arms by wearing sleeves that are not close to the arms and that have a line that goes all the way to the waist. avoid wearing jackets and jackets with tips from an image consultant in this free video on fashion. learn how to dress for fashion modeling
+\item Benchmark 2: hide thick arms and arms by wearing clothes that hold the arms in the top of the arm. avoid damaging the arm and avoid damaging the arms with tips from an image consultant in this free video on fashion .
+\item Reference 2: hide thick arms by wearing clothes sleeves that almost reach the waist to camouflage the area .conceal the thickness at the top of the arms with tips from an image consultant in this free video on fashion.
+
+\end{itemize}
 
 \end{document}
