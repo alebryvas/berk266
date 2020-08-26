@@ -2,7 +2,8 @@
 
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/abstractive-summarization-of-spoken/abstractive-text-summarization-on-wikihow)](https://paperswithcode.com/sota/abstractive-text-summarization-on-wikihow?p=abstractive-summarization-of-spoken)
 
-# Summarization of instructional video transcripts using BERT
+# Abstractive Summarization of Spoken and Written Instructions with BERT
+KDD Converse 2020 paper:  http://arxiv.org/abs/2008.09676
 
 ## Source Code:
 
